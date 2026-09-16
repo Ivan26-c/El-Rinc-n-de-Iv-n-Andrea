@@ -1,0 +1,3135 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capítulo III: Nuestros Álbumes de Recuerdos · Andrea &amp; Iván</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700;800&family=Dancing+Script:wght@600;700&family=Caveat:wght@600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        /* =========================================================
+           CAPÍTULO III · FONDO MORADO ROMÁNTICO & BOTONES SIGNATURE
+           (Álbum compacto, botones clásicos y animación 3D de libro)
+           ========================================================= */
+        body {
+            background-color: #0c051a !important;
+            min-height: 100vh;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        #hearts-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Barra de Navegación */
+        .chapter-navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(15, 6, 28, 0.94);
+            border-bottom: 1px solid rgba(199, 125, 255, 0.25);
+            padding: 14px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--secondary-color);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.76rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-decoration: none;
+            text-transform: uppercase;
+            padding: 8px 18px;
+            border-radius: 20px;
+            background: rgba(199, 125, 255, 0.1);
+            border: 1px solid rgba(199, 125, 255, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .nav-back-btn svg {
+            width: 14px;
+            height: 14px;
+            stroke-width: 2.5;
+            transition: transform 0.2s ease;
+        }
+
+        .nav-back-btn:hover {
+            background: rgba(199, 125, 255, 0.25);
+            color: #ffffff;
+            transform: translateX(-3px);
+            box-shadow: 0 0 15px rgba(199, 125, 255, 0.4);
+        }
+
+        .nav-chapter-badge {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent);
+            text-transform: uppercase;
+            background: rgba(255, 183, 3, 0.12);
+            border: 1px solid rgba(255, 183, 3, 0.35);
+            padding: 6px 16px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Contenedor Principal */
+        .chapter-container {
+            position: relative;
+            z-index: 10;
+            max-width: 1180px;
+            margin: 32px auto 70px auto;
+            padding: 0 22px;
+        }
+
+        /* Cabecera del Capítulo */
+        .album-header-section {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .album-header-pre {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: var(--accent);
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            text-shadow: 0 0 10px rgba(255, 183, 3, 0.4);
+        }
+
+        .album-header-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.65rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 1px;
+            margin: 0 0 8px 0;
+            text-shadow: 0 4px 20px rgba(199, 125, 255, 0.4);
+        }
+
+        .album-header-sub {
+            font-family: 'Inter', sans-serif;
+            font-style: italic;
+            font-size: 0.96rem;
+            color: var(--text-light);
+            opacity: 0.9;
+            margin: 0 auto;
+            max-width: 640px;
+            line-height: 1.6;
+        }
+
+        /* =========================================================
+           VISTA 1: ESTANTERÍA DE ÁLBUMES (COMPACTO Y ELEGANTE)
+           ========================================================= */
+        #view-albums-shelf {
+            display: block;
+            margin: 25px auto;
+        }
+
+        .shelf-action-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .shelf-counter-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.76rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Botón estándar para crear álbum */
+        .btn-create-album-shelf {
+            background: linear-gradient(135deg, rgba(199, 125, 255, 0.18), rgba(255, 117, 143, 0.18));
+            border: 1px solid rgba(199, 125, 255, 0.45);
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.76rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            padding: 9px 22px;
+            border-radius: 22px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            transition: all 0.2s ease;
+        }
+
+        .btn-create-album-shelf:hover {
+            background: linear-gradient(135deg, #ff758f, #9d4edd);
+            color: #ffffff;
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 117, 143, 0.5);
+        }
+
+        /* Galería de Libros */
+        .albums-gallery-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 36px 30px;
+            align-items: center;
+            perspective: 1600px;
+        }
+
+        /* =========================================================
+           PORTADA DE LIBRO REALISTA Y COMPACTA (330px)
+           Encuadernado en cuero morado real profundo con detalles dorados
+           ========================================================= */
+        .photobook-item-wrapper {
+            position: relative;
+            perspective: 1400px;
+        }
+
+        .photobook-cover,
+        .photobook-cover.theme-purple,
+        .photobook-cover.theme-obsidian {
+            width: 330px;
+            min-height: 460px;
+            background: linear-gradient(145deg, #1b1622 0%, #110d16 100%);
+            border-radius: 12px 20px 20px 12px;
+            position: relative;
+            padding: 24px 22px 26px 36px;
+            box-sizing: border-box;
+            box-shadow:
+                -8px 8px 25px rgba(0, 0, 0, 0.85),
+                inset 14px 0 20px rgba(0, 0, 0, 0.9),
+                inset -2px 0 8px rgba(255, 255, 255, 0.05),
+                0 0 0 1px rgba(229, 195, 120, 0.25);
+            cursor: pointer;
+            transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-align: center;
+            user-select: none;
+        }
+
+        .photobook-cover.theme-burgundy {
+            background: linear-gradient(145deg, #241018 0%, #14070d 100%);
+            box-shadow:
+                -8px 8px 25px rgba(0, 0, 0, 0.9),
+                inset 14px 0 20px rgba(0, 0, 0, 0.9),
+                inset -2px 0 8px rgba(255, 255, 255, 0.05),
+                0 0 0 1px rgba(229, 195, 120, 0.35);
+        }
+
+        .photobook-cover.theme-midnight {
+            background: linear-gradient(145deg, #0e1624 0%, #060a12 100%);
+            box-shadow: -8px 8px 25px rgba(0, 0, 0, 0.9), inset 14px 0 20px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(100, 180, 255, 0.3);
+        }
+
+        .photobook-cover.theme-emerald {
+            background: linear-gradient(145deg, #0d1e17 0%, #050d0a 100%);
+            box-shadow: -8px 8px 25px rgba(0, 0, 0, 0.9), inset 14px 0 20px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(82, 222, 166, 0.3);
+        }
+
+        .photobook-cover.theme-burgundy .book-ribbon::after {
+            border-bottom-color: #241018;
+        }
+
+        .photobook-cover.theme-midnight .book-ribbon::after {
+            border-bottom-color: #0e1624;
+        }
+
+        .photobook-cover.theme-emerald .book-ribbon::after {
+            border-bottom-color: #0d1e17;
+        }
+
+        .photobook-cover:hover {
+            transform: translateY(-8px) rotateY(-4deg);
+            box-shadow:
+                -14px 14px 35px rgba(0, 0, 0, 0.95),
+                inset 14px 0 20px rgba(0, 0, 0, 0.85),
+                0 0 35px rgba(229, 195, 120, 0.3);
+        }
+
+        /* Lomo del libro a la izquierda */
+        .book-spine-line {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 20px;
+            width: 3px;
+            background: rgba(0, 0, 0, 0.7);
+            box-shadow: 1px 0 0 rgba(229, 195, 120, 0.3);
+        }
+
+        .book-spine-hinge {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            width: 22px;
+            background: linear-gradient(90deg, rgba(0, 0, 0, 0.85) 0%, rgba(255, 255, 255, 0.04) 50%, rgba(0, 0, 0, 0.7) 100%);
+            border-radius: 12px 0 0 12px;
+        }
+
+        /* Cinta marcapáginas dorada */
+        .book-ribbon {
+            position: absolute;
+            top: -3px;
+            right: 28px;
+            width: 18px;
+            height: 48px;
+            background: linear-gradient(180deg, #f7e7be, #d4af37);
+            border-radius: 0 0 3px 3px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.6);
+            z-index: 5;
+        }
+
+        .book-ribbon::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            border-left: 9px solid transparent;
+            border-right: 9px solid transparent;
+            border-bottom: 8px solid #1b1622;
+        }
+
+        /* Marco de filigrana interior */
+        .book-gold-filigree {
+            border: 1px solid rgba(229, 195, 120, 0.35);
+            border-radius: 8px;
+            padding: 20px 16px;
+            outline: 1px dashed rgba(229, 195, 120, 0.2);
+            outline-offset: -5px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            box-sizing: border-box;
+            background: radial-gradient(circle at 50% 30%, rgba(229, 195, 120, 0.04) 0%, transparent 70%);
+        }
+
+        /* Foto central de camafeo */
+        .book-cameo-frame {
+            width: 140px;
+            height: 105px;
+            margin: 0 auto 14px auto;
+            border-radius: 8px;
+            border: 3px solid #fdfbf7;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8), 0 0 14px rgba(229, 195, 120, 0.2);
+            overflow: hidden;
+            position: relative;
+            transform: rotate(-1deg);
+            transition: transform 0.25s ease;
+        }
+
+        .photobook-cover:hover .book-cameo-frame {
+            transform: rotate(0deg) scale(1.04);
+        }
+
+        .book-cameo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .book-seal-badge {
+            font-family: 'Cinzel', serif;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: #e5c378;
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            margin-bottom: 4px;
+        }
+
+        .book-title-embossed {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 0 0 4px 0;
+            line-height: 1.25;
+            letter-spacing: 0.5px;
+            background: linear-gradient(135deg, #ffffff 30%, #f7e7be 80%, #d4af37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .book-subtitle-embossed {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.25rem;
+            color: #e5c378;
+            margin: 0 0 10px 0;
+        }
+
+        .book-meta-pill {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #d1c8d6;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(229, 195, 120, 0.25);
+            padding: 4px 12px;
+            border-radius: 12px;
+            display: inline-block;
+            margin: 0 auto 14px auto;
+        }
+
+        /* Botón de Abrir Libro idéntico a la captura */
+        .book-open-btn {
+            background: rgba(68, 44, 38, 0.9);
+            border: 1px solid rgba(229, 195, 120, 0.35);
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 8px 22px;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            transition: all 0.2s ease;
+        }
+
+        .photobook-cover:hover .book-open-btn {
+            background: #503229;
+            border-color: #e5c378;
+            box-shadow: 0 4px 16px rgba(229, 195, 120, 0.4);
+            transform: scale(1.02);
+        }
+
+        .btn-delete-album {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: rgba(230, 57, 70, 0.9);
+            border: 1px solid #ffffff;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: transform 0.15s ease;
+        }
+
+        .btn-delete-album:hover {
+            transform: scale(1.15);
+            background: #d90429;
+        }
+
+        /* Tarjeta para Crear Álbum idéntica a la captura */
+        .create-album-card {
+            width: 310px;
+            min-height: 460px;
+            border: 2px dashed rgba(229, 195, 120, 0.35);
+            border-radius: 16px;
+            background: rgba(18, 14, 22, 0.55);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 24px;
+            box-sizing: border-box;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.25s ease;
+        }
+
+        .create-album-card:hover {
+            border-color: #e5c378;
+            background: rgba(229, 195, 120, 0.06);
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7), 0 0 25px rgba(229, 195, 120, 0.2);
+        }
+
+        .create-album-icon {
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            border: 2px dashed rgba(229, 195, 120, 0.7);
+            background: rgba(229, 195, 120, 0.08);
+            color: #e5c378;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 18px;
+            transition: transform 0.25s ease;
+        }
+
+        .create-album-card:hover .create-album-icon {
+            transform: scale(1.1) rotate(90deg);
+        }
+
+        .create-album-btn-label {
+            background: rgba(68, 44, 38, 0.9);
+            border: 1px solid rgba(229, 195, 120, 0.35);
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 8px 22px;
+            border-radius: 20px;
+            display: inline-block;
+            transition: all 0.2s ease;
+        }
+
+        .create-album-card:hover .create-album-btn-label {
+            background: #503229;
+            border-color: #e5c378;
+            box-shadow: 0 4px 16px rgba(229, 195, 120, 0.4);
+        }
+
+        .create-album-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.35rem;
+            color: #ffffff;
+            margin: 0 0 8px 0;
+        }
+
+        .create-album-card p {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.82rem;
+            color: #d1c8d6;
+            line-height: 1.5;
+            margin: 0 0 20px 0;
+            opacity: 0.85;
+            max-width: 230px;
+        }
+
+        /* =========================================================
+           ESCENARIO DE APERTURA 3D: EL LIBRO SE AGRANDE Y SE ABRE
+           ========================================================= */
+        #book-opening-stage {
+            position: fixed;
+            inset: 0;
+            background: rgba(8, 3, 16, 0.94);
+            z-index: 500;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            perspective: 2000px;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        #book-opening-stage.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .stage-book-3d {
+            width: 320px;
+            height: 460px;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: bookZoomAndCenter 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes bookZoomAndCenter {
+            0% {
+                transform: scale(0.85) translateY(30px);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1.12) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .stage-cover-flap {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(145deg, #1b1622 0%, #110d16 100%);
+            border: 1px solid rgba(229, 195, 120, 0.45);
+            outline: 1px dashed rgba(229, 195, 120, 0.2);
+            outline-offset: -6px;
+            border-radius: 4px 14px 14px 4px;
+            transform-origin: left center;
+            transform-style: preserve-3d;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .stage-cover-flap.open-animating {
+            animation: openBookCoverFromMiddle 0.75s cubic-bezier(0.25, 1, 0.4, 1) forwards;
+        }
+
+        @keyframes openBookCoverFromMiddle {
+            0% {
+                transform: rotateY(0deg);
+                box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95);
+            }
+
+            60% {
+                box-shadow: -20px 30px 70px rgba(0, 0, 0, 0.85);
+            }
+
+            100% {
+                transform: rotateY(-175deg);
+                opacity: 0.15;
+                box-shadow: none;
+            }
+        }
+
+        .stage-pages-under {
+            position: absolute;
+            inset: 0;
+            background: #fdfbf7;
+            border-radius: 4px 12px 12px 4px;
+            box-shadow: inset 18px 0 25px rgba(0, 0, 0, 0.3), 0 15px 40px rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2a1f18;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .stage-spine-crease {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            width: 14px;
+            background: linear-gradient(90deg, rgba(0, 0, 0, 0.4), transparent);
+        }
+
+        .stage-theme-burgundy .stage-pages-under {
+            box-shadow: inset 18px 0 25px rgba(36, 16, 24, 0.4), 0 15px 40px rgba(0, 0, 0, 0.9);
+            border-left: 6px solid #241018;
+        }
+
+        .stage-theme-obsidian .stage-pages-under {
+            box-shadow: inset 18px 0 25px rgba(27, 22, 34, 0.4), 0 15px 40px rgba(0, 0, 0, 0.9);
+            border-left: 6px solid #1b1622;
+        }
+
+        .stage-theme-midnight .stage-pages-under {
+            box-shadow: inset 18px 0 25px rgba(14, 22, 36, 0.4), 0 15px 40px rgba(0, 0, 0, 0.9);
+            border-left: 6px solid #0e1624;
+        }
+
+        .stage-theme-emerald .stage-pages-under {
+            box-shadow: inset 18px 0 25px rgba(13, 30, 23, 0.4), 0 15px 40px rgba(0, 0, 0, 0.9);
+            border-left: 6px solid #0d1e17;
+        }
+
+        .stage-theme-purple .stage-pages-under {
+            box-shadow: inset 18px 0 25px rgba(38, 18, 62, 0.4), 0 15px 40px rgba(0, 0, 0, 0.9);
+            border-left: 6px solid #26123e;
+        }
+
+        /* =========================================================
+           VISTA 2: DENTRO DEL ÁLBUM (SCRAPBOOK TIPO LIBRO ABIERTO)
+           ========================================================= */
+        #view-album-inside {
+            display: none;
+        }
+
+        .inside-album-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 22px;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .back-to-cover-btn {
+            background: rgba(199, 125, 255, 0.12);
+            border: 1px solid rgba(199, 125, 255, 0.35);
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.74rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            padding: 9px 18px;
+            border-radius: 20px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .back-to-cover-btn:hover {
+            background: rgba(199, 125, 255, 0.25);
+            border-color: var(--accent);
+            transform: translateX(-3px);
+        }
+
+        .add-photo-inside-btn {
+            background: linear-gradient(135deg, #ff758f, #9d4edd);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            padding: 10px 22px;
+            border-radius: 25px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 18px rgba(255, 117, 143, 0.45);
+            transition: all 0.2s ease;
+        }
+
+        .add-photo-inside-btn:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(255, 117, 143, 0.65);
+        }
+
+        /* =========================================================
+           TAPIZ SCRAPBOOK INTERIOR (ADAPTADO AL COLOR DEL ÁLBUM)
+           ========================================================= */
+        .scrapbook-desk {
+            background: radial-gradient(circle at 50% 30%, #1c0b36 0%, #120624 70%, #0c0318 100%);
+            border: 1px solid rgba(199, 125, 255, 0.35);
+            border-radius: 24px;
+            padding: 35px 32px;
+            box-shadow:
+                0 25px 70px rgba(0, 0, 0, 0.9),
+                0 0 45px rgba(157, 78, 221, 0.15);
+            position: relative;
+            transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+        }
+
+        .scrapbook-desk::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            background: linear-gradient(180deg, transparent, rgba(199, 125, 255, 0.3), transparent);
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.8);
+            pointer-events: none;
+        }
+
+        /* 1. TEMA INTERIOR BORGOÑA / VINO TINTO */
+        #view-album-inside.album-inside-theme-burgundy .scrapbook-desk {
+            background: radial-gradient(circle at 50% 25%, #2a0f19 0%, #1a0810 65%, #0f0309 100%);
+            border: 2px solid rgba(229, 195, 120, 0.4);
+            outline: 1px dashed rgba(229, 195, 120, 0.2);
+            outline-offset: -8px;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.95), 0 0 50px rgba(181, 23, 57, 0.25);
+        }
+
+        #view-album-inside.album-inside-theme-burgundy .scrapbook-desk::before {
+            background: linear-gradient(180deg, transparent, rgba(229, 195, 120, 0.35), transparent);
+        }
+
+        #view-album-inside.album-inside-theme-burgundy .inside-album-header {
+            border-bottom: 1px dashed rgba(229, 195, 120, 0.35);
+        }
+
+        #view-album-inside.album-inside-theme-burgundy .inside-album-stamp {
+            background: radial-gradient(circle, #b51739, #590d22);
+            border: 2px dashed #e5c378;
+            color: #e5c378;
+            box-shadow: 0 0 16px rgba(181, 23, 57, 0.6);
+        }
+
+        #view-album-inside.album-inside-theme-burgundy .inside-album-title {
+            color: #e5c378;
+        }
+
+        #view-album-inside.album-inside-theme-burgundy .inside-album-desc {
+            color: #f1d5dc;
+        }
+
+        #view-album-inside.album-inside-theme-burgundy .memories-counter-pill {
+            background: rgba(181, 23, 57, 0.25);
+            border-color: rgba(229, 195, 120, 0.35);
+            color: #ffffff;
+        }
+
+        #view-album-inside.album-inside-theme-burgundy .back-to-cover-btn {
+            background: rgba(90, 20, 35, 0.5);
+            border-color: rgba(229, 195, 120, 0.35);
+            color: #ffffff;
+        }
+
+        #view-album-inside.album-inside-theme-burgundy .back-to-cover-btn:hover {
+            background: rgba(181, 23, 57, 0.7);
+            border-color: #e5c378;
+        }
+
+        #view-album-inside.album-inside-theme-burgundy .add-photo-inside-btn {
+            background: linear-gradient(135deg, #c9184a, #800f2f);
+            border-color: rgba(229, 195, 120, 0.45);
+            box-shadow: 0 4px 18px rgba(181, 23, 57, 0.5);
+        }
+
+        #view-album-inside.album-inside-theme-burgundy .add-photo-inside-btn:hover {
+            box-shadow: 0 8px 25px rgba(201, 24, 74, 0.7);
+        }
+
+        #view-album-inside.album-inside-theme-burgundy .empty-album-state svg {
+            color: #e5c378;
+        }
+
+        #view-album-inside.album-inside-theme-burgundy .empty-album-state h4 {
+            color: #e5c378;
+        }
+
+        #view-album-inside.album-inside-theme-burgundy .empty-album-state p {
+            color: #f1d5dc;
+        }
+
+        /* 2. TEMA INTERIOR ÉBANO / OBSIDIANA OSCURO */
+        #view-album-inside.album-inside-theme-obsidian .scrapbook-desk {
+            background: radial-gradient(circle at 50% 25%, #1e1826 0%, #130f19 65%, #0b0810 100%);
+            border: 2px solid rgba(229, 195, 120, 0.4);
+            outline: 1px dashed rgba(229, 195, 120, 0.2);
+            outline-offset: -8px;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.95), 0 0 50px rgba(229, 195, 120, 0.15);
+        }
+
+        #view-album-inside.album-inside-theme-obsidian .scrapbook-desk::before {
+            background: linear-gradient(180deg, transparent, rgba(229, 195, 120, 0.35), transparent);
+        }
+
+        #view-album-inside.album-inside-theme-obsidian .inside-album-header {
+            border-bottom: 1px dashed rgba(229, 195, 120, 0.35);
+        }
+
+        #view-album-inside.album-inside-theme-obsidian .inside-album-stamp {
+            background: radial-gradient(circle, #5c432d, #271a10);
+            border: 2px dashed #e5c378;
+            color: #e5c378;
+            box-shadow: 0 0 16px rgba(229, 195, 120, 0.35);
+        }
+
+        #view-album-inside.album-inside-theme-obsidian .inside-album-title {
+            color: #e5c378;
+        }
+
+        #view-album-inside.album-inside-theme-obsidian .inside-album-desc {
+            color: #d8cedb;
+        }
+
+        #view-album-inside.album-inside-theme-obsidian .memories-counter-pill {
+            background: rgba(68, 44, 38, 0.7);
+            border-color: rgba(229, 195, 120, 0.35);
+            color: #ffffff;
+        }
+
+        #view-album-inside.album-inside-theme-obsidian .back-to-cover-btn {
+            background: rgba(50, 36, 32, 0.7);
+            border-color: rgba(229, 195, 120, 0.35);
+            color: #ffffff;
+        }
+
+        #view-album-inside.album-inside-theme-obsidian .back-to-cover-btn:hover {
+            background: #503229;
+            border-color: #e5c378;
+        }
+
+        #view-album-inside.album-inside-theme-obsidian .add-photo-inside-btn {
+            background: linear-gradient(135deg, #7f5539, #442c26);
+            border-color: rgba(229, 195, 120, 0.45);
+            box-shadow: 0 4px 18px rgba(127, 85, 57, 0.4);
+        }
+
+        #view-album-inside.album-inside-theme-obsidian .add-photo-inside-btn:hover {
+            box-shadow: 0 8px 25px rgba(229, 195, 120, 0.5);
+        }
+
+        #view-album-inside.album-inside-theme-obsidian .empty-album-state svg {
+            color: #e5c378;
+        }
+
+        #view-album-inside.album-inside-theme-obsidian .empty-album-state h4 {
+            color: #e5c378;
+        }
+
+        #view-album-inside.album-inside-theme-obsidian .empty-album-state p {
+            color: #d8cedb;
+        }
+
+        /* 3. TEMA INTERIOR AZUL NOCHE */
+        #view-album-inside.album-inside-theme-midnight .scrapbook-desk {
+            background: radial-gradient(circle at 50% 25%, #0f1a2c 0%, #080f1c 65%, #040810 100%);
+            border: 2px solid rgba(100, 180, 255, 0.4);
+            outline: 1px dashed rgba(100, 180, 255, 0.2);
+            outline-offset: -8px;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.95), 0 0 50px rgba(58, 134, 255, 0.25);
+        }
+
+        #view-album-inside.album-inside-theme-midnight .scrapbook-desk::before {
+            background: linear-gradient(180deg, transparent, rgba(100, 180, 255, 0.35), transparent);
+        }
+
+        #view-album-inside.album-inside-theme-midnight .inside-album-header {
+            border-bottom: 1px dashed rgba(100, 180, 255, 0.35);
+        }
+
+        #view-album-inside.album-inside-theme-midnight .inside-album-stamp {
+            background: radial-gradient(circle, #3a86ff, #0a2550);
+            border: 2px dashed #90e0ef;
+            color: #90e0ef;
+            box-shadow: 0 0 16px rgba(58, 134, 255, 0.5);
+        }
+
+        #view-album-inside.album-inside-theme-midnight .inside-album-title {
+            color: #caf0f8;
+        }
+
+        #view-album-inside.album-inside-theme-midnight .inside-album-desc {
+            color: #c0d8f0;
+        }
+
+        #view-album-inside.album-inside-theme-midnight .memories-counter-pill {
+            background: rgba(58, 134, 255, 0.2);
+            border-color: rgba(100, 180, 255, 0.4);
+            color: #ffffff;
+        }
+
+        #view-album-inside.album-inside-theme-midnight .back-to-cover-btn {
+            background: rgba(15, 35, 65, 0.6);
+            border-color: rgba(100, 180, 255, 0.35);
+            color: #ffffff;
+        }
+
+        #view-album-inside.album-inside-theme-midnight .back-to-cover-btn:hover {
+            background: rgba(58, 134, 255, 0.4);
+            border-color: #90e0ef;
+        }
+
+        #view-album-inside.album-inside-theme-midnight .add-photo-inside-btn {
+            background: linear-gradient(135deg, #3a86ff, #0056b3);
+            border-color: rgba(100, 180, 255, 0.45);
+            box-shadow: 0 4px 18px rgba(58, 134, 255, 0.5);
+        }
+
+        #view-album-inside.album-inside-theme-midnight .add-photo-inside-btn:hover {
+            box-shadow: 0 8px 25px rgba(58, 134, 255, 0.7);
+        }
+
+        #view-album-inside.album-inside-theme-midnight .empty-album-state svg {
+            color: #90e0ef;
+        }
+
+        #view-album-inside.album-inside-theme-midnight .empty-album-state h4 {
+            color: #caf0f8;
+        }
+
+        #view-album-inside.album-inside-theme-midnight .empty-album-state p {
+            color: #c0d8f0;
+        }
+
+        /* 4. TEMA INTERIOR VERDE BOSQUE / ESMERALDA */
+        #view-album-inside.album-inside-theme-emerald .scrapbook-desk {
+            background: radial-gradient(circle at 50% 25%, #0d241b 0%, #071611 65%, #040c09 100%);
+            border: 2px solid rgba(82, 222, 166, 0.4);
+            outline: 1px dashed rgba(82, 222, 166, 0.2);
+            outline-offset: -8px;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.95), 0 0 50px rgba(82, 222, 166, 0.25);
+        }
+
+        #view-album-inside.album-inside-theme-emerald .scrapbook-desk::before {
+            background: linear-gradient(180deg, transparent, rgba(82, 222, 166, 0.35), transparent);
+        }
+
+        #view-album-inside.album-inside-theme-emerald .inside-album-header {
+            border-bottom: 1px dashed rgba(82, 222, 166, 0.35);
+        }
+
+        #view-album-inside.album-inside-theme-emerald .inside-album-stamp {
+            background: radial-gradient(circle, #2ec4b6, #09473b);
+            border: 2px dashed #cbf3f0;
+            color: #cbf3f0;
+            box-shadow: 0 0 16px rgba(46, 196, 182, 0.5);
+        }
+
+        #view-album-inside.album-inside-theme-emerald .inside-album-title {
+            color: #cbf3f0;
+        }
+
+        #view-album-inside.album-inside-theme-emerald .inside-album-desc {
+            color: #bde0d4;
+        }
+
+        #view-album-inside.album-inside-theme-emerald .memories-counter-pill {
+            background: rgba(46, 196, 182, 0.2);
+            border-color: rgba(82, 222, 166, 0.4);
+            color: #ffffff;
+        }
+
+        #view-album-inside.album-inside-theme-emerald .back-to-cover-btn {
+            background: rgba(14, 45, 35, 0.6);
+            border-color: rgba(82, 222, 166, 0.35);
+            color: #ffffff;
+        }
+
+        #view-album-inside.album-inside-theme-emerald .back-to-cover-btn:hover {
+            background: rgba(46, 196, 182, 0.4);
+            border-color: #cbf3f0;
+        }
+
+        #view-album-inside.album-inside-theme-emerald .add-photo-inside-btn {
+            background: linear-gradient(135deg, #2ec4b6, #0f6c58);
+            border-color: rgba(82, 222, 166, 0.45);
+            box-shadow: 0 4px 18px rgba(46, 196, 182, 0.5);
+        }
+
+        #view-album-inside.album-inside-theme-emerald .add-photo-inside-btn:hover {
+            box-shadow: 0 8px 25px rgba(46, 196, 182, 0.7);
+        }
+
+        #view-album-inside.album-inside-theme-emerald .empty-album-state svg {
+            color: #82dea6;
+        }
+
+        #view-album-inside.album-inside-theme-emerald .empty-album-state h4 {
+            color: #cbf3f0;
+        }
+
+        #view-album-inside.album-inside-theme-emerald .empty-album-state p {
+            color: #bde0d4;
+        }
+
+        /* 5. TEMA INTERIOR PÚRPURA REAL */
+        #view-album-inside.album-inside-theme-purple .scrapbook-desk {
+            background: radial-gradient(circle at 50% 25%, #200d3a 0%, #130624 65%, #0b0316 100%);
+            border: 2px solid rgba(199, 125, 255, 0.4);
+            outline: 1px dashed rgba(199, 125, 255, 0.2);
+            outline-offset: -8px;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.95), 0 0 50px rgba(157, 78, 221, 0.25);
+        }
+
+        #view-album-inside.album-inside-theme-purple .scrapbook-desk::before {
+            background: linear-gradient(180deg, transparent, rgba(199, 125, 255, 0.35), transparent);
+        }
+
+        #view-album-inside.album-inside-theme-purple .inside-album-header {
+            border-bottom: 1px dashed rgba(199, 125, 255, 0.35);
+        }
+
+        #view-album-inside.album-inside-theme-purple .inside-album-stamp {
+            background: radial-gradient(circle, #ff4d6d, #7209b7);
+            border: 2px dashed #ffd166;
+            color: #ffd166;
+            box-shadow: 0 0 16px rgba(255, 77, 109, 0.5);
+        }
+
+        #view-album-inside.album-inside-theme-purple .inside-album-title {
+            color: #ffd166;
+        }
+
+        #view-album-inside.album-inside-theme-purple .inside-album-desc {
+            color: #e2d1f9;
+        }
+
+        #view-album-inside.album-inside-theme-purple .memories-counter-pill {
+            background: rgba(199, 125, 255, 0.2);
+            border-color: rgba(199, 125, 255, 0.4);
+            color: #ffffff;
+        }
+
+        #view-album-inside.album-inside-theme-purple .back-to-cover-btn {
+            background: rgba(45, 18, 75, 0.6);
+            border-color: rgba(199, 125, 255, 0.35);
+            color: #ffffff;
+        }
+
+        #view-album-inside.album-inside-theme-purple .back-to-cover-btn:hover {
+            background: rgba(199, 125, 255, 0.4);
+            border-color: #ffd166;
+        }
+
+        #view-album-inside.album-inside-theme-purple .add-photo-inside-btn {
+            background: linear-gradient(135deg, #ff758f, #9d4edd);
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 4px 18px rgba(255, 117, 143, 0.5);
+        }
+
+        #view-album-inside.album-inside-theme-purple .add-photo-inside-btn:hover {
+            box-shadow: 0 8px 25px rgba(255, 117, 143, 0.7);
+        }
+
+        #view-album-inside.album-inside-theme-purple .empty-album-state svg {
+            color: #c77dff;
+        }
+
+        #view-album-inside.album-inside-theme-purple .empty-album-state h4 {
+            color: #ffd166;
+        }
+
+        #view-album-inside.album-inside-theme-purple .empty-album-state p {
+            color: #e2d1f9;
+        }
+
+        .inside-album-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            padding-bottom: 18px;
+            border-bottom: 1px dashed rgba(199, 125, 255, 0.3);
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .inside-album-tag {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .inside-album-stamp {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #ff4d6d, #7209b7);
+            border: 2px dashed #ffd166;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffd166;
+            box-shadow: 0 0 14px rgba(255, 77, 109, 0.5);
+            transform: rotate(-6deg);
+            flex-shrink: 0;
+        }
+
+        .inside-album-titles {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .inside-album-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.2rem;
+            color: #ffd166;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .inside-album-desc {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.84rem;
+            color: #e2d1f9;
+            opacity: 0.85;
+            margin: 0;
+        }
+
+        .memories-counter-pill {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #ffffff;
+            background: rgba(199, 125, 255, 0.15);
+            border: 1px solid rgba(199, 125, 255, 0.35);
+            padding: 5px 14px;
+            border-radius: 14px;
+        }
+
+        /* Cuadrícula de fotos con animación en cascada */
+        .scrapbook-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 28px 22px;
+            align-items: start;
+        }
+
+        @keyframes popInPhotoCascade {
+            0% {
+                opacity: 0;
+                transform: translateY(22px) scale(0.92);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .polaroid-card,
+        .sticky-note-item {
+            animation: popInPhotoCascade 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        /* Polaroids */
+        .polaroid-card {
+            background: #ffffff;
+            border-radius: 3px;
+            padding: 9px 9px 14px 9px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            user-select: none;
+        }
+
+        .polaroid-card:hover {
+            transform: translateY(-6px) scale(1.03) !important;
+            z-index: 20;
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.85), 0 0 20px rgba(199, 125, 255, 0.4);
+        }
+
+        .washi-tape {
+            position: absolute;
+            top: -9px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 65px;
+            height: 18px;
+            background: rgba(255, 214, 232, 0.85);
+            border: 1px dashed rgba(0, 0, 0, 0.15);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+            z-index: 5;
+        }
+
+        .polaroid-img-box {
+            position: relative;
+            width: 100%;
+            height: 205px;
+            overflow: hidden;
+            background: #110622;
+            border-radius: 2px;
+        }
+
+        .polaroid-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .zoom-overlay-hint {
+            position: absolute;
+            inset: 0;
+            background: rgba(18, 6, 36, 0.65);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            gap: 6px;
+        }
+
+        .polaroid-card:hover .zoom-overlay-hint {
+            opacity: 1;
+        }
+
+        .polaroid-footer {
+            padding: 10px 4px 2px 4px;
+            text-align: center;
+        }
+
+        .polaroid-handwritten-note {
+            font-family: 'Caveat', cursive;
+            font-size: 1.25rem;
+            color: #24143a;
+            margin: 0 0 4px 0;
+            line-height: 1.2;
+            font-weight: 700;
+        }
+
+        .polaroid-meta-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.64rem;
+            color: #7b6599;
+            padding-top: 5px;
+            border-top: 1px dashed rgba(120, 80, 160, 0.2);
+        }
+
+        .polaroid-tag-badge {
+            background: rgba(157, 78, 221, 0.15);
+            color: #5a189a;
+            padding: 2px 8px;
+            border-radius: 8px;
+            font-weight: 700;
+        }
+
+        .delete-custom-photo-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: rgba(230, 57, 70, 0.9);
+            border: 1px solid #ffffff;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        /* Post-its */
+        .sticky-note-item {
+            background: #fff3b0;
+            color: #3d2c00;
+            border-radius: 2px;
+            padding: 20px 18px;
+            box-shadow: 0 10px 22px rgba(0, 0, 0, 0.6);
+            position: relative;
+            user-select: none;
+            transition: transform 0.2s ease;
+        }
+
+        .sticky-note-item.pink {
+            background: #ffd6e0;
+            color: #4a0e2e;
+        }
+
+        .sticky-note-item.purple {
+            background: #ede0ff;
+            color: #2b0b4a;
+        }
+
+        .sticky-note-item:hover {
+            transform: translateY(-5px) scale(1.02) !important;
+            box-shadow: 0 16px 30px rgba(0, 0, 0, 0.8);
+            z-index: 15;
+        }
+
+        .sticky-pin {
+            position: absolute;
+            top: -7px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #e63946, #9b1d20);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        .sticky-header-pin {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            opacity: 0.8;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .sticky-body-text {
+            font-family: 'Caveat', cursive;
+            font-size: 1.25rem;
+            line-height: 1.35;
+            margin: 0 0 12px 0;
+            font-weight: 700;
+            white-space: pre-line;
+        }
+
+        .sticky-author-sig {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.1rem;
+            text-align: right;
+            display: block;
+            opacity: 0.85;
+        }
+
+        .empty-album-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 45px 20px;
+        }
+
+        .empty-album-state svg {
+            width: 44px;
+            height: 44px;
+            color: var(--secondary-color);
+            opacity: 0.6;
+            margin-bottom: 12px;
+        }
+
+        .empty-album-state h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.35rem;
+            color: #ffd166;
+            margin: 0 0 6px 0;
+        }
+
+        .empty-album-state p {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.84rem;
+            color: #e2d1f9;
+            opacity: 0.85;
+            max-width: 380px;
+            margin: 0 auto;
+        }
+
+        /* =========================================================
+           MODALES LIGEROS (SIN LAG)
+           ========================================================= */
+        .photo-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(8, 2, 16, 0.93);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.15s ease-out;
+            padding: 20px;
+        }
+
+        .photo-modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content-card {
+            background: #18082c;
+            border: 1px solid rgba(199, 125, 255, 0.4);
+            border-radius: 18px;
+            max-width: 820px;
+            width: 100%;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.95);
+            display: grid;
+            grid-template-columns: 1.15fr 1fr;
+            position: relative;
+        }
+
+        .modal-close-btn {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .modal-close-btn:hover {
+            background: #e63946;
+            border-color: #e63946;
+        }
+
+        .modal-img-wrapper {
+            background: #000000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+
+        .modal-main-img {
+            max-width: 100%;
+            max-height: 440px;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+
+        .modal-text-side {
+            padding: 28px 22px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .modal-category-badge {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent);
+            text-transform: uppercase;
+            background: rgba(255, 183, 3, 0.12);
+            border: 1px solid rgba(255, 183, 3, 0.3);
+            padding: 4px 12px;
+            border-radius: 10px;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        .modal-photo-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.45rem;
+            color: #ffffff;
+            margin: 0 0 4px 0;
+            line-height: 1.25;
+        }
+
+        .modal-photo-date {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.7rem;
+            color: var(--secondary-color);
+            margin-bottom: 14px;
+            display: block;
+        }
+
+        .modal-dedication-box {
+            background: rgba(199, 125, 255, 0.08);
+            border-left: 3px solid var(--accent);
+            border-radius: 0 8px 8px 0;
+            padding: 12px 14px;
+            margin-bottom: 18px;
+        }
+
+        .modal-dedication-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.86rem;
+            line-height: 1.55;
+            color: #f1e7fe;
+            margin: 0;
+        }
+
+        .modal-nav-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .modal-nav-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(199, 125, 255, 0.3);
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.74rem;
+            font-weight: 600;
+            padding: 7px 15px;
+            border-radius: 18px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .modal-nav-btn:hover {
+            background: var(--accent);
+            color: #0d0a11;
+            border-color: var(--accent);
+        }
+
+        /* Formulario Modales */
+        .upload-modal-card {
+            display: block !important;
+            max-width: 500px !important;
+            padding: 28px 24px !important;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-tab-switch {
+            display: flex;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 4px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+        }
+
+        .tab-switch-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: #d1b8f0;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.74rem;
+            font-weight: 700;
+            padding: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .tab-switch-btn.active {
+            background: linear-gradient(135deg, #7209b7, #b5179e);
+            color: #ffffff;
+        }
+
+        .upload-dropzone {
+            border: 2px dashed rgba(255, 183, 3, 0.5);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 16px;
+            text-align: center;
+            cursor: pointer;
+            margin-bottom: 14px;
+        }
+
+        .upload-dropzone:hover {
+            border-color: var(--accent);
+            background: rgba(255, 183, 3, 0.06);
+        }
+
+        .upload-input-group {
+            margin-bottom: 12px;
+            text-align: left;
+        }
+
+        .upload-input-label {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--secondary-color);
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .upload-text-input,
+        .upload-textarea {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(199, 125, 255, 0.3);
+            border-radius: 8px;
+            padding: 9px 12px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            color: #ffffff;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        .upload-text-input:focus,
+        .upload-textarea:focus {
+            border-color: var(--accent);
+        }
+
+        .color-theme-picker {
+            display: flex;
+            gap: 10px;
+            margin-top: 6px;
+        }
+
+        .theme-choice-btn {
+            flex: 1;
+            padding: 7px 8px;
+            border-radius: 8px;
+            border: 1.5px solid transparent;
+            background: rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.66rem;
+            font-weight: 700;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .theme-choice-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .theme-choice-btn.active {
+            border-color: var(--accent);
+            background: rgba(255, 183, 3, 0.12);
+        }
+
+        .upload-actions-row {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .upload-cancel-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.74rem;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 18px;
+            cursor: pointer;
+        }
+
+        .upload-save-btn {
+            background: linear-gradient(135deg, #ff758f, #9d4edd);
+            border: none;
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            padding: 9px 22px;
+            border-radius: 20px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 15px rgba(255, 117, 143, 0.45);
+        }
+
+        /* Navegación Inferior */
+        .album-bottom-navigation {
+            margin-top: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .nav-btn-action {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 12px 22px;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(199, 125, 255, 0.3);
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-btn-action:hover {
+            background: linear-gradient(135deg, rgba(199, 125, 255, 0.3), rgba(255, 183, 3, 0.3));
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .nav-btn-action.next-chapter {
+            background: linear-gradient(135deg, #9d4edd, #ff758f);
+            border-color: transparent;
+        }
+
+        .nav-btn-action.next-chapter:hover {
+            box-shadow: 0 0 20px rgba(255, 117, 143, 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* Reproductor Global Flotante */
+        .floating-music-dock {
+            position: fixed;
+            bottom: 22px;
+            right: 25px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(20, 8, 38, 0.94);
+            border: 1px solid rgba(255, 183, 3, 0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            padding: 8px 18px;
+            border-radius: 35px;
+        }
+
+        .dock-play-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), #ff758f);
+            border: none;
+            color: #0b0416;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .dock-track-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .dock-track-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .dock-track-artist {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.65rem;
+            color: #f1e7fe;
+            opacity: 0.8;
+        }
+
+        .dock-equalizer {
+            display: flex;
+            align-items: flex-end;
+            gap: 2px;
+            height: 12px;
+            margin-top: 2px;
+        }
+
+        .dock-equalizer span {
+            width: 3px;
+            background: var(--accent);
+            border-radius: 2px;
+            height: 3px;
+        }
+
+        .dock-equalizer.playing span:nth-child(1) {
+            animation: eqBar 0.8s infinite ease-in-out;
+        }
+
+        .dock-equalizer.playing span:nth-child(2) {
+            animation: eqBar 1.1s infinite ease-in-out 0.2s;
+        }
+
+        .dock-equalizer.playing span:nth-child(3) {
+            animation: eqBar 0.7s infinite ease-in-out 0.4s;
+        }
+
+        .dock-equalizer.playing span:nth-child(4) {
+            animation: eqBar 0.9s infinite ease-in-out 0.1s;
+        }
+
+        @keyframes eqBar {
+
+            0%,
+            100% {
+                height: 3px;
+            }
+
+            50% {
+                height: 12px;
+            }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media screen and (max-width: 800px) {
+            .photobook-cover {
+                width: 100%;
+                max-width: 320px;
+            }
+
+            .create-album-card {
+                width: 100%;
+                max-width: 320px;
+            }
+
+            .scrapbook-desk {
+                padding: 24px 16px;
+            }
+
+            .modal-content-card {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-main-img {
+                max-height: 240px;
+            }
+
+            .album-bottom-navigation {
+                flex-direction: column;
+            }
+
+            .nav-btn-action {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Fondo de Estrellas y Canvas de Corazones -->
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+    <canvas id="hearts-canvas"></canvas>
+
+    <!-- Barra de Navegación -->
+    <nav class="chapter-navbar">
+        <a href="index.html" class="nav-back-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+            <span>Volver al Índice</span>
+        </a>
+        <span class="nav-chapter-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" style="width: 13px; height: 13px;">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                <polyline points="21 15 16 10 5 21"></polyline>
+            </svg>
+            Capítulo III · Álbumes de Recuerdos
+        </span>
+    </nav>
+
+    <!-- Contenedor Principal -->
+    <main class="chapter-container">
+
+        <!-- Cabecera del Capítulo -->
+        <header class="album-header-section">
+            <span class="album-header-pre">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    style="width: 14px; height: 14px;">
+                    <polygon
+                        points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                    </polygon>
+                </svg>
+                TERCER CAPÍTULO · NUESTRO LIBRO VISUAL
+            </span>
+            <h1 class="album-header-title">Nuestros Álbumes de Fotos</h1>
+            <p class="album-header-sub">
+                Nuestros libros de memorias para guardar las fotografías de hoy y todos los viajes, momentos y risas que
+                iremos sumando juntos en nuestro futuro.
+            </p>
+        </header>
+
+        <!-- =========================================================
+             VISTA 1: GALERÍA DE LIBROS DE RECUERDOS (PROPORCIONES REALISTAS)
+             ========================================================= -->
+        <section id="view-albums-shelf">
+            <div class="shelf-action-bar">
+                <div class="shelf-counter-text" id="shelf-counter-display">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" style="width: 15px; height: 15px;">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                    </svg>
+                    <span>Colección de Álbumes</span>
+                </div>
+
+                <button class="btn-create-album-shelf" onclick="openCreateAlbumModal()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                        stroke-linejoin="round" style="width: 14px; height: 14px;">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    <span>Crear Nuevo Álbum</span>
+                </button>
+            </div>
+
+            <!-- Galería de libros -->
+            <div class="albums-gallery-grid" id="albums-shelf-container">
+                <!-- Se renderiza desde IndexedDB / JavaScript -->
+            </div>
+        </section>
+
+        <!-- =========================================================
+             VISTA 2: DENTRO DEL ÁLBUM (SCRAPBOOK TIPO LIBRO ABIERTO)
+             ========================================================= -->
+        <section id="view-album-inside">
+            <div class="inside-album-toolbar">
+                <button class="back-to-cover-btn" onclick="showAlbumsShelfView()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" style="width: 14px; height: 14px;">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                    <span>Volver a Mis Álbumes</span>
+                </button>
+
+                <!-- BOTÓN PARA AGREGAR FOTO (SOLO SALE AQUÍ ADENTRO) -->
+                <button class="add-photo-inside-btn" onclick="openAddMemoryModal()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                        stroke-linejoin="round" style="width: 15px; height: 15px;">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    <span>Añadir Foto o Nota a este Álbum</span>
+                </button>
+            </div>
+
+            <div class="scrapbook-desk">
+                <div class="inside-album-header">
+                    <div class="inside-album-tag">
+                        <div class="inside-album-stamp">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" style="width: 20px; height: 20px;">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div class="inside-album-titles">
+                            <h2 class="inside-album-title" id="inside-active-album-title">Nuestro Álbum de Recuerdos
+                            </h2>
+                            <p class="inside-album-desc" id="inside-active-album-desc">Memorias grabadas con amor y
+                                fotos que formarán nuestra historia juntos.</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <span class="memories-counter-pill" id="inside-album-counter-pill">8 Recuerdos</span>
+                    </div>
+                </div>
+
+                <div class="scrapbook-grid" id="inside-album-grid">
+                    <!-- Se renderiza desde IndexedDB / JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Navegación Inferior del Capítulo -->
+        <div class="album-bottom-navigation">
+            <a href="capitulo2.html" class="nav-btn-action">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                    stroke-linejoin="round" style="width: 14px; height: 14px;">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+                <span>Volver al capítulo anterior</span>
+            </a>
+            <a href="capitulo5.html" class="nav-btn-action next-chapter">
+                <span>Avanzar al siguiente capítulo</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                    stroke-linejoin="round" style="width: 14px; height: 14px;">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </a>
+        </div>
+
+    </main>
+
+    <!-- =========================================================
+         ESCENARIO DE APERTURA 3D: EL LIBRO SE AGRANDE Y SE ABRE
+         ========================================================= -->
+    <div id="book-opening-stage">
+        <div class="stage-book-3d" id="stage-book-element">
+            <div class="stage-pages-under">
+                <div class="stage-spine-crease"></div>
+                <div>
+                    <div
+                        style="font-family: 'Cinzel', serif; font-size: 0.75rem; color: #8c6418; letter-spacing: 2px; margin-bottom: 8px;">
+                        ✦ NUESTRO ÁLBUM DE FOTOS ✦</div>
+                    <div id="stage-opening-title"
+                        style="font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 6px;">
+                        Nuestro Álbum</div>
+                    <div style="font-family: 'Dancing Script', cursive; font-size: 1.2rem; color: #a27b2d;">Abriendo
+                        recuerdos...</div>
+                </div>
+            </div>
+
+            <div class="stage-cover-flap" id="stage-cover-flap">
+                <div class="book-cameo-frame" style="width: 120px; height: 90px; margin-bottom: 12px;">
+                    <img id="stage-cover-img" src="assets/album/1.png" alt="Portada"
+                        style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div
+                    style="font-family: 'Cinzel', serif; font-size: 0.65rem; color: #e5c378; letter-spacing: 2px; margin-bottom: 4px;">
+                    ✦ ÁLBUM DE AMOR ✦</div>
+                <div id="stage-cover-title"
+                    style="font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: #ffffff; margin-bottom: 4px;">
+                    Nuestro Álbum</div>
+                <div id="stage-cover-sub"
+                    style="font-family: 'Dancing Script', cursive; font-size: 1.15rem; color: #e5c378;">Andrea &amp;
+                    Iván</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         MODAL: CREAR NUEVO ÁLBUM (RÁPIDO, SIN LAG)
+         ========================================================= -->
+    <div class="photo-modal" id="create-album-modal" onclick="handleCreateAlbumBackdrop(event)">
+        <div class="modal-content-card upload-modal-card">
+            <button class="modal-close-btn" onclick="closeCreateAlbumModal()" aria-label="Cerrar modal">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"
+                    stroke-linejoin="round" style="width: 15px; height: 15px;">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+
+            <span class="modal-category-badge">✦ Nuevo Libro de Recuerdos ✦</span>
+            <h3 class="modal-photo-title" style="font-size: 1.35rem; margin-bottom: 6px;">Crear un Nuevo Álbum</h3>
+            <p
+                style="font-family: 'Inter', sans-serif; font-size: 0.82rem; color: #d1c8d6; opacity: 0.85; margin: 0 0 16px 0;">
+                Crea un espacio exclusivo para una ocasión especial, un viaje juntos o fotos futuras.
+            </p>
+
+            <div class="upload-input-group">
+                <label class="upload-input-label">Nombre del Álbum:</label>
+                <input type="text" id="new-album-title" class="upload-text-input"
+                    placeholder="Ej: Nuestros Viajes, Citas Inolvidables, Mi Niña Consentida...">
+            </div>
+
+            <div class="upload-input-group">
+                <label class="upload-input-label">Subtítulo o Dedicatoria:</label>
+                <input type="text" id="new-album-sub" class="upload-text-input"
+                    placeholder="Ej: Para Andrea &amp; Iván · Momentos Mágicos">
+            </div>
+
+            <div class="upload-input-group">
+                <label class="upload-input-label">Breve Descripción:</label>
+                <textarea id="new-album-desc" class="upload-textarea" rows="2"
+                    placeholder="Describe qué recuerdos guardarán en este álbum..."></textarea>
+            </div>
+
+            <div class="upload-input-group">
+                <label class="upload-input-label">Estilo de Encuadernación:</label>
+                <div class="color-theme-picker">
+                    <button type="button" class="theme-choice-btn active" id="theme-btn-obsidian"
+                        onclick="selectAlbumTheme('obsidian')">
+                        <span class="theme-choice-dot" style="background: #1b1622; border: 1px solid #e5c378;"></span>
+                        <span>Ébano Dorado</span>
+                    </button>
+                    <button type="button" class="theme-choice-btn" id="theme-btn-burgundy"
+                        onclick="selectAlbumTheme('burgundy')">
+                        <span class="theme-choice-dot" style="background: #241018; border: 1px solid #e5c378;"></span>
+                        <span>Vino Borgoña</span>
+                    </button>
+                    <button type="button" class="theme-choice-btn" id="theme-btn-midnight"
+                        onclick="selectAlbumTheme('midnight')">
+                        <span class="theme-choice-dot" style="background: #0e1624; border: 1px solid #64b4ff;"></span>
+                        <span>Azul Noche</span>
+                    </button>
+                    <button type="button" class="theme-choice-btn" id="theme-btn-emerald"
+                        onclick="selectAlbumTheme('emerald')">
+                        <span class="theme-choice-dot" style="background: #0d1e17; border: 1px solid #52dea6;"></span>
+                        <span>Verde Bosque</span>
+                    </button>
+                    <button type="button" class="theme-choice-btn" id="theme-btn-purple"
+                        onclick="selectAlbumTheme('purple')">
+                        <span class="theme-choice-dot" style="background: #220e3d; border: 1px solid #c77dff;"></span>
+                        <span>Púrpura Real</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="upload-input-group" style="margin-top: 14px;">
+                <label class="upload-input-label">Foto de Portada (Opcional):</label>
+                <div class="upload-dropzone" onclick="document.getElementById('new-album-file-input').click()">
+                    <input type="file" id="new-album-file-input" accept="image/*" style="display: none;"
+                        onchange="handleNewAlbumCoverSelect(event)">
+                    <div id="new-album-dropzone-ph">
+                        <p
+                            style="margin: 0; font-weight: 700; color: #ffd166; font-family: 'Montserrat', sans-serif; font-size: 0.74rem;">
+                            Elegir foto para la portada
+                        </p>
+                    </div>
+                    <img id="new-album-preview-img" src="" alt="Vista previa portada"
+                        style="display: none; max-height: 110px; border-radius: 6px; object-fit: contain; margin: 0 auto; box-shadow: 0 4px 12px rgba(0,0,0,0.5);">
+                </div>
+            </div>
+
+            <div class="upload-actions-row">
+                <button class="upload-cancel-btn" onclick="closeCreateAlbumModal()">Cancelar</button>
+                <button class="upload-save-btn" onclick="saveNewAlbum()">
+                    <span>Crear Álbum</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         MODAL: AÑADIR FOTO O NOTA (RÁPIDO, SIN LAG)
+         ========================================================= -->
+    <div class="photo-modal" id="upload-memory-modal" onclick="handleModalBackdrop(event)">
+        <div class="modal-content-card upload-modal-card">
+            <button class="modal-close-btn" onclick="closeAddMemoryModal()" aria-label="Cerrar modal">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"
+                    stroke-linejoin="round" style="width: 15px; height: 15px;">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+
+            <span class="modal-category-badge">✦ Nuevo Recuerdo para Este Álbum ✦</span>
+            <h3 class="modal-photo-title" style="font-size: 1.35rem; margin-bottom: 6px;">Añadir al Álbum</h3>
+            <p
+                style="font-family: 'Inter', sans-serif; font-size: 0.82rem; color: #d1c8d6; opacity: 0.85; margin: 0 0 16px 0;">
+                Se guardará directamente en este álbum de recuerdos para siempre.
+            </p>
+
+            <div class="modal-tab-switch">
+                <button class="tab-switch-btn active" id="btn-tab-photo" onclick="setAddType('photo')">
+                    <span>Fotografía con Nota</span>
+                </button>
+                <button class="tab-switch-btn" id="btn-tab-note" onclick="setAddType('note')">
+                    <span>Nota / Pensamiento</span>
+                </button>
+            </div>
+
+            <div id="dropzone-container">
+                <div class="upload-dropzone" onclick="document.getElementById('custom-file-input').click()">
+                    <input type="file" id="custom-file-input" accept="image/*" style="display: none;"
+                        onchange="handleFileSelect(event)">
+                    <div id="dropzone-placeholder">
+                        <p
+                            style="margin: 0 0 4px 0; font-weight: 700; color: #ffd166; font-family: 'Montserrat', sans-serif; font-size: 0.78rem;">
+                            Toca aquí para elegir una foto
+                        </p>
+                        <span style="font-size: 0.68rem; color: #c4b8cb;">JPG, PNG o WEBP de tu celular o
+                            computadora</span>
+                    </div>
+                    <img id="upload-preview-img" src="" alt="Vista previa"
+                        style="display: none; max-height: 150px; border-radius: 6px; object-fit: contain; margin: 0 auto; box-shadow: 0 4px 12px rgba(0,0,0,0.5);">
+                </div>
+            </div>
+
+            <div class="upload-input-group">
+                <label class="upload-input-label">Título del Recuerdo:</label>
+                <input type="text" id="memory-title-input" class="upload-text-input"
+                    placeholder="Ej: Nuestra tarde especial...">
+            </div>
+
+            <div style="display: flex; gap: 10px;">
+                <div class="upload-input-group" style="flex: 1;">
+                    <label class="upload-input-label">Fecha / Momento:</label>
+                    <input type="text" id="memory-date-input" class="upload-text-input"
+                        placeholder="Ej: Hoy o 26 Feb 2026">
+                </div>
+                <div class="upload-input-group" style="flex: 1;">
+                    <label class="upload-input-label">Etiqueta:</label>
+                    <input type="text" id="memory-badge-input" class="upload-text-input"
+                        placeholder="Ej: Recuerdo Especial">
+                </div>
+            </div>
+
+            <div class="upload-input-group">
+                <label class="upload-input-label" id="label-memory-text">Nota o Mensaje:</label>
+                <textarea id="memory-note-input" class="upload-textarea" rows="3"
+                    placeholder="Escribe lo que sentiste o unas palabras de amor..."></textarea>
+            </div>
+
+            <div class="upload-actions-row">
+                <button class="upload-cancel-btn" onclick="closeAddMemoryModal()">Cancelar</button>
+                <button class="upload-save-btn" onclick="saveMemoryToAlbum()">
+                    <span>Guardar en el Álbum</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         LIGHTBOX / VISOR DE FOTOGRAFÍA (RÁPIDO, SIN LAG)
+         ========================================================= -->
+    <div class="photo-modal" id="photo-lightbox" onclick="handleLightboxBackdrop(event)">
+        <div class="modal-content-card">
+            <button class="modal-close-btn" onclick="closePhotoModal()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"
+                    stroke-linejoin="round" style="width: 15px; height: 15px;">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <div class="modal-img-wrapper">
+                <img src="" alt="Recuerdo ampliado" class="modal-main-img" id="lightbox-img">
+            </div>
+            <div class="modal-text-side">
+                <div>
+                    <span class="modal-category-badge" id="lightbox-badge">RECUERDO</span>
+                    <h3 class="modal-photo-title" id="lightbox-title">Título del Recuerdo</h3>
+                    <span class="modal-photo-date" id="lightbox-date">Fecha</span>
+                    <div class="modal-dedication-box">
+                        <p class="modal-dedication-text" id="lightbox-desc">
+                            Dedicatoria especial...
+                        </p>
+                    </div>
+                </div>
+                <div class="modal-nav-row">
+                    <button class="modal-nav-btn" onclick="prevPhoto()">
+                        <span>← Anterior</span>
+                    </button>
+                    <span style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; color: var(--accent);"
+                        id="lightbox-counter">1 / 1</span>
+                    <button class="modal-nav-btn" onclick="nextPhoto()">
+                        <span>Siguiente →</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         SCRIPTS: INDEXEDDB MULTI-ÁLBUM, APERTURA 3D & ALTO RENDIMIENTO
+         ========================================================= -->
+    <script>
+        const DB_NAME = 'NuestraHistoriaSingleAlbum_DB';
+        const DB_VERSION = 2;
+        let dbInstance = null;
+
+        function initIndexedDB() {
+            return new Promise((resolve, reject) => {
+                const request = indexedDB.open(DB_NAME, DB_VERSION);
+                request.onupgradeneeded = (e) => {
+                    const db = e.target.result;
+                    if (!db.objectStoreNames.contains('album_memories')) {
+                        db.createObjectStore('album_memories', { keyPath: 'id' });
+                    }
+                    if (!db.objectStoreNames.contains('albums')) {
+                        db.createObjectStore('albums', { keyPath: 'id' });
+                    }
+                };
+                request.onsuccess = (e) => {
+                    dbInstance = e.target.result;
+                    resolve(dbInstance);
+                };
+                request.onerror = (e) => {
+                    console.error('Error IndexedDB:', e);
+                    reject(e);
+                };
+            });
+        }
+
+        function dbGetAllStore(storeName) {
+            return new Promise((resolve, reject) => {
+                const tx = dbInstance.transaction(storeName, 'readonly');
+                const store = tx.objectStore(storeName);
+                const req = store.getAll();
+                req.onsuccess = () => resolve(req.result || []);
+                req.onerror = () => reject(req.error);
+            });
+        }
+
+        function dbPutStore(storeName, item) {
+            return new Promise((resolve, reject) => {
+                const tx = dbInstance.transaction(storeName, 'readwrite');
+                const store = tx.objectStore(storeName);
+                const req = store.put(item);
+                req.onsuccess = () => resolve(req.result);
+                req.onerror = () => reject(req.error);
+            });
+        }
+
+        function dbDeleteStore(storeName, key) {
+            return new Promise((resolve, reject) => {
+                const tx = dbInstance.transaction(storeName, 'readwrite');
+                const store = tx.objectStore(storeName);
+                const req = store.delete(key);
+                req.onsuccess = () => resolve(true);
+                req.onerror = () => reject(req.error);
+            });
+        }
+
+        const DEFAULT_ALBUM_ID = 'album_default';
+
+        const DEFAULT_ALBUM = {
+            id: DEFAULT_ALBUM_ID,
+            title: 'Nuestro Álbum de Recuerdos',
+            subtitle: 'Para Andrea & Iván · Toda una Vida Juntos',
+            desc: 'Aquí guardamos cada instante especial desde el primer día que nos conocimos. Abre este álbum para revivir nuestras fotos y añadir nuevas memorias para nuestro futuro.',
+            theme: 'obsidian',
+            coverImg: 'assets/album/1.png',
+            isDefault: true,
+            createdAt: 1708992000000
+        };
+
+        const DEFAULT_MEMORIES = [
+            {
+                id: 'item_1',
+                albumId: DEFAULT_ALBUM_ID,
+                type: 'photo',
+                img: 'assets/album/1.png',
+                badge: 'Nuestra Historia',
+                title: 'Coranzocito',
+                date: '15 de Septiembre, 2026',
+                desc: 'El inicio de todas las memorias que están por venir.',
+                isDefault: true
+            },
+            {
+                id: 'item_2',
+                albumId: DEFAULT_ALBUM_ID,
+                type: 'note',
+                badge: 'Para Nuestro Futuro',
+                title: 'Un pedacito de nosotros',
+                date: '15 de Septiembre, 2026',
+                desc: `Este álbum aún está vacío, pero no por mucho tiempo.
+
+Hoy solo guarda una pequeña parte de nuestra historia, pero espero que con el tiempo podamos llenarlo de fotografías, momentos, lugares y recuerdos que sean solo nuestros.
+
+Porque quiero guardar aquí un pedacito de todo lo que vivamos juntos, desde los momentos más importantes hasta esas pequeñas cosas que quizás algún día olvidemos, pero que aquí podremos volver a encontrar.`,
+                author: 'Iván',
+                color: 'pink',
+                isDefault: true
+            }
+        ];
+
+        let albumsState = [];
+        let allMemoriesState = [];
+        let currentActiveAlbumId = DEFAULT_ALBUM_ID;
+        let currentAlbumMemories = [];
+        let photosOnlyList = [];
+        let currentPhotoIndex = 0;
+
+        let selectedAddType = 'photo';
+        let selectedBase64Image = null;
+        let selectedNewAlbumTheme = 'obsidian';
+        let selectedNewAlbumCoverBase64 = null;
+
+        async function startApp() {
+            await initIndexedDB();
+
+            // Sincronización y reseteo para asegurar que el primer álbum tenga solo assets/album/1.png y la nota
+            const RESET_V4_KEY = 'album_reset_v4_clean_first_album_1png';
+            if (!localStorage.getItem(RESET_V4_KEY)) {
+                let existingMemories = await dbGetAllStore('album_memories');
+                for (let item of existingMemories) {
+                    if (item.albumId === DEFAULT_ALBUM_ID || item.isDefault || (item.id && item.id.startsWith('item_'))) {
+                        await dbDeleteStore('album_memories', item.id);
+                    }
+                }
+                for (const item of DEFAULT_MEMORIES) {
+                    await dbPutStore('album_memories', item);
+                }
+
+                let existingAlbums = await dbGetAllStore('albums');
+                for (let alb of existingAlbums) {
+                    if (alb.id === DEFAULT_ALBUM_ID) {
+                        alb.coverImg = 'assets/album/1.png';
+                        await dbPutStore('albums', alb);
+                    }
+                }
+                localStorage.setItem(RESET_V4_KEY, 'true');
+            }
+
+            let storedAlbums = await dbGetAllStore('albums');
+            if (!storedAlbums || storedAlbums.length === 0) {
+                await dbPutStore('albums', DEFAULT_ALBUM);
+                storedAlbums = [DEFAULT_ALBUM];
+            } else {
+                let modified = false;
+                for (let alb of storedAlbums) {
+                    if (alb.id === DEFAULT_ALBUM_ID && (!alb.theme || alb.theme === 'purple')) {
+                        alb.theme = 'obsidian';
+                        await dbPutStore('albums', alb);
+                        modified = true;
+                    }
+                }
+                if (modified) storedAlbums = await dbGetAllStore('albums');
+            }
+            albumsState = storedAlbums;
+
+            let storedMemories = await dbGetAllStore('album_memories');
+            if (!storedMemories || storedMemories.length === 0) {
+                for (const item of DEFAULT_MEMORIES) {
+                    await dbPutStore('album_memories', item);
+                }
+                storedMemories = DEFAULT_MEMORIES;
+            } else {
+                let needUpdate = false;
+                for (let item of storedMemories) {
+                    if (!item.albumId) {
+                        item.albumId = DEFAULT_ALBUM_ID;
+                        await dbPutStore('album_memories', item);
+                        needUpdate = true;
+                    }
+                }
+                if (needUpdate) storedMemories = await dbGetAllStore('album_memories');
+            }
+            allMemoriesState = storedMemories;
+
+            renderAlbumsShelf();
+        }
+
+        // =========================================================
+        // RENDERIZADO DE ÁLBUMES DE TAMAÑO PROPORCIONAL
+        // =========================================================
+        function renderAlbumsShelf() {
+            const container = document.getElementById('albums-shelf-container');
+            const counterText = document.getElementById('shelf-counter-display');
+            if (!container) return;
+
+            const count = albumsState.length;
+            if (counterText) {
+                counterText.querySelector('span').textContent = count === 1 ? '1 Álbum de Recuerdos' : `${count} Álbumes en Nuestra Colección`;
+            }
+
+            container.innerHTML = '';
+
+            albumsState.forEach((album) => {
+                const albumMemories = allMemoriesState.filter(m => m.albumId === album.id);
+                const photoCount = albumMemories.filter(m => m.type === 'photo').length;
+                const noteCount = albumMemories.filter(m => m.type === 'note').length;
+
+                let displayCover = album.coverImg;
+                if (!displayCover && photoCount > 0) {
+                    const firstPhoto = albumMemories.find(m => m.type === 'photo');
+                    if (firstPhoto) displayCover = firstPhoto.img;
+                }
+                if (!displayCover) displayCover = 'assets/album/1.png';
+
+                const themeClass = album.theme ? `theme-${album.theme}` : 'theme-obsidian';
+
+                const wrapper = document.createElement('div');
+                wrapper.className = 'photobook-item-wrapper';
+
+                wrapper.innerHTML = `
+                    <div class="photobook-cover ${themeClass}" onclick="trigger3DBookOpening('${album.id}')">
+                        <div class="book-spine-hinge"></div>
+                        <div class="book-spine-line"></div>
+                        <div class="book-ribbon"></div>
+
+                        ${!album.isDefault ? `
+                            <button class="btn-delete-album" onclick="deleteAlbum('${album.id}', event)" title="Eliminar este álbum">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px;">
+                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
+                            </button>
+                        ` : ''}
+
+                        <div class="book-gold-filigree">
+                            <div>
+                                <div class="book-cameo-frame">
+                                    <img src="${displayCover}" alt="${album.title}" class="book-cameo-img">
+                                </div>
+                                <div class="book-seal-badge">✦ ÁLBUM DE AMOR ✦</div>
+                                <h3 class="book-title-embossed">${album.title}</h3>
+                                <div class="book-subtitle-embossed">${album.subtitle || 'Andrea &amp; Iván'}</div>
+                            </div>
+
+                            <div>
+                                <span class="book-meta-pill">${photoCount} Fotos · ${noteCount} Notas</span>
+                                <div>
+                                    <span class="book-open-btn">ABRIR LIBRO &rsaquo;</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                container.appendChild(wrapper);
+            });
+
+            // Tarjeta para "+ Crear Álbum"
+            const addCard = document.createElement('div');
+            addCard.className = 'create-album-card';
+            addCard.onclick = () => openCreateAlbumModal();
+            addCard.innerHTML = `
+                <div class="create-album-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 24px; height: 24px;">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                </div>
+                <h3>Crear Otro Álbum</h3>
+                <p>Crea un nuevo libro para viajes, salidas o momentos futuros con Andrea.</p>
+                <span class="create-album-btn-label">NUEVO ÁLBUM</span>
+            `;
+            container.appendChild(addCard);
+        }
+
+        // =========================================================
+        // ANIMACIÓN 3D: EL LIBRO SE AGRANDE Y SE ABRE DE ENMEDIO
+        // =========================================================
+        function trigger3DBookOpening(albumId) {
+            currentActiveAlbumId = albumId;
+            if (typeof window.unlockNextChapter === 'function') {
+                window.unlockNextChapter(4);
+            }
+            const album = albumsState.find(a => a.id === albumId) || albumsState[0];
+
+            const albumMemories = allMemoriesState.filter(m => m.albumId === album.id);
+            let displayCover = album.coverImg;
+            if (!displayCover && albumMemories.length > 0) {
+                const first = albumMemories.find(m => m.type === 'photo');
+                if (first) displayCover = first.img;
+            }
+            if (!displayCover) displayCover = 'assets/album/1.png';
+
+            document.getElementById('stage-cover-img').src = displayCover;
+            document.getElementById('stage-cover-title').textContent = album.title;
+            document.getElementById('stage-cover-sub').textContent = album.subtitle || 'Andrea & Iván';
+            document.getElementById('stage-opening-title').textContent = album.title;
+
+            const theme = album.theme || 'obsidian';
+            const stage = document.getElementById('book-opening-stage');
+            const flap = document.getElementById('stage-cover-flap');
+
+            // Adaptar fondo, borde y tema 3D según el tema del libro
+            stage.className = `stage-theme-${theme} active`;
+
+            if (theme === 'burgundy') {
+                flap.style.background = 'linear-gradient(145deg, #241018 0%, #14070d 100%)';
+                flap.style.borderColor = 'rgba(229, 195, 120, 0.45)';
+            } else if (theme === 'midnight') {
+                flap.style.background = 'linear-gradient(145deg, #0e1624 0%, #060a12 100%)';
+                flap.style.borderColor = 'rgba(100, 180, 255, 0.45)';
+            } else if (theme === 'emerald') {
+                flap.style.background = 'linear-gradient(145deg, #0d1e17 0%, #050d0a 100%)';
+                flap.style.borderColor = 'rgba(82, 222, 166, 0.45)';
+            } else if (theme === 'purple') {
+                flap.style.background = 'linear-gradient(145deg, #220e3d 0%, #120524 100%)';
+                flap.style.borderColor = 'rgba(199, 125, 255, 0.45)';
+            } else {
+                flap.style.background = 'linear-gradient(145deg, #1b1622 0%, #110d16 100%)';
+                flap.style.borderColor = 'rgba(229, 195, 120, 0.45)';
+            }
+
+            flap.classList.remove('open-animating');
+
+            setTimeout(() => {
+                flap.classList.add('open-animating');
+            }, 260);
+
+            setTimeout(() => {
+                stage.classList.remove('active');
+
+                document.getElementById('view-albums-shelf').style.display = 'none';
+                document.getElementById('view-album-inside').style.display = 'block';
+
+                window.scrollTo({ top: 300, behavior: 'smooth' });
+
+                renderInsideCurrentAlbum();
+            }, 920);
+        }
+
+        function showAlbumsShelfView() {
+            document.getElementById('view-album-inside').style.display = 'none';
+            document.getElementById('view-albums-shelf').style.display = 'block';
+
+            renderAlbumsShelf();
+            window.scrollTo({ top: 220, behavior: 'smooth' });
+        }
+
+        // =========================================================
+        // RENDERIZADO DEL INTERIOR CON ANIMACIÓN ESCALONADA DE FOTOS
+        // =========================================================
+        function renderInsideCurrentAlbum() {
+            const album = albumsState.find(a => a.id === currentActiveAlbumId) || albumsState[0];
+            const theme = album.theme || 'obsidian';
+
+            const insideSection = document.getElementById('view-album-inside');
+            if (insideSection) {
+                insideSection.className = `album-inside-theme-${theme}`;
+            }
+
+            const titleEl = document.getElementById('inside-active-album-title');
+            const descEl = document.getElementById('inside-active-album-desc');
+            const counter = document.getElementById('inside-album-counter-pill');
+            const grid = document.getElementById('inside-album-grid');
+
+            if (titleEl) titleEl.textContent = album.title;
+            if (descEl) descEl.textContent = album.desc || 'Memorias grabadas con amor y fotos que formarán nuestra historia juntos.';
+
+            currentAlbumMemories = allMemoriesState.filter(m => m.albumId === currentActiveAlbumId);
+            photosOnlyList = currentAlbumMemories.filter(i => i.type === 'photo');
+
+            if (counter) {
+                const photoCount = photosOnlyList.length;
+                const noteCount = currentAlbumMemories.filter(i => i.type === 'note').length;
+                counter.textContent = `${photoCount} Foto${photoCount === 1 ? '' : 's'} · ${noteCount} Nota${noteCount === 1 ? '' : 's'}`;
+            }
+
+            grid.innerHTML = '';
+
+            if (currentAlbumMemories.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-album-state">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                            <polyline points="21 15 16 10 5 21"></polyline>
+                        </svg>
+                        <h4>Este libro está listo para sus fotos</h4>
+                        <p>Aún no has agregado fotos ni notas aquí. ¡Toca el botón «+ Añadir Foto o Nota a este Álbum» de arriba para comenzar!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            currentAlbumMemories.forEach((item, index) => {
+                const rot = (index % 4 === 0) ? -2 : (index % 4 === 1) ? 2 : (index % 4 === 2) ? -1.5 : 1.5;
+                const delayMs = index * 0.06;
+
+                if (item.type === 'photo') {
+                    const photoIdx = photosOnlyList.findIndex(p => p.id === item.id);
+
+                    const card = document.createElement('div');
+                    card.className = 'polaroid-card';
+                    card.style.transform = `rotate(${rot}deg)`;
+                    card.style.animationDelay = `${delayMs}s`;
+                    card.onclick = () => openLightbox(photoIdx);
+
+                    card.innerHTML = `
+                        ${!item.isDefault ? `<button class="delete-custom-photo-btn" onclick="deleteMemoryItem('${item.id}', event)" title="Eliminar foto">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="width: 12px; height: 12px;">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                        </button>` : ''}
+                        <div class="washi-tape"></div>
+                        <div class="polaroid-img-box">
+                            <img src="${item.img}" alt="${item.title}" class="polaroid-img">
+                            <div class="zoom-overlay-hint">
+                                <span>Ampliar</span>
+                            </div>
+                        </div>
+                        <div class="polaroid-footer">
+                            <p class="polaroid-handwritten-note">“${item.title}”</p>
+                            <div class="polaroid-meta-row">
+                                <span class="polaroid-tag-badge">${item.badge || 'Recuerdo'}</span>
+                                <span>${item.date || ''}</span>
+                            </div>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                } else {
+                    const colorClass = item.color || 'yellow';
+                    const card = document.createElement('div');
+                    card.className = `sticky-note-item ${colorClass}`;
+                    card.style.transform = `rotate(${rot}deg)`;
+                    card.style.animationDelay = `${delayMs}s`;
+
+                    card.innerHTML = `
+                        ${!item.isDefault ? `<button class="delete-custom-photo-btn" onclick="deleteMemoryItem('${item.id}', event)" title="Eliminar nota">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="width: 12px; height: 12px;">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                        </button>` : ''}
+                        <div class="sticky-pin"></div>
+                        <span class="sticky-header-pin">✦ ${item.badge || 'NOTA'} ✦</span>
+                        <p class="sticky-body-text">“${item.desc}”</p>
+                        <span class="sticky-author-sig">— ${item.author || 'Iván & Andrea'}</span>
+                    `;
+                    grid.appendChild(card);
+                }
+            });
+        }
+
+        // =========================================================
+        // CREAR NUEVO ÁLBUM DINÁMICAMENTE
+        // =========================================================
+        function openCreateAlbumModal() {
+            document.getElementById('create-album-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCreateAlbumModal() {
+            document.getElementById('create-album-modal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+
+            document.getElementById('new-album-title').value = '';
+            document.getElementById('new-album-sub').value = '';
+            document.getElementById('new-album-desc').value = '';
+            document.getElementById('new-album-file-input').value = '';
+            document.getElementById('new-album-preview-img').style.display = 'none';
+            document.getElementById('new-album-dropzone-ph').style.display = 'block';
+            selectedNewAlbumCoverBase64 = null;
+            selectAlbumTheme('obsidian');
+        }
+
+        function handleCreateAlbumBackdrop(e) {
+            if (e.target.id === 'create-album-modal') closeCreateAlbumModal();
+        }
+
+        function selectAlbumTheme(theme) {
+            selectedNewAlbumTheme = theme;
+            ['obsidian', 'burgundy', 'midnight', 'emerald', 'purple'].forEach(t => {
+                const btn = document.getElementById(`theme-btn-${t}`);
+                if (btn) {
+                    if (t === theme) btn.classList.add('active');
+                    else btn.classList.remove('active');
+                }
+            });
+        }
+
+        function handleNewAlbumCoverSelect(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            compressImageFile(file, (base64) => {
+                selectedNewAlbumCoverBase64 = base64;
+                const previewImg = document.getElementById('new-album-preview-img');
+                const placeholder = document.getElementById('new-album-dropzone-ph');
+                previewImg.src = base64;
+                previewImg.style.display = 'block';
+                placeholder.style.display = 'none';
+            });
+        }
+
+        async function saveNewAlbum() {
+            const title = document.getElementById('new-album-title').value.trim();
+            if (!title) {
+                alert('Por favor escribe un nombre para tu nuevo álbum.');
+                return;
+            }
+
+            const sub = document.getElementById('new-album-sub').value.trim() || 'Para Andrea & Iván';
+            const desc = document.getElementById('new-album-desc').value.trim() || 'Un nuevo espacio especial para nuestras memorias.';
+
+            const newAlbum = {
+                id: 'album_' + Date.now(),
+                title: title,
+                subtitle: sub,
+                desc: desc,
+                theme: selectedNewAlbumTheme,
+                coverImg: selectedNewAlbumCoverBase64 || 'assets/album/1.png',
+                isDefault: false,
+                createdAt: Date.now()
+            };
+
+            await dbPutStore('albums', newAlbum);
+            albumsState.push(newAlbum);
+
+            closeCreateAlbumModal();
+            renderAlbumsShelf();
+
+            trigger3DBookOpening(newAlbum.id);
+        }
+
+        async function deleteAlbum(albumId, e) {
+            if (e) e.stopPropagation();
+            const album = albumsState.find(a => a.id === albumId);
+            if (!album || album.isDefault) return;
+
+            if (!confirm(`¿Estás seguro de eliminar el álbum "${album.title}" y todos sus recuerdos?`)) return;
+
+            await dbDeleteStore('albums', albumId);
+            albumsState = albumsState.filter(a => a.id !== albumId);
+
+            const toDelete = allMemoriesState.filter(m => m.albumId === albumId);
+            for (const item of toDelete) {
+                await dbDeleteStore('album_memories', item.id);
+            }
+            allMemoriesState = allMemoriesState.filter(m => m.albumId !== albumId);
+
+            renderAlbumsShelf();
+        }
+
+        // =========================================================
+        // AGREGAR FOTO / NOTA (SOLO DENTRO DEL ÁLBUM ABIERTO)
+        // =========================================================
+        function openAddMemoryModal() {
+            setAddType('photo');
+            const album = albumsState.find(a => a.id === currentActiveAlbumId);
+            const badge = document.querySelector('#upload-memory-modal .modal-category-badge');
+            if (badge && album) {
+                badge.textContent = `✦ Nuevo Recuerdo para «${album.title}» ✦`;
+            }
+            document.getElementById('upload-memory-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeAddMemoryModal() {
+            document.getElementById('upload-memory-modal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+
+            document.getElementById('custom-file-input').value = '';
+            document.getElementById('memory-title-input').value = '';
+            document.getElementById('memory-date-input').value = '';
+            document.getElementById('memory-badge-input').value = '';
+            document.getElementById('memory-note-input').value = '';
+            document.getElementById('upload-preview-img').style.display = 'none';
+            document.getElementById('dropzone-placeholder').style.display = 'block';
+            selectedBase64Image = null;
+        }
+
+        function handleModalBackdrop(e) {
+            if (e.target.id === 'upload-memory-modal') closeAddMemoryModal();
+        }
+
+        function setAddType(type) {
+            selectedAddType = type;
+            const btnPhoto = document.getElementById('btn-tab-photo');
+            const btnNote = document.getElementById('btn-tab-note');
+            const dropzone = document.getElementById('dropzone-container');
+            const noteLabel = document.getElementById('label-memory-text');
+
+            if (type === 'photo') {
+                btnPhoto.classList.add('active');
+                btnNote.classList.remove('active');
+                dropzone.style.display = 'block';
+                noteLabel.textContent = 'Nota o Lo Que Sentiste:';
+            } else {
+                btnNote.classList.add('active');
+                btnPhoto.classList.remove('active');
+                dropzone.style.display = 'none';
+                noteLabel.textContent = 'Texto de la Nota / Pensamiento:';
+            }
+        }
+
+        function compressImageFile(file, callback) {
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                const img = new Image();
+                img.onload = function () {
+                    const canvas = document.createElement('canvas');
+                    const maxDim = 1400;
+                    let w = img.width;
+                    let h = img.height;
+                    if (w > maxDim || h > maxDim) {
+                        if (w > h) {
+                            h = Math.round((h * maxDim) / w);
+                            w = maxDim;
+                        } else {
+                            w = Math.round((w * maxDim) / h);
+                            h = maxDim;
+                        }
+                    }
+                    canvas.width = w;
+                    canvas.height = h;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, w, h);
+                    const compressed = canvas.toDataURL('image/jpeg', 0.85);
+                    callback(compressed);
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function handleFileSelect(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            compressImageFile(file, (base64) => {
+                selectedBase64Image = base64;
+                const previewImg = document.getElementById('upload-preview-img');
+                const placeholder = document.getElementById('dropzone-placeholder');
+                previewImg.src = base64;
+                previewImg.style.display = 'block';
+                placeholder.style.display = 'none';
+            });
+        }
+
+        async function saveMemoryToAlbum() {
+            const title = document.getElementById('memory-title-input').value.trim() || (selectedAddType === 'photo' ? 'Momento Especial' : 'Pensamiento de Amor');
+            const date = document.getElementById('memory-date-input').value.trim() || 'Nuestro Futuro';
+            const badge = document.getElementById('memory-badge-input').value.trim() || (selectedAddType === 'photo' ? 'Recuerdo Especial' : 'Nota');
+            const note = document.getElementById('memory-note-input').value.trim() || 'Un momento guardado en nuestro corazón.';
+
+            if (selectedAddType === 'photo' && !selectedBase64Image) {
+                alert('Por favor selecciona una foto de tu dispositivo.');
+                return;
+            }
+
+            const newItem = {
+                id: 'item_' + Date.now(),
+                albumId: currentActiveAlbumId,
+                type: selectedAddType,
+                img: selectedBase64Image,
+                title: title,
+                date: date,
+                badge: badge,
+                desc: note,
+                author: 'Iván & Andrea',
+                color: (selectedAddType === 'note') ? (Math.random() > 0.5 ? 'pink' : 'purple') : '',
+                isDefault: false
+            };
+
+            await dbPutStore('album_memories', newItem);
+            allMemoriesState.unshift(newItem);
+
+            closeAddMemoryModal();
+            renderInsideCurrentAlbum();
+        }
+
+        async function deleteMemoryItem(itemId, e) {
+            if (e) e.stopPropagation();
+            if (!confirm('¿Deseas eliminar este recuerdo de tu álbum?')) return;
+
+            await dbDeleteStore('album_memories', itemId);
+            allMemoriesState = allMemoriesState.filter(i => i.id !== itemId);
+            renderInsideCurrentAlbum();
+        }
+
+        // =========================================================
+        // LIGHTBOX VISOR DE FOTOS
+        // =========================================================
+        function openLightbox(photoIndex) {
+            if (!photosOnlyList || photosOnlyList.length === 0) return;
+            currentPhotoIndex = photoIndex;
+            updateLightboxContent();
+            document.getElementById('photo-lightbox').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePhotoModal() {
+            document.getElementById('photo-lightbox').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function handleLightboxBackdrop(e) {
+            if (e.target.id === 'photo-lightbox') closePhotoModal();
+        }
+
+        function updateLightboxContent() {
+            const data = photosOnlyList[currentPhotoIndex];
+            if (!data) return;
+
+            document.getElementById('lightbox-img').src = data.img;
+            document.getElementById('lightbox-badge').innerText = data.badge || 'RECUERDO';
+            document.getElementById('lightbox-title').innerText = data.title || 'Sin Título';
+            document.getElementById('lightbox-date').innerText = data.date || '';
+            document.getElementById('lightbox-desc').innerText = data.desc || '';
+            document.getElementById('lightbox-counter').innerText = `${currentPhotoIndex + 1} / ${photosOnlyList.length}`;
+        }
+
+        function nextPhoto() {
+            if (photosOnlyList.length === 0) return;
+            currentPhotoIndex = (currentPhotoIndex + 1) % photosOnlyList.length;
+            updateLightboxContent();
+        }
+
+        function prevPhoto() {
+            if (photosOnlyList.length === 0) return;
+            currentPhotoIndex = (currentPhotoIndex - 1 + photosOnlyList.length) % photosOnlyList.length;
+            updateLightboxContent();
+        }
+
+        window.addEventListener('keydown', (e) => {
+            const modal = document.getElementById('photo-lightbox');
+            if (modal.classList.contains('active')) {
+                if (e.key === 'ArrowRight') nextPhoto();
+                if (e.key === 'ArrowLeft') prevPhoto();
+                if (e.key === 'Escape') closePhotoModal();
+            }
+        });
+
+        startApp();
+
+        // =========================================================
+        // CANVAS DE CORAZONES LIGERO
+        // =========================================================
+        const canvas = document.getElementById('hearts-canvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            let width, height, hearts = [];
+
+            function resize() {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            class Heart {
+                constructor() { this.reset(); }
+                reset() {
+                    this.x = Math.random() * width;
+                    this.y = height + Math.random() * 150;
+                    this.size = Math.random() * 2.2 + 1.2;
+                    this.speedY = Math.random() * 0.6 + 0.3;
+                    this.speedX = (Math.random() - 0.5) * 0.3;
+                    this.opacity = Math.random() * 0.35 + 0.15;
+                    this.color = Math.random() > 0.5 ? '#ff758f' : '#c77dff';
+                }
+                update() {
+                    this.y -= this.speedY;
+                    this.x += this.speedX;
+                    if (this.y < -20) this.reset();
+                }
+                draw() {
+                    ctx.save();
+                    ctx.globalAlpha = this.opacity;
+                    ctx.fillStyle = this.color;
+                    ctx.beginPath();
+                    const topCurveHeight = this.size * 0.3;
+                    ctx.moveTo(this.x, this.y + topCurveHeight);
+                    ctx.bezierCurveTo(this.x, this.y, this.x - this.size, this.y, this.x - this.size, this.y + topCurveHeight);
+                    ctx.bezierCurveTo(this.x - this.size, this.y + (this.size + topCurveHeight) / 2, this.x, this.y + (this.size + topCurveHeight), this.x, this.y + this.size * 1.5);
+                    ctx.bezierCurveTo(this.x, this.y + (this.size + topCurveHeight), this.x + this.size, this.y + (this.size + topCurveHeight) / 2, this.x + this.size, this.y + topCurveHeight);
+                    ctx.bezierCurveTo(this.x + this.size, this.y, this.x, this.y, this.x, this.y + topCurveHeight);
+                    ctx.closePath();
+                    ctx.fill();
+                    ctx.restore();
+                }
+            }
+
+            for (let i = 0; i < 20; i++) hearts.push(new Heart());
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                for (let i = 0; i < hearts.length; i++) {
+                    hearts[i].update();
+                    hearts[i].draw();
+                }
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
+    </script>
+
+    <script src="progress-tracker.js"></script>
+</body>
+
+</html>

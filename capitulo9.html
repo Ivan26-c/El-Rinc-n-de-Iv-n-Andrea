@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capítulo VII: Nuestro Futuro Juntos · Andrea & Iván</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700;800;900&family=Dancing+Script:wght@600;700&family=Caveat:wght@600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        body {
+            background-color: #0b0416 !important;
+            min-height: 100vh;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        #hearts-canvas,
+        #confetti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+        }
+
+        #hearts-canvas {
+            z-index: 1;
+        }
+
+        #confetti-canvas {
+            z-index: 200;
+        }
+
+        /* Barra de Navegación Estándar */
+        .chapter-navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(15, 6, 28, 0.94);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(199, 125, 255, 0.25);
+            padding: 14px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--secondary-color, #c77dff);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.76rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-decoration: none;
+            text-transform: uppercase;
+            padding: 7px 18px;
+            border-radius: 20px;
+            background: rgba(199, 125, 255, 0.1);
+            border: 1px solid rgba(199, 125, 255, 0.3);
+            transition: all 0.25s ease;
+        }
+
+        .nav-back-btn:hover {
+            background: rgba(199, 125, 255, 0.25);
+            color: #ffffff;
+            transform: translateX(-3px);
+            box-shadow: 0 0 15px rgba(199, 125, 255, 0.4);
+        }
+
+        .nav-chapter-badge {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent, #ffd166);
+            text-transform: uppercase;
+            background: rgba(255, 183, 3, 0.12);
+            border: 1px solid rgba(255, 183, 3, 0.35);
+            padding: 5px 14px;
+            border-radius: 12px;
+        }
+
+        /* Contenedor Principal */
+        .future-wrapper {
+            position: relative;
+            z-index: 10;
+            max-width: 900px;
+            margin: 35px auto 70px auto;
+            padding: 0 20px;
+        }
+
+        /* Cabecera del Capítulo */
+        .future-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .future-pre {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: #ffd166;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .future-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff 30%, #ffd166 70%, #ff758f 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0 0 14px 0;
+            letter-spacing: -0.5px;
+        }
+
+        .future-sub {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.05rem;
+            color: #e2d9f3;
+            max-width: 620px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* =========================================================
+           TABLERO DE DESTINO & SUEÑOS (VISION BOARD ÚNICO)
+           ========================================================= */
+        .vision-board-frame {
+            background: rgba(18, 9, 32, 0.88);
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            border-radius: 28px;
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            padding: 34px 32px 30px;
+            position: relative;
+            box-shadow:
+                0 30px 70px -15px rgba(0, 0, 0, 0.8),
+                0 0 50px -10px rgba(168, 85, 247, 0.25),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            overflow: hidden;
+        }
+
+        /* Decoraciones de Esquinas Doradas */
+        .board-corner {
+            position: absolute;
+            width: 28px;
+            height: 28px;
+            border-color: rgba(255, 209, 102, 0.6);
+            border-style: solid;
+            pointer-events: none;
+        }
+
+        .corner-tl { top: 12px; left: 12px; border-width: 2px 0 0 2px; border-top-left-radius: 12px; }
+        .corner-tr { top: 12px; right: 12px; border-width: 2px 2px 0 0; border-top-right-radius: 12px; }
+        .corner-bl { bottom: 12px; left: 12px; border-width: 0 0 2px 2px; border-bottom-left-radius: 12px; }
+        .corner-br { bottom: 12px; right: 12px; border-width: 0 2px 2px 0; border-bottom-right-radius: 12px; }
+
+        /* HUD Superior: Progreso Circular + Filtros */
+        .board-hud-panel {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding-bottom: 24px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid rgba(199, 125, 255, 0.15);
+        }
+
+        .progress-circle-widget {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .progress-ring-wrap {
+            position: relative;
+            width: 58px;
+            height: 58px;
+            flex-shrink: 0;
+        }
+
+        .progress-ring-svg {
+            transform: rotate(-90deg);
+            width: 58px;
+            height: 58px;
+        }
+
+        .progress-ring-bg {
+            stroke: rgba(255, 255, 255, 0.1);
+        }
+
+        .progress-ring-circle {
+            stroke: url(#goldPinkGradient);
+            stroke-dasharray: 157;
+            stroke-dashoffset: 157;
+            transition: stroke-dashoffset 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            stroke-linecap: round;
+        }
+
+        .progress-ring-percent {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.76rem;
+            font-weight: 800;
+            color: #ffd166;
+        }
+
+        .progress-text-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .progress-title-label {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+        }
+
+        .progress-sub-count {
+            font-size: 0.8rem;
+            color: #a78bfa;
+            margin-top: 2px;
+        }
+
+        /* Pestañas de Filtro */
+        .board-filter-tabs {
+            display: inline-flex;
+            background: rgba(13, 5, 24, 0.7);
+            padding: 4px;
+            border-radius: 999px;
+            border: 1px solid rgba(199, 125, 255, 0.2);
+        }
+
+        .filter-tab-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            padding: 6px 14px;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .filter-tab-btn:hover {
+            color: #ffffff;
+        }
+
+        .filter-tab-btn.active {
+            background: linear-gradient(135deg, rgba(255, 209, 102, 0.2), rgba(255, 117, 143, 0.2));
+            color: #ffd166;
+            border: 1px solid rgba(255, 209, 102, 0.4);
+            box-shadow: 0 0 10px rgba(255, 209, 102, 0.2);
+        }
+
+        /* Barra para Agregar Nuevos Sueños */
+        .add-dream-bar {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 26px;
+        }
+
+        .add-dream-input {
+            flex: 1;
+            background: rgba(13, 5, 24, 0.7);
+            border: 1px solid rgba(199, 125, 255, 0.3);
+            border-radius: 18px;
+            padding: 14px 20px;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.25s ease;
+        }
+
+        .add-dream-input::placeholder {
+            color: #8b7ca8;
+        }
+
+        .add-dream-input:focus {
+            border-color: #ffd166;
+            background: rgba(13, 5, 24, 0.95);
+            box-shadow: 0 0 18px rgba(255, 209, 102, 0.25);
+        }
+
+        .add-dream-btn {
+            background: linear-gradient(135deg, #ffd166, #ff758f);
+            color: #0b0416;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            padding: 0 24px;
+            border: none;
+            border-radius: 18px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            white-space: nowrap;
+        }
+
+        .add-dream-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 117, 143, 0.4);
+        }
+
+        .add-dream-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Lista de Placas de Sueños */
+        .dreams-board-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        /* Cada Placa de Sueño */
+        .dream-plaque {
+            background: rgba(28, 14, 48, 0.55);
+            border: 1px solid rgba(199, 125, 255, 0.22);
+            border-radius: 20px;
+            padding: 18px 22px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            position: relative;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: hidden;
+        }
+
+        .dream-plaque:hover {
+            background: rgba(36, 18, 62, 0.8);
+            border-color: rgba(255, 209, 102, 0.45);
+            transform: translateX(4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Pin Dorado de Destino */
+        .plaque-pin {
+            width: 8px;
+            height: 8px;
+            background: #ffd166;
+            border-radius: 50%;
+            box-shadow: 0 0 6px #ffd166;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            opacity: 0.6;
+            transition: opacity 0.2s;
+        }
+
+        .dream-plaque:hover .plaque-pin {
+            opacity: 1;
+        }
+
+        /* Checkbox circular interactivo */
+        .plaque-checkbox {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid rgba(199, 125, 255, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: transparent;
+            transition: all 0.25s ease;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .dream-plaque:hover .plaque-checkbox {
+            border-color: #ffd166;
+        }
+
+        .plaque-checkbox svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Contenido del sueño */
+        .plaque-body {
+            flex: 1;
+            min-width: 0;
+            z-index: 2;
+        }
+
+        .plaque-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 3px;
+            line-height: 1.35;
+            transition: all 0.25s ease;
+        }
+
+        .plaque-desc {
+            font-size: 0.85rem;
+            color: #c4b5fd;
+            line-height: 1.4;
+            transition: color 0.25s ease;
+        }
+
+        /* Sello Dinámico "CUMPLIDO" */
+        .passport-stamp-badge {
+            display: none;
+            position: absolute;
+            right: 55px;
+            top: 50%;
+            transform: translateY(-50%) rotate(-10deg);
+            border: 2px solid #34d399;
+            color: #34d399;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 900;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: 8px;
+            background: rgba(6, 78, 59, 0.35);
+            box-shadow: 0 0 15px rgba(52, 211, 153, 0.35);
+            pointer-events: none;
+            z-index: 3;
+            animation: stampPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes stampPop {
+            0% { transform: translateY(-50%) rotate(-25deg) scale(2); opacity: 0; }
+            100% { transform: translateY(-50%) rotate(-10deg) scale(1); opacity: 1; }
+        }
+
+        /* Estado Cumplido */
+        .dream-plaque.completed {
+            background: rgba(16, 38, 30, 0.6);
+            border-color: rgba(52, 211, 153, 0.4);
+        }
+
+        .dream-plaque.completed .plaque-checkbox {
+            background: linear-gradient(135deg, #34d399, #059669);
+            border-color: #34d399;
+            color: #ffffff;
+            box-shadow: 0 0 14px rgba(52, 211, 153, 0.5);
+        }
+
+        .dream-plaque.completed .plaque-title {
+            text-decoration: line-through;
+            color: #94a3b8;
+        }
+
+        .dream-plaque.completed .plaque-desc {
+            color: #64748b;
+        }
+
+        .dream-plaque.completed .passport-stamp-badge {
+            display: block;
+        }
+
+        /* Botón Eliminar Placa */
+        .plaque-delete-btn {
+            background: transparent;
+            border: none;
+            color: #71717a;
+            padding: 6px;
+            border-radius: 8px;
+            cursor: pointer;
+            opacity: 0.4;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 4;
+        }
+
+        .dream-plaque:hover .plaque-delete-btn {
+            opacity: 1;
+        }
+
+        .plaque-delete-btn:hover {
+            color: #ef4444;
+            background: rgba(239, 68, 68, 0.15);
+        }
+
+        .plaque-delete-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Estado Vacío de Filtro */
+        .empty-filter-msg {
+            text-align: center;
+            padding: 40px 10px;
+            color: #94a3b8;
+            font-style: italic;
+            display: none;
+        }
+
+        /* Navegación Inferior Estándar */
+        .bottom-navigation {
+            margin-top: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .nav-btn-action {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(199, 125, 255, 0.3);
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-btn-action:hover {
+            background: linear-gradient(135deg, rgba(199, 125, 255, 0.3), rgba(255, 183, 3, 0.3));
+            border-color: #ffd166;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .nav-btn-action.next-chapter {
+            background: linear-gradient(135deg, #9d4edd, #ff758f);
+            border-color: transparent;
+        }
+
+        .nav-btn-action.next-chapter:hover {
+            box-shadow: 0 0 20px rgba(255, 117, 143, 0.5);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 700px) {
+            .chapter-navbar {
+                padding: 12px 16px;
+            }
+
+            .future-title {
+                font-size: 2.2rem;
+            }
+
+            .vision-board-frame {
+                padding: 24px 18px 20px;
+                border-radius: 20px;
+            }
+
+            .board-hud-panel {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .add-dream-bar {
+                flex-direction: column;
+            }
+
+            .add-dream-btn {
+                padding: 12px;
+                justify-content: center;
+            }
+
+            .passport-stamp-badge {
+                right: 42px;
+                font-size: 0.65rem;
+                padding: 3px 8px;
+            }
+
+            .bottom-navigation {
+                flex-direction: column;
+            }
+
+            .nav-btn-action {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+    <canvas id="hearts-canvas"></canvas>
+    <canvas id="confetti-canvas"></canvas>
+
+    <!-- Barra de Navegación -->
+    <nav class="chapter-navbar">
+        <a href="index.html" class="nav-back-btn">
+            <span>←</span> Volver al Índice
+        </a>
+        <span class="nav-chapter-badge">Capítulo VII · Nuestro Destino</span>
+    </nav>
+
+    <!-- Contenedor Principal -->
+    <main class="future-wrapper">
+
+        <!-- Cabecera del Capítulo -->
+        <header class="future-header">
+            <span class="future-pre">✦ SÉPTIMO CAPÍTULO · NUESTRO DESTINO ✦</span>
+            <h1 class="future-title">Nuestro Futuro Juntos</h1>
+            <p class="future-sub">
+                Los planes, sueños y promesas que construiremos tomados de la mano. Cada día que pasa es un día menos para vivirlos.
+            </p>
+        </header>
+
+        <!-- CUERPO: TABLERO DE DESTINO & SUEÑOS (VISION BOARD) -->
+        <section class="vision-board-frame">
+            
+            <!-- Esquinas Doradas -->
+            <div class="board-corner corner-tl"></div>
+            <div class="board-corner corner-tr"></div>
+            <div class="board-corner corner-bl"></div>
+            <div class="board-corner corner-br"></div>
+
+            <!-- HUD de Progreso y Filtros -->
+            <div class="board-hud-panel">
+                
+                <!-- Widget de Progreso Circular -->
+                <div class="progress-circle-widget">
+                    <div class="progress-ring-wrap">
+                        <svg class="progress-ring-svg">
+                            <defs>
+                                <linearGradient id="goldPinkGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#ffd166" />
+                                    <stop offset="100%" stop-color="#34d399" />
+                                </linearGradient>
+                            </defs>
+                            <circle class="progress-ring-bg" cx="29" cy="29" r="25" stroke-width="4" fill="transparent"/>
+                            <circle class="progress-ring-circle" id="progressRingCircle" cx="29" cy="29" r="25" stroke-width="4" fill="transparent"/>
+                        </svg>
+                        <span class="progress-ring-percent" id="progressPercent">0%</span>
+                    </div>
+                    <div class="progress-text-info">
+                        <span class="progress-title-label">Tablero de Sueños</span>
+                        <span class="progress-sub-count" id="progressCountLabel">0 de 6 cumplidos</span>
+                    </div>
+                </div>
+
+                <!-- Pestañas de Filtro -->
+                <div class="board-filter-tabs">
+                    <button type="button" class="filter-tab-btn active" onclick="setFilter('all')">Todos</button>
+                    <button type="button" class="filter-tab-btn" onclick="setFilter('pending')">Por Cumplir</button>
+                    <button type="button" class="filter-tab-btn" onclick="setFilter('completed')">Cumplidos</button>
+                </div>
+
+            </div>
+
+            <!-- Barra para Agregar un Nuevo Sueño -->
+            <form class="add-dream-bar" id="addDreamForm" onsubmit="handleAddDream(event)">
+                <input
+                    type="text"
+                    id="newDreamInput"
+                    class="add-dream-input"
+                    placeholder="Escribe un nuevo sueño o plan juntos..."
+                    autocomplete="off"
+                    maxlength="120"
+                    required
+                >
+                <button type="submit" class="add-dream-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                    <span>Agregar al Tablero</span>
+                </button>
+            </form>
+
+            <!-- Lista de Placas de Sueños -->
+            <div class="dreams-board-grid" id="dreamsGrid">
+                <!-- Se inyectan dinámicamente -->
+            </div>
+
+            <div class="empty-filter-msg" id="emptyFilterMsg">
+                No hay planes para mostrar en esta categoría.
+            </div>
+
+        </section>
+
+        <!-- Navegación Inferior entre Capítulos -->
+        <div class="bottom-navigation">
+            <a href="capitulo7.html" class="nav-btn-action">
+                <span>←</span> Volver al capítulo anterior
+            </a>
+            <a href="capitulo10.html" class="nav-btn-action next-chapter">
+                <span>Avanzar al siguiente capítulo</span> <span>→</span>
+            </a>
+        </div>
+
+    </main>
+
+    <script>
+        /* =========================================================
+           GESTIÓN DEL TABLERO DE SUEÑOS
+           ========================================================= */
+        const STORAGE_KEY = 'nuestra_historia_futuro_ideas';
+
+        const DEFAULT_DREAMS = [
+            {
+                id: 'dream-1',
+                title: 'Darnos nuestro primer abrazo eterno',
+                desc: 'Correr a abrazarte sin soltarte por minutos enteros',
+                completed: false
+            },
+            {
+                id: 'dream-2',
+                title: 'Caminar de la mano como nutrias',
+                desc: 'Presumirte ante todo el mundo tomados de la mano',
+                completed: false
+            },
+            {
+                id: 'dream-3',
+                title: 'Tarde de películas, mantita y comida rica',
+                desc: 'Helado, películas y mimitos hasta quedarnos dormidos',
+                completed: false
+            },
+            {
+                id: 'dream-4',
+                title: 'Ver un atardecer juntos frente al mar',
+                desc: 'El sonido de las olas y tú sonriendo a mi lado',
+                completed: false
+            },
+            {
+                id: 'dream-5',
+                title: 'Cocinar juntos y reírnos del caos',
+                desc: 'Poner música, bailar en la cocina y comer delicioso',
+                completed: false
+            },
+            {
+                id: 'dream-6',
+                title: 'Despertar a tu lado y saber que la distancia terminó',
+                desc: 'Ver tu carita dormida y saber que ya estamos juntos',
+                completed: false
+            }
+        ];
+
+        let dreams = [];
+        let currentFilter = 'all'; // 'all' | 'pending' | 'completed'
+
+        function loadDreams() {
+            try {
+                const saved = localStorage.getItem(STORAGE_KEY);
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    dreams = parsed.map(item => ({
+                        id: item.id || ('dream-' + Math.random()),
+                        title: item.title,
+                        desc: item.desc || item.subtitle || 'Plan de Iván & Andrea',
+                        completed: !!item.completed
+                    }));
+                } else {
+                    dreams = [...DEFAULT_DREAMS];
+                    saveDreams();
+                }
+            } catch (e) {
+                console.error(e);
+                dreams = [...DEFAULT_DREAMS];
+            }
+            renderBoard();
+        }
+
+        function saveDreams() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(dreams));
+        }
+
+        function setFilter(filter) {
+            currentFilter = filter;
+            document.querySelectorAll('.filter-tab-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('onclick').includes(filter));
+            });
+            renderBoard();
+        }
+
+        function renderBoard() {
+            const grid = document.getElementById('dreamsGrid');
+            const emptyMsg = document.getElementById('emptyFilterMsg');
+            const ringCircle = document.getElementById('progressRingCircle');
+            const percentLabel = document.getElementById('progressPercent');
+            const countLabel = document.getElementById('progressCountLabel');
+
+            grid.innerHTML = '';
+
+            const total = dreams.length;
+            const completedCount = dreams.filter(d => d.completed).length;
+
+            // Actualizar Progress Ring
+            const circumference = 2 * Math.PI * 25; // ~157.08
+            const pct = total > 0 ? Math.round((completedCount / total) * 100) : 0;
+            const offset = circumference - (pct / 100) * circumference;
+            ringCircle.style.strokeDashoffset = offset;
+            percentLabel.textContent = pct + '%';
+            countLabel.textContent = `${completedCount} de ${total} cumplidos`;
+
+            // Filtrar elementos
+            let filtered = dreams;
+            if (currentFilter === 'pending') {
+                filtered = dreams.filter(d => !d.completed);
+            } else if (currentFilter === 'completed') {
+                filtered = dreams.filter(d => d.completed);
+            }
+
+            if (filtered.length === 0) {
+                emptyMsg.style.display = 'block';
+            } else {
+                emptyMsg.style.display = 'none';
+            }
+
+            filtered.forEach(dream => {
+                const plaque = document.createElement('article');
+                plaque.className = 'dream-plaque' + (dream.completed ? ' completed' : '');
+                plaque.id = 'plaque-' + dream.id;
+
+                plaque.innerHTML = `
+                    <div class="plaque-pin"></div>
+                    <div class="plaque-checkbox" aria-label="Tachar o marcar plan">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </div>
+                    <div class="plaque-body">
+                        <div class="plaque-title">${escapeHTML(dream.title)}</div>
+                        <div class="plaque-desc">${escapeHTML(dream.desc)}</div>
+                    </div>
+                    <div class="passport-stamp-badge">CUMPLIDO</div>
+                    <button type="button" class="plaque-delete-btn" aria-label="Eliminar plan" onclick="handleDeleteDream(event, '${dream.id}')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                    </button>
+                `;
+
+                plaque.addEventListener('click', (e) => {
+                    if (e.target.closest('.plaque-delete-btn')) return;
+                    toggleDreamStatus(dream.id);
+                });
+
+                grid.appendChild(plaque);
+            });
+        }
+
+        function toggleDreamStatus(id) {
+            const dream = dreams.find(d => d.id === id);
+            if (!dream) return;
+
+            dream.completed = !dream.completed;
+            saveDreams();
+            renderBoard();
+
+            if (typeof window.unlockNextChapter === 'function') {
+                window.unlockNextChapter(8);
+            }
+
+            if (dream.completed) {
+                triggerConfetti();
+            }
+        }
+
+        function handleAddDream(e) {
+            e.preventDefault();
+            const input = document.getElementById('newDreamInput');
+            const text = input.value.trim();
+            if (!text) return;
+
+            const newDream = {
+                id: 'dream-' + Date.now(),
+                title: text,
+                desc: 'Agregado con amor a nuestro destino',
+                completed: false
+            };
+
+            dreams.unshift(newDream);
+            saveDreams();
+            renderBoard();
+            input.value = '';
+        }
+
+        function handleDeleteDream(e, id) {
+            e.stopPropagation();
+            dreams = dreams.filter(d => d.id !== id);
+            saveDreams();
+            renderBoard();
+        }
+
+        function escapeHTML(str) {
+            return str.replace(/[&<>'"]/g,
+                tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+            );
+        }
+
+        document.addEventListener('DOMContentLoaded', loadDreams);
+
+        /* =========================================================
+           CONFETI DE CELEBRACIÓN
+           ========================================================= */
+        const ccanvas = document.getElementById('confetti-canvas');
+        const cctx = ccanvas ? ccanvas.getContext('2d') : null;
+        let cWidth, cHeight, confettiPieces = [];
+
+        function resizeConfetti() {
+            if (!ccanvas) return;
+            cWidth = ccanvas.width = window.innerWidth;
+            cHeight = ccanvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeConfetti);
+        resizeConfetti();
+
+        function triggerConfetti() {
+            if (!cctx) return;
+            confettiPieces = [];
+            const colors = ['#ff758f', '#ffd166', '#c77dff', '#34d399', '#ffffff'];
+            for (let i = 0; i < 80; i++) {
+                confettiPieces.push({
+                    x: cWidth / 2,
+                    y: cHeight / 3,
+                    vx: (Math.random() - 0.5) * 15,
+                    vy: (Math.random() - 0.5) * 15 - 3,
+                    size: Math.random() * 8 + 4,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    rot: Math.random() * 360,
+                    rotSpeed: (Math.random() - 0.5) * 10,
+                    opacity: 1
+                });
+            }
+            animateConfetti();
+        }
+
+        function animateConfetti() {
+            if (confettiPieces.length === 0) return;
+            cctx.clearRect(0, 0, cWidth, cHeight);
+            for (let i = confettiPieces.length - 1; i >= 0; i--) {
+                const p = confettiPieces[i];
+                p.x += p.vx;
+                p.y += p.vy;
+                p.vy += 0.28;
+                p.rot += p.rotSpeed;
+                p.opacity -= 0.012;
+
+                if (p.opacity <= 0 || p.y > cHeight) {
+                    confettiPieces.splice(i, 1);
+                    continue;
+                }
+
+                cctx.save();
+                cctx.globalAlpha = p.opacity;
+                cctx.translate(p.x, p.y);
+                cctx.rotate(p.rot * Math.PI / 180);
+                cctx.fillStyle = p.color;
+                cctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+                cctx.restore();
+            }
+            if (confettiPieces.length > 0) {
+                requestAnimationFrame(animateConfetti);
+            } else {
+                cctx.clearRect(0, 0, cWidth, cHeight);
+            }
+        }
+
+        /* =========================================================
+           FONDO DE CORAZONES FLOTANTES
+           ========================================================= */
+        const canvas = document.getElementById('hearts-canvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            let width, height, hearts = [];
+            function resize() { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; }
+            window.addEventListener('resize', resize);
+            resize();
+            class Heart {
+                constructor() { this.reset(); }
+                reset() {
+                    this.x = Math.random() * width; this.y = height + Math.random() * 200;
+                    this.size = Math.random() * 3 + 1.5; this.speedY = Math.random() * 0.8 + 0.35;
+                    this.speedX = (Math.random() - 0.5) * 0.4; this.opacity = Math.random() * 0.45 + 0.15;
+                    this.color = Math.random() > 0.5 ? '#ff758f' : '#c77dff';
+                }
+                update() { this.y -= this.speedY; this.x += this.speedX; if (this.y < -30) this.reset(); }
+                draw() {
+                    ctx.save(); ctx.globalAlpha = this.opacity; ctx.fillStyle = this.color;
+                    ctx.beginPath();
+                    const topCurveHeight = this.size * 0.3;
+                    ctx.moveTo(this.x, this.y + topCurveHeight);
+                    ctx.bezierCurveTo(this.x, this.y, this.x - this.size, this.y, this.x - this.size, this.y + topCurveHeight);
+                    ctx.bezierCurveTo(this.x - this.size, this.y + (this.size + topCurveHeight) / 2, this.x, this.y + (this.size + topCurveHeight), this.x, this.y + this.size * 1.5);
+                    ctx.bezierCurveTo(this.x, this.y + (this.size + topCurveHeight), this.x + this.size, this.y + (this.size + topCurveHeight) / 2, this.x + this.size, this.y + topCurveHeight);
+                    ctx.bezierCurveTo(this.x + this.size, this.y, this.x, this.y, this.x, this.y + topCurveHeight);
+                    ctx.closePath(); ctx.fill(); ctx.restore();
+                }
+            }
+            for (let i = 0; i < 35; i++) hearts.push(new Heart());
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                for (let i = 0; i < hearts.length; i++) { hearts[i].update(); hearts[i].draw(); }
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
+
+    </script>
+    <script src="progress-tracker.js"></script>
+
+</body>
+
+</html>

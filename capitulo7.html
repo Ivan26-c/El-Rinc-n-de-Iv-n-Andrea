@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capítulo VI: Nuestra Playlist · Andrea & Iván</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700;800&family=Dancing+Script:wght@600;700&family=Caveat:wght@600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        body {
+            background-color: #0b0416 !important;
+            min-height: 100vh;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        #hearts-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Barra de Navegación Estándar */
+        .chapter-navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(13, 4, 25, 0.94);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(199, 125, 255, 0.25);
+            padding: 14px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.6);
+        }
+
+        .nav-back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--secondary-color, #c77dff);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.76rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-decoration: none;
+            text-transform: uppercase;
+            padding: 7px 18px;
+            border-radius: 20px;
+            background: rgba(199, 125, 255, 0.1);
+            border: 1px solid rgba(199, 125, 255, 0.3);
+            transition: all 0.25s ease;
+        }
+
+        .nav-back-btn:hover {
+            background: rgba(199, 125, 255, 0.25);
+            color: #ffffff;
+            transform: translateX(-3px);
+            box-shadow: 0 0 15px rgba(199, 125, 255, 0.4);
+        }
+
+        .nav-chapter-badge {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent, #ffd166);
+            text-transform: uppercase;
+            background: rgba(255, 183, 3, 0.12);
+            border: 1px solid rgba(255, 183, 3, 0.35);
+            padding: 5px 14px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .pulse-audio-dot {
+            width: 7px;
+            height: 7px;
+            background: #ffd166;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #ffd166;
+            animation: pulseDot 1.6s infinite ease-in-out;
+        }
+
+        @keyframes pulseDot {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.4); opacity: 0.5; }
+        }
+
+        /* Contenedor Principal de la Página */
+        .music-page-wrapper {
+            position: relative;
+            z-index: 10;
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 35px 20px 100px;
+        }
+
+        /* Cabecera Estándar del Capítulo */
+        .music-header-section {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .music-header-pre {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: #ffd166;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .music-header-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff 30%, #ffd166 70%, #ff758f 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0 0 14px 0;
+            letter-spacing: -0.5px;
+        }
+
+        .music-header-sub {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.05rem;
+            color: #e2d9f3;
+            max-width: 620px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* =========================================================
+           EL CUERPO: TARJETA DE INVITACIÓN BREVE A LA PLAYLIST
+           ========================================================= */
+        .invitation-container {
+            display: flex;
+            justify-content: center;
+            margin: 0 auto 40px;
+        }
+
+        .invitation-card {
+            width: 100%;
+            max-width: 650px;
+            background: rgba(22, 11, 38, 0.82);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 26px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 3rem 2.5rem 2.25rem;
+            position: relative;
+            box-shadow:
+                0 25px 60px -15px rgba(0, 0, 0, 0.7),
+                0 0 45px -10px rgba(168, 85, 247, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .invitation-card:hover {
+            box-shadow:
+                0 30px 70px -15px rgba(0, 0, 0, 0.8),
+                0 0 55px -5px rgba(212, 175, 55, 0.25),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        }
+
+        /* Sello Monograma I · A */
+        .seal-wrapper {
+            margin: 0 auto 1.25rem;
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .seal-disc {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 30%, #be123c 0%, #881337 50%, #4c0519 100%);
+            box-shadow:
+                0 8px 24px rgba(136, 19, 55, 0.5),
+                inset 0 2px 4px rgba(255, 255, 255, 0.35),
+                inset 0 -3px 6px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            border: 2px solid rgba(255, 209, 102, 0.45);
+        }
+
+        .seal-monogram {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #fef08a;
+            letter-spacing: 0.15em;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+            user-select: none;
+        }
+
+        .seal-ring {
+            position: absolute;
+            inset: -6px;
+            border-radius: 50%;
+            border: 1px dashed rgba(255, 209, 102, 0.35);
+            animation: spinSlow 30s linear infinite;
+        }
+
+        @keyframes spinSlow {
+            100% { transform: rotate(360deg); }
+        }
+
+        .to-badge {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: #ffd166;
+            font-weight: 700;
+            margin-bottom: 0.6rem;
+        }
+
+        .invitation-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.1rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.25rem;
+            background: linear-gradient(135deg, #ffffff 30%, #fef08a 70%, #d4af37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .invitation-body {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.02rem;
+            line-height: 1.75;
+            color: #e2d9f3;
+            margin-bottom: 1.5rem;
+            text-wrap: pretty;
+        }
+
+        .invitation-body p {
+            margin-bottom: 0.85rem;
+        }
+
+        .invitation-body strong {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .invitation-body em {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: #fef08a;
+        }
+
+        /* Waveform animado */
+        .wave-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            height: 20px;
+            margin: 1rem 0 1.5rem;
+        }
+
+        .wave-bar {
+            width: 3px;
+            background: linear-gradient(180deg, #ffd166 0%, transparent 100%);
+            border-radius: 9999px;
+            animation: pulseWave 1.4s ease-in-out infinite alternate;
+        }
+
+        .wave-bar:nth-child(1) { height: 7px; animation-delay: 0.1s; }
+        .wave-bar:nth-child(2) { height: 13px; animation-delay: 0.25s; }
+        .wave-bar:nth-child(3) { height: 20px; animation-delay: 0.4s; }
+        .wave-bar:nth-child(4) { height: 11px; animation-delay: 0.15s; }
+        .wave-bar:nth-child(5) { height: 18px; animation-delay: 0.35s; }
+        .wave-bar:nth-child(6) { height: 9px; animation-delay: 0.05s; }
+        .wave-bar:nth-child(7) { height: 15px; animation-delay: 0.3s; }
+
+        @keyframes pulseWave {
+            0% { transform: scaleY(0.4); opacity: 0.4; }
+            100% { transform: scaleY(1.1); opacity: 1; }
+        }
+
+        /* Acciones de Spotify */
+        .actions-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.85rem;
+            width: 100%;
+        }
+
+        .btn-spotify {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            background: #1ed760;
+            color: #000000;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            padding: 0.95rem 2.25rem;
+            border-radius: 9999px;
+            box-shadow: 0 10px 25px rgba(30, 215, 96, 0.35);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            width: 100%;
+            max-width: 380px;
+        }
+
+        .btn-spotify:hover {
+            background: #1fdf64;
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 14px 30px rgba(30, 215, 96, 0.45);
+        }
+
+        .btn-spotify:active {
+            transform: translateY(0) scale(0.99);
+        }
+
+        .btn-spotify svg {
+            width: 22px;
+            height: 22px;
+            flex-shrink: 0;
+        }
+
+        .btn-config {
+            background: transparent;
+            border: none;
+            color: #a78bfa;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.82rem;
+            cursor: pointer;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            padding: 0.35rem 0.75rem;
+            transition: color 0.2s ease;
+        }
+
+        .btn-config:hover {
+            color: #ffd166;
+        }
+
+        .footer-note {
+            margin-top: 1.25rem;
+            font-size: 0.85rem;
+            font-style: italic;
+            color: #c4b5fd;
+        }
+
+        /* Navegación Inferior Estándar */
+        .bottom-navigation {
+            margin-top: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .nav-btn-action {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(199, 125, 255, 0.3);
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-btn-action:hover {
+            background: linear-gradient(135deg, rgba(199, 125, 255, 0.3), rgba(255, 183, 3, 0.3));
+            border-color: #ffd166;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .nav-btn-action.next-chapter {
+            background: linear-gradient(135deg, #9d4edd, #ff758f);
+            border-color: transparent;
+        }
+
+        .nav-btn-action.next-chapter:hover {
+            box-shadow: 0 0 20px rgba(255, 117, 143, 0.5);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 640px) {
+            .chapter-navbar {
+                padding: 12px 16px;
+            }
+
+            .music-header-title {
+                font-size: 2.2rem;
+            }
+
+            .invitation-card {
+                padding: 2.25rem 1.5rem;
+                border-radius: 20px;
+            }
+
+            .invitation-title {
+                font-size: 1.75rem;
+            }
+
+            .bottom-navigation {
+                flex-direction: column;
+            }
+
+            .nav-btn-action {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+    <canvas id="hearts-canvas"></canvas>
+
+    <!-- Barra de Navegación -->
+    <nav class="chapter-navbar">
+        <a href="index.html" class="nav-back-btn">
+            <span>←</span> Volver al Índice
+        </a>
+        <span class="nav-chapter-badge">
+            <span class="pulse-audio-dot"></span> Capítulo VI · Nuestra Playlist
+        </span>
+    </nav>
+
+    <!-- Contenedor Principal de Música -->
+    <main class="music-page-wrapper">
+
+        <!-- Cabecera del Capítulo -->
+        <header class="music-header-section">
+            <span class="music-header-pre">✦ SEXTO CAPÍTULO · NUESTRA BANDA SONORA ✦</span>
+            <h1 class="music-header-title">Nuestra Playlist</h1>
+            <p class="music-header-sub">
+                Las melodías que le ponen latidos a lo que sentimos y los recuerdos que guardamos juntos.
+            </p>
+        </header>
+
+        <!-- EL CUERPO: Invitación Breve -->
+        <div class="invitation-container">
+            <article class="invitation-card">
+                
+                <!-- Sello Monograma I · A -->
+                <div class="seal-wrapper">
+                    <div class="seal-ring"></div>
+                    <div class="seal-disc">
+                        <span class="seal-monogram">I · A</span>
+                    </div>
+                </div>
+
+                <!-- Subtítulo -->
+                <div class="to-badge">Para Andrea, de Iván</div>
+
+                <!-- Título -->
+                <h2 class="invitation-title">Creemos Nuestra Banda Sonora</h2>
+
+                <!-- Texto Íntimo y Breve -->
+                <div class="invitation-body">
+                    <p>
+                        Tener una lista cualquiera de canciones no tiene gracia. Lo que de verdad quiero es que construyamos <strong>nuestra propia playlist</strong>: las canciones que nos recuerden al otro, las que cantemos en el camino y las que nos acompañen cuando nos extrañemos en la distancia.
+                    </p>
+                    <p>
+                        <em>Esta es mi invitación formal para que elijamos cada melodía juntos.</em>
+                    </p>
+                </div>
+
+                <!-- Divisor Onda Sonora -->
+                <div class="wave-divider" aria-hidden="true">
+                    <span class="wave-bar"></span>
+                    <span class="wave-bar"></span>
+                    <span class="wave-bar"></span>
+                    <span class="wave-bar"></span>
+                    <span class="wave-bar"></span>
+                    <span class="wave-bar"></span>
+                    <span class="wave-bar"></span>
+                </div>
+
+                <!-- Botones de Acción -->
+                <div class="actions-group">
+                    <a href="https://open.spotify.com" target="_blank" rel="noopener noreferrer" class="btn-spotify" id="spotifyLinkBtn">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.497 17.306c-.215.352-.676.463-1.028.248-2.82-1.722-6.37-2.112-10.55-1.157-.402.092-.801-.16-.893-.562-.092-.402.16-.801.562-.893 4.582-1.047 8.513-.604 11.66 1.336.353.215.464.676.249 1.028zm1.467-3.262c-.27.44-.848.578-1.288.308-3.228-1.984-8.15-2.558-11.968-1.4-1.498.455-.49-.168-.945-.66-.168-.492.455-.945.66-1.498 4.368-1.326 9.802-.686 13.493 1.583.44.27.578.848.308 1.288zm.126-3.41c-3.87-2.298-10.257-2.51-13.974-1.38-.593.18-1.222-.153-1.402-.746-.18-.593.153-1.222.746-1.402 4.274-1.298 11.32-1.05 15.777 1.597.533.316.707 1.004.39 1.537-.315.532-1.004.706-1.537.394z"/>
+                        </svg>
+                        <span>Abrir Nuestra Playlist en Spotify</span>
+                    </a>
+                    <button type="button" class="btn-config" id="configUrlBtn">
+                        Personalizar enlace de la playlist
+                    </button>
+                </div>
+
+                <p class="footer-note">
+                    “Cada canción que agreguemos será un recuerdo más que guardaremos para siempre.”
+                </p>
+
+            </article>
+        </div>
+
+        <!-- Navegación Inferior entre Capítulos -->
+        <div class="bottom-navigation">
+            <a href="capitulo6.html" class="nav-btn-action">
+                <span>←</span> Volver al capítulo anterior
+            </a>
+            <a href="capitulo9.html" class="nav-btn-action next-chapter">
+                <span>Avanzar al siguiente capítulo</span> <span>→</span>
+            </a>
+        </div>
+
+    </main>
+
+    <script>
+        // Spotify URL Management
+        const STORAGE_KEY = 'nuestra_historia_spotify_url';
+        const spotifyBtn = document.getElementById('spotifyLinkBtn');
+        const configBtn = document.getElementById('configUrlBtn');
+
+        function loadSavedUrl() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved && saved.trim()) {
+                spotifyBtn.href = saved.trim();
+            }
+        }
+
+        // Desbloqueo del Cuarto Dígito (9) al hacer clic en abrir Spotify
+        if (spotifyBtn) {
+            spotifyBtn.addEventListener('click', () => {
+                if (typeof window.unlockClueDigit === 'function') {
+                    window.unlockClueDigit(4, '9', 'Capítulo VI: Nuestra Playlist', '¡Abriste nuestra playlist de Spotify! El cuarto y último dígito del candado final es el 9.');
+                }
+            });
+        }
+
+        configBtn.addEventListener('click', () => {
+            const current = localStorage.getItem(STORAGE_KEY) || spotifyBtn.href;
+            const entered = prompt('Pega aquí el enlace de la playlist colaborativa de Spotify:', current);
+            if (entered !== null) {
+                const clean = entered.trim();
+                if (clean) {
+                    localStorage.setItem(STORAGE_KEY, clean);
+                    spotifyBtn.href = clean;
+                }
+            }
+        });
+
+        loadSavedUrl();
+
+        // Hearts canvas background
+        const canvas = document.getElementById('hearts-canvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            let width, height, hearts = [];
+            function resize() { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; }
+            window.addEventListener('resize', resize);
+            resize();
+            class Heart {
+                constructor() { this.reset(); }
+                reset() {
+                    this.x = Math.random() * width; this.y = height + Math.random() * 200;
+                    this.size = Math.random() * 3 + 1.5; this.speedY = Math.random() * 0.8 + 0.35;
+                    this.speedX = (Math.random() - 0.5) * 0.4; this.opacity = Math.random() * 0.45 + 0.15;
+                    this.color = Math.random() > 0.5 ? '#ff758f' : '#c77dff';
+                }
+                update() { this.y -= this.speedY; this.x += this.speedX; if (this.y < -30) this.reset(); }
+                draw() {
+                    ctx.save(); ctx.globalAlpha = this.opacity; ctx.fillStyle = this.color;
+                    ctx.beginPath();
+                    const topCurveHeight = this.size * 0.3;
+                    ctx.moveTo(this.x, this.y + topCurveHeight);
+                    ctx.bezierCurveTo(this.x, this.y, this.x - this.size, this.y, this.x - this.size, this.y + topCurveHeight);
+                    ctx.bezierCurveTo(this.x - this.size, this.y + (this.size + topCurveHeight) / 2, this.x, this.y + (this.size + topCurveHeight), this.x, this.y + this.size * 1.5);
+                    ctx.bezierCurveTo(this.x, this.y + (this.size + topCurveHeight), this.x + this.size, this.y + (this.size + topCurveHeight) / 2, this.x + this.size, this.y + topCurveHeight);
+                    ctx.bezierCurveTo(this.x + this.size, this.y, this.x, this.y, this.x, this.y + topCurveHeight);
+                    ctx.closePath(); ctx.fill(); ctx.restore();
+                }
+            }
+            for (let i = 0; i < 35; i++) hearts.push(new Heart());
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                for (let i = 0; i < hearts.length; i++) { hearts[i].update(); hearts[i].draw(); }
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
+
+    </script>
+    <script src="progress-tracker.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestra Historia • Iván & Andrea</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        window.scrollTo(0, 0);
+        if (window.location.hash) {
+            history.replaceState(null, '', window.location.pathname);
+        }
+    </script>
+</head>
+
+<body>
+    <!-- =========================================================
+         0. ANIMACIÓN DE APERTURA: 7 FOTOS RASGADAS (PORTADA NUEVA)
+         ========================================================= -->
+    <div id="intro-curtain" class="intro-curtain" title="Haz clic para continuar">
+        <div class="torn-collage-stage">
+
+            <!-- Pieza 1: Superior Izquierda (Minecraft & Anime) -->
+            <div class="torn-piece piece-1" id="piece-1">
+                <div class="piece-img-box"><img src="assets/portada/1.png" alt="Nosotros Dibujo 1"></div>
+            </div>
+
+            <!-- Pieza 2: Superior Derecha (Crayon & Anime Marco) -->
+            <div class="torn-piece piece-2" id="piece-2">
+                <div class="piece-img-box"><img src="assets/portada/2.png" alt="Nosotros Dibujo 2"></div>
+            </div>
+
+            <!-- Pieza 3: Inferior Izquierda (Simpsons & GTA) -->
+            <div class="torn-piece piece-3" id="piece-3">
+                <div class="piece-img-box"><img src="assets/portada/3.png" alt="Nosotros Dibujo 3"></div>
+            </div>
+
+            <!-- Pieza 6: Inferior Derecha (Videollamada Vertical) -->
+            <div class="torn-piece piece-6" id="piece-6">
+                <div class="piece-img-box"><img src="assets/portada/6.jpg" alt="Videollamada"></div>
+            </div>
+
+            <!-- Pieza 7: Inferior Centro-Derecha (Foto Bigote Vertical) -->
+            <div class="torn-piece piece-7" id="piece-7">
+                <div class="piece-img-box"><img src="assets/portada/7.jpg" alt="Momento Juntos"></div>
+            </div>
+
+            <!-- Pieza 5: Medio Izquierda (Bigote Divertido Vertical) -->
+            <div class="torn-piece piece-5" id="piece-5">
+                <div class="piece-img-box"><img src="assets/portada/5.jpg" alt="Momento Divertido"></div>
+            </div>
+
+            <!-- Pieza 4: Centro Principal (Gorritos & Abrazos - Sin texto encima) -->
+            <div class="torn-piece piece-4" id="piece-4">
+                <div class="piece-img-box"><img src="assets/portada/4.jpg" alt="Nuestra Foto"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Animated Hearts Background -->
+    <canvas id="hearts-canvas"
+        style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none;"></canvas>
+
+    <!-- Inventario de Pistas -->
+    <div id="clue-inventory" class="clue-inventory hidden">
+        <span>Pistas encontradas:</span>
+        <div class="clue-slots">
+            <span class="slot" id="slot-1">_</span>
+            <span class="slot" id="slot-2">_</span>
+            <span class="slot" id="slot-3">_</span>
+            <span class="slot" id="slot-4">_</span>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         SECCIÓN 1: PORTADA ORIGINAL (HERO)
+         ========================================================= -->
+    <section class="hero" id="inicio">
+        <!-- Constelación Géminis (Iván - 26 de Mayo) -->
+        <div class="constellation constellation-left">
+            <svg viewBox="0 0 150 250" class="star-map">
+                <polyline points="45,30 55,60 70,110 50,170 30,210" fill="none" class="constellation-line" />
+                <polyline points="70,110 100,160 120,200" fill="none" class="constellation-line" />
+                <polyline points="15,90 35,80 55,60" fill="none" class="constellation-line" />
+                <polyline points="95,25 105,55 120,105 135,150 115,195" fill="none" class="constellation-line" />
+                <polyline points="105,55 135,75" fill="none" class="constellation-line" />
+                <line x1="55" y1="60" x2="105" y2="55" class="constellation-line" />
+                <line x1="70" y1="110" x2="120" y2="105" class="constellation-line" />
+                <circle cx="45" cy="30" r="3" class="star-node glow" />
+                <circle cx="95" cy="25" r="3" class="star-node glow" />
+                <circle cx="55" cy="60" r="2" class="star-node" />
+                <circle cx="105" cy="55" r="2" class="star-node" />
+                <circle cx="70" cy="110" r="2" class="star-node" />
+                <circle cx="120" cy="105" r="2" class="star-node" />
+                <circle cx="15" cy="90" r="2" class="star-node" />
+                <circle cx="35" cy="80" r="2" class="star-node" />
+                <circle cx="135" cy="75" r="2" class="star-node" />
+                <circle cx="50" cy="170" r="2" class="star-node" />
+                <circle cx="30" cy="210" r="2.5" class="star-node" />
+                <circle cx="100" cy="160" r="2" class="star-node" />
+                <circle cx="120" cy="200" r="2.5" class="star-node" />
+                <circle cx="135" cy="150" r="2" class="star-node" />
+                <circle cx="115" cy="195" r="2.5" class="star-node" />
+            </svg>
+            <div class="constellation-date">26 de Mayo</div>
+        </div>
+
+        <!-- Constelación Capricornio (Andrea - 24 de Diciembre) -->
+        <div class="constellation constellation-right">
+            <svg viewBox="0 0 150 250" class="star-map">
+                <polyline
+                    points="20,155 50,130 70,110 120,65 130,105 125,135 115,175 90,205 60,210 40,205 25,185 20,155"
+                    fill="none" class="constellation-line" />
+                <polyline points="125,40 115,45 120,65" fill="none" class="constellation-line" />
+                <line x1="20" y1="155" x2="10" y2="165" class="constellation-line" />
+                <circle cx="120" cy="65" r="3.5" class="star-node glow" />
+                <circle cx="20" cy="155" r="3" class="star-node glow" />
+                <circle cx="125" cy="40" r="1.5" class="star-node" />
+                <circle cx="115" cy="45" r="1.5" class="star-node" />
+                <circle cx="130" cy="105" r="2" class="star-node" />
+                <circle cx="125" cy="135" r="2" class="star-node" />
+                <circle cx="115" cy="175" r="2.5" class="star-node" />
+                <circle cx="90" cy="205" r="2" class="star-node" />
+                <circle cx="60" cy="210" r="2" class="star-node" />
+                <circle cx="40" cy="205" r="2" class="star-node" />
+                <circle cx="25" cy="185" r="2" class="star-node" />
+                <circle cx="50" cy="130" r="2" class="star-node" />
+                <circle cx="70" cy="110" r="2.5" class="star-node" />
+                <circle cx="10" cy="165" r="2" class="star-node glow" />
+            </svg>
+            <div class="constellation-date">24 de Diciembre</div>
+        </div>
+
+        <div class="hero-content">
+            <div class="premium-monogram">
+                <div class="monogram-ring">
+                    <span class="star top-star">✦</span>
+                    <div class="monogram-center">
+                        <img src="assets/i.png" alt="I" class="letter-img letter-i">
+                        <div class="beating-heart-wrapper">
+                            <img src="assets/corazon.png" alt="Corazón" class="heart-img">
+                        </div>
+                        <img src="assets/A.png" alt="A" class="letter-img letter-a">
+                    </div>
+                    <span class="star bottom-star">✦</span>
+                </div>
+                <div class="monogram-subtitle">PARA SIEMPRE</div>
+                <div class="monogram-divider">
+                    <span class="line"></span>
+                    <svg id="tiny-heart" viewBox="0 0 100 100" class="tiny-heart-svg">
+                        <path d="M50,85 C20,55 10,35 15,20 C20,5 40,5 50,20 C60,5 80,5 85,20 C90,35 80,55 50,85 Z"
+                            fill="none" stroke="#c77dff" stroke-width="6" />
+                    </svg>
+                    <span class="line"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="scroll-indicator" id="unlock-trigger" style="cursor: pointer;">
+            <span>✧ Clickea aqui mi Amor ✧</span>
+            <div class="arrow">↓</div>
+        </div>
+    </section>
+
+    <!-- =========================================================
+         CONTENIDO DESBLOQUEABLE
+         ========================================================= -->
+    <div id="locked-content" class="hidden">
+
+        <!-- =========================================================
+             SECCIÓN: SOBRE NOSOTROS (3 COLUMNAS COMPACTAS)
+             ========================================================= -->
+        <section class="about-us-section" id="tiempo">
+
+            <header class="section-main-header">
+                <span class="header-pretitle">SOBRE NOSOTROS</span>
+                <div class="header-underline"></div>
+            </header>
+
+            <div class="about-cards-container">
+
+                <!-- =====================================================
+                     TARJETA 1: DESDE QUE NOS CONOCIMOS
+                     ===================================================== -->
+                <div class="about-card part-time">
+                    <div class="card-header">
+                        <h3 class="card-title">DESDE QUE NOS CONOCIMOS</h3>
+                        <p class="card-subtitle">26 de Febrero de 2026 · 22:54 hrs</p>
+                    </div>
+
+                    <div class="time-capsules-grid">
+                        <div class="time-capsule">
+                            <span class="capsule-num" id="radar-days">00</span>
+                            <span class="capsule-label">DÍAS</span>
+                        </div>
+                        <div class="time-capsule">
+                            <span class="capsule-num" id="radar-hours">00</span>
+                            <span class="capsule-label">HORAS</span>
+                        </div>
+                        <div class="time-capsule">
+                            <span class="capsule-num" id="radar-minutes">00</span>
+                            <span class="capsule-label">MINUTOS</span>
+                        </div>
+                        <div class="time-capsule highlight-capsule">
+                            <span class="capsule-num" id="radar-seconds">00</span>
+                            <span class="capsule-label">SEGUNDOS</span>
+                        </div>
+                    </div>
+
+                    <p class="card-footer-quote">"Y cada segundo transcurrido hace que te ame más."</p>
+                </div>
+
+                <!-- =====================================================
+                     TARJETA 2: CUADRO MISTERIOSO (???)
+                     ===================================================== -->
+                <div class="about-card mystery-card" id="mystery-card">
+                    <div class="card-header">
+                        <h3 class="card-title" id="mystery-card-title">???</h3>
+                        <p class="card-subtitle" id="mystery-card-subtitle">???</p>
+                    </div>
+
+                    <!-- Estado Inicial Misterioso (Sin pistas de tiempo ni novios) -->
+                    <div class="mystery-display-wrap" id="mystery-display-wrap">
+                        <div class="mystery-lock-icon">
+                            <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                            </svg>
+                        </div>
+                        <span class="mystery-big-code" id="mystery-code-val">???</span>
+                    </div>
+
+                    <!-- Contador Oficial Desbloqueable (Aparece tras decir SÍ) -->
+                    <div class="time-capsules-grid hidden" id="official-time-grid">
+                        <div class="time-capsule">
+                            <span class="capsule-num" id="novios-days">00</span>
+                            <span class="capsule-label">DÍAS</span>
+                        </div>
+                        <div class="time-capsule">
+                            <span class="capsule-num" id="novios-hours">00</span>
+                            <span class="capsule-label">HORAS</span>
+                        </div>
+                        <div class="time-capsule">
+                            <span class="capsule-num" id="novios-minutes">00</span>
+                            <span class="capsule-label">MINUTOS</span>
+                        </div>
+                        <div class="time-capsule highlight-capsule">
+                            <span class="capsule-num" id="novios-seconds">00</span>
+                            <span class="capsule-label">SEGUNDOS</span>
+                        </div>
+                    </div>
+
+                    <p class="card-footer-quote" id="mystery-footer-quote">???</p>
+                </div>
+
+                <!-- =====================================================
+                     TARJETA 3: NUESTRA DISTANCIA
+                     ===================================================== -->
+                <div class="about-card part-distance">
+                    <div class="card-header">
+                        <h3 class="card-title">NUESTRA DISTANCIA</h3>
+                        <p class="card-subtitle">Bajo las Mismas Estrellas</p>
+                    </div>
+
+                    <div class="tracker-nodes-row">
+                        <!-- Nodo Iván -->
+                        <div class="celestial-node">
+                            <div class="node-ring">
+                                <span class="node-initial">I</span>
+                            </div>
+                            <span class="node-name">Iván</span>
+                            <span class="node-sign">Géminis · 26 Mayo</span>
+                        </div>
+
+                        <!-- Puente Cósmico de Unión -->
+                        <div class="celestial-bridge">
+                            <div class="bridge-line"></div>
+                            <div class="bridge-center">
+                                <div class="bridge-heart-pulse">
+                                    <svg class="bridge-heart-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <path
+                                            d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                                    </svg>
+                                </div>
+                                <span class="bridge-tag">0 CM EN EL CORAZÓN</span>
+                            </div>
+                            <div class="bridge-line"></div>
+                        </div>
+
+                        <!-- Nodo Andrea -->
+                        <div class="celestial-node">
+                            <div class="node-ring">
+                                <span class="node-initial">A</span>
+                            </div>
+                            <span class="node-name">Andrea</span>
+                            <span class="node-sign">Capricornio · 24 Dic</span>
+                        </div>
+                    </div>
+
+                    <div class="distance-statement-box">
+                        <p class="statement-main">Nos separan <span class="km-highlight" id="physical-distance">???
+                                km</span> de distancia física,</p>
+                        <p class="statement-emphasis">pero no existe distancia para lo que sentimos.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+
+
+        <section class="chapters-timeline-section" id="capitulos">
+
+            <!-- Arte Ambiental de Fondo: Flores, Corazones, Mariposas y Huellitas Dibujadas a Mano -->
+            <div class="timeline-ambient-bg-art">
+
+                <!-- Arte 1: Tulipán Botánico & Corazón Floreciente (Zona Capítulos I - II Izquierda) -->
+                <div class="bg-giant-art art-pos-1">
+                    <svg viewBox="-40 -40 480 480" class="giant-sketch-svg" overflow="visible">
+                        <defs>
+                            <linearGradient id="artGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#ff758f" stop-opacity="0.85" />
+                                <stop offset="50%" stop-color="#ffd166" stop-opacity="0.75" />
+                                <stop offset="100%" stop-color="#c77dff" stop-opacity="0.4" />
+                            </linearGradient>
+                            <filter id="artGlow1" x="-20%" y="-20%" width="140%" height="140%">
+                                <feGaussianBlur stdDeviation="8" result="blur" />
+                                <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                            </filter>
+                        </defs>
+                        <!-- Corazón con tallo botánico -->
+                        <path
+                            d="M200 350 C90 260 25 180 50 95 C70 30 155 30 200 105 C245 30 330 30 350 95 C375 180 310 260 200 350 Z"
+                            fill="none" stroke="url(#artGrad1)" stroke-width="4.5" stroke-linecap="round"
+                            filter="url(#artGlow1)" />
+                        <!-- Tallo de tulipán saliendo del corazón -->
+                        <path d="M200 350 Q230 220 180 140 Q150 90 190 40" fill="none" stroke="#ffd166" stroke-width="3"
+                            stroke-linecap="round" />
+                        <!-- Capullo de tulipán -->
+                        <path d="M190 40 C170 20 165 -10 190 -25 C215 -10 210 20 190 40 Z"
+                            fill="rgba(255, 117, 143, 0.15)" stroke="#ff758f" stroke-width="3" />
+                        <path d="M190 -25 Q190 10 190 40" stroke="#ff758f" stroke-width="2" />
+                        <!-- Hojas botánicas -->
+                        <path d="M215 250 Q260 220 280 190 Q240 205 210 235" fill="rgba(255, 209, 102, 0.15)"
+                            stroke="#ffd166" stroke-width="2.5" />
+                        <path d="M185 180 Q130 150 110 120 Q150 135 180 165" fill="rgba(199, 125, 255, 0.15)"
+                            stroke="#c77dff" stroke-width="2.5" />
+                        <!-- Destellos -->
+                        <path d="M70 60 L76 72 L88 78 L76 84 L70 96 L64 84 L52 78 L64 72 Z" fill="#ffd166"
+                            opacity="0.6" />
+                    </svg>
+                </div>
+
+                <!-- Arte 2: Flor Silvestre & Pétalos Flotantes (Zona Capítulos III - IV Derecha) -->
+                <div class="bg-giant-art art-pos-2">
+                    <svg viewBox="-40 -40 480 480" class="giant-sketch-svg" overflow="visible">
+                        <defs>
+                            <linearGradient id="artGrad2" x1="0%" y1="100%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#ffd166" stop-opacity="0.85" />
+                                <stop offset="50%" stop-color="#ff758f" stop-opacity="0.75" />
+                                <stop offset="100%" stop-color="#9d4edd" stop-opacity="0.4" />
+                            </linearGradient>
+                            <filter id="artGlow2" x="-20%" y="-20%" width="140%" height="140%">
+                                <feGaussianBlur stdDeviation="9" result="blur" />
+                                <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                            </filter>
+                        </defs>
+                        <!-- Centro de la flor -->
+                        <circle cx="200" cy="180" r="28" fill="rgba(255, 209, 102, 0.12)" stroke="#ffd166"
+                            stroke-width="4" filter="url(#artGlow2)" />
+                        <!-- Pétalos elegantes dibujados a mano -->
+                        <path d="M200 152 C180 90 220 90 200 152 Z" fill="none" stroke="url(#artGrad2)"
+                            stroke-width="3.5" transform="rotate(0 200 180)" />
+                        <path d="M200 152 C180 90 220 90 200 152 Z" fill="none" stroke="url(#artGrad2)"
+                            stroke-width="3.5" transform="rotate(72 200 180)" />
+                        <path d="M200 152 C180 90 220 90 200 152 Z" fill="none" stroke="url(#artGrad2)"
+                            stroke-width="3.5" transform="rotate(144 200 180)" />
+                        <path d="M200 152 C180 90 220 90 200 152 Z" fill="none" stroke="url(#artGrad2)"
+                            stroke-width="3.5" transform="rotate(216 200 180)" />
+                        <path d="M200 152 C180 90 220 90 200 152 Z" fill="none" stroke="url(#artGrad2)"
+                            stroke-width="3.5" transform="rotate(288 200 180)" />
+                        <!-- Tallo curvado y hojas -->
+                        <path d="M200 208 Q190 320 240 390" fill="none" stroke="#ff758f" stroke-width="3.5"
+                            stroke-linecap="round" />
+                        <path d="M205 280 Q260 260 270 220 Q230 250 205 280" fill="rgba(255, 117, 143, 0.15)"
+                            stroke="#ff758f" stroke-width="2.5" />
+                        <!-- Pétalos flotantes cayendo -->
+                        <path d="M310 120 C295 95 325 95 310 120" stroke="#ffd166" stroke-width="2.5"
+                            transform="rotate(25 310 120)" />
+                        <path d="M340 180 C325 160 350 160 340 180" stroke="#ff758f" stroke-width="2.5"
+                            transform="rotate(-15 340 180)" />
+                        <path d="M280 70 L286 82 L298 88 L286 94 L280 106 L274 94 L262 88 L274 82 Z" fill="#ffd166"
+                            opacity="0.8" />
+                    </svg>
+                </div>
+
+                <!-- Arte 3: Mariposa Cósmica & Huellitas de Nutria (Zona Capítulos V - VI Izquierda) -->
+                <div class="bg-giant-art art-pos-3">
+                    <svg viewBox="-40 -40 480 480" class="giant-sketch-svg" overflow="visible">
+                        <defs>
+                            <linearGradient id="artGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#c77dff" stop-opacity="0.9" />
+                                <stop offset="100%" stop-color="#ff758f" stop-opacity="0.65" />
+                            </linearGradient>
+                        </defs>
+                        <!-- Cuerpo y alas de mariposa en forma de corazones -->
+                        <path d="M200 160 L200 240" stroke="#ffd166" stroke-width="4" stroke-linecap="round" />
+                        <!-- Antenas -->
+                        <path d="M200 160 Q175 120 165 125 M200 160 Q225 120 235 125" stroke="#ffd166"
+                            stroke-width="2.5" stroke-linecap="round" />
+                        <!-- Alas superiores estilo corazón -->
+                        <path d="M200 170 C140 80 50 110 90 200 C130 250 190 200 200 190"
+                            fill="rgba(199, 125, 255, 0.08)" stroke="url(#artGrad3)" stroke-width="3.8" />
+                        <path d="M200 170 C260 80 350 110 310 200 C270 250 210 200 200 190"
+                            fill="rgba(255, 117, 143, 0.08)" stroke="url(#artGrad3)" stroke-width="3.8" />
+                        <!-- Alas inferiores -->
+                        <path d="M200 190 C150 210 110 290 170 300 C200 300 195 240 200 230" fill="none"
+                            stroke="url(#artGrad3)" stroke-width="3" />
+                        <path d="M200 190 C250 210 290 290 230 300 C200 300 205 240 200 230" fill="none"
+                            stroke="url(#artGrad3)" stroke-width="3" />
+                        <!-- Huellita de nutria tierna al lado -->
+                        <g transform="translate(60, 290) rotate(-15)">
+                            <ellipse cx="25" cy="30" rx="14" ry="11" fill="none" stroke="#ffd166" stroke-width="2.5" />
+                            <circle cx="10" cy="12" r="4.5" fill="#ffd166" />
+                            <circle cx="21" cy="7" r="4.5" fill="#ffd166" />
+                            <circle cx="32" cy="8" r="4.5" fill="#ffd166" />
+                            <circle cx="41" cy="15" r="4.5" fill="#ffd166" />
+                        </g>
+                    </svg>
+                </div>
+
+                <!-- Arte 4: Constelación de Corazones (Zona Capítulos VII - VIII Derecha) -->
+                <div class="bg-giant-art art-pos-4">
+                    <svg viewBox="-40 -40 480 480" class="giant-sketch-svg" overflow="visible">
+                        <defs>
+                            <linearGradient id="artGrad4" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#ffd166" stop-opacity="0.9" />
+                                <stop offset="100%" stop-color="#ff758f" stop-opacity="0.6" />
+                            </linearGradient>
+                        </defs>
+                        <!-- Pequeñas líneas de constelación -->
+                        <polyline points="60,180 120,120 200,160 280,100 360,150" fill="none" stroke="#c77dff"
+                            stroke-width="2" stroke-dasharray="6,6" opacity="0.6" />
+                        <!-- Estrellas nodos -->
+                        <circle cx="60" cy="180" r="4" fill="#ffd166" />
+                        <circle cx="120" cy="120" r="5" fill="#ff758f" />
+                        <circle cx="200" cy="160" r="4" fill="#ffd166" />
+                        <circle cx="280" cy="100" r="6" fill="#ffd166" />
+                        <circle cx="360" cy="150" r="4" fill="#ff758f" />
+                        <!-- Corazón suspendido -->
+                        <path d="M280 100 C250 40 180 70 200 120 C220 160 280 200 280 210" fill="none"
+                            stroke="url(#artGrad4)" stroke-width="3" stroke-linecap="round" />
+                    </svg>
+                </div>
+
+                <!-- Arte 5: Ramo Floreciente del Final (Zona Capítulos IX - X Izquierda) -->
+                <div class="bg-giant-art art-pos-5">
+                    <svg viewBox="-40 -40 480 480" class="giant-sketch-svg" overflow="visible">
+                        <defs>
+                            <linearGradient id="artGrad5" x1="0%" y1="100%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#ff758f" stop-opacity="0.95" />
+                                <stop offset="50%" stop-color="#c77dff" stop-opacity="0.8" />
+                                <stop offset="100%" stop-color="#ffd166" stop-opacity="0.75" />
+                            </linearGradient>
+                        </defs>
+                        <!-- Tallos entrelazados -->
+                        <path d="M160 380 Q200 240 170 120 Q150 60 200 20" fill="none" stroke="url(#artGrad5)"
+                            stroke-width="4" stroke-linecap="round" />
+                        <path d="M220 390 Q180 260 240 160 Q270 110 240 50" fill="none" stroke="#ffd166"
+                            stroke-width="3" stroke-linecap="round" opacity="0.85" />
+                        <!-- Flor principal abierta -->
+                        <circle cx="200" cy="20" r="16" fill="rgba(255, 117, 143, 0.2)" stroke="#ff758f"
+                            stroke-width="3" />
+                        <path d="M200 4 C175 -25 225 -25 200 4 Z" fill="rgba(255, 209, 102, 0.3)" stroke="#ffd166"
+                            stroke-width="2.5" />
+                        <path d="M184 20 C155 0 165 40 184 20 Z" fill="rgba(255, 117, 143, 0.3)" stroke="#ff758f"
+                            stroke-width="2.5" />
+                        <path d="M216 20 C245 0 235 40 216 20 Z" fill="rgba(199, 125, 255, 0.3)" stroke="#c77dff"
+                            stroke-width="2.5" />
+                        <!-- Hojas grandes elegantes -->
+                        <path d="M180 280 Q100 250 80 190 Q130 200 175 255" fill="rgba(255, 117, 143, 0.12)"
+                            stroke="#ff758f" stroke-width="3" />
+                        <path d="M200 220 Q290 190 320 130 Q260 150 205 200" fill="rgba(255, 209, 102, 0.12)"
+                            stroke="#ffd166" stroke-width="3" />
+                        <path d="M120 100 L126 112 L138 118 L126 124 L120 136 L114 124 L102 118 L114 112 Z"
+                            fill="#ffd166" opacity="0.7" />
+                    </svg>
+                </div>
+
+            </div>
+
+            <!-- Cabecera de Sección -->
+            <header class="timeline-main-header">
+                <span class="timeline-pretitle">✦ UN ESPACIO SOLO NUESTRO ✦</span>
+                <h2 class="timeline-title">El Rincón de Iván & Andrea</h2>
+                <div class="timeline-header-line"></div>
+                <p class="timeline-subtitle">Cartas, música, recuerdos y desafíos guardados en un lugar creado con todo
+                    mi corazón para ti.</p>
+            </header>
+
+            <!-- Barra HUD de Progreso Progresivo -->
+            <div class="timeline-hud-progress">
+                <div class="hud-progress-info">
+                    <span class="hud-progress-label">✦ PROGRESO DEL VIAJE ✦</span>
+                    <span class="hud-progress-count" id="timelineProgressCount">1 de 8 Capítulos Revelados</span>
+                </div>
+                <div class="hud-progress-bar-track">
+                    <div class="hud-progress-bar-fill" id="timelineProgressBarFill" style="width: 12.5%;"></div>
+                </div>
+                <div class="hud-dev-controls">
+                    <button type="button" class="hud-dev-btn" id="btnResetProgression"
+                        title="Reiniciar progreso al Capítulo 1">
+                        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                            <path d="M3 3v5h5" />
+                        </svg>
+                        <span>Reiniciar a Cap. 1</span>
+                    </button>
+                    <button type="button" class="hud-dev-btn" id="btnRevealAllChapters"
+                        title="Revelar todos los capítulos para previsualizar">
+                        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polygon
+                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                        </svg>
+                        <span>Revelar Todo</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Contenedor Central de la Línea de Tiempo -->
+            <div class="timeline-flow-container" id="timelineFlowContainer">
+
+                <!-- Línea Guía Central con Gradiente y Resplandor -->
+                <div class="timeline-spine-track"></div>
+
+                <!-- FILA 1: CAPÍTULO I -->
+                <div class="timeline-row row-left" data-chapter="1">
+                    <div class="timeline-side-content">
+                        <a href="capitulo1.html" class="timeline-card" id="timeline-card-1" data-chapter-id="1">
+                            <div class="timeline-card-badge">CAPÍTULO I · EL COMIENZO</div>
+                            <h3 class="timeline-card-title">Desde que te conocí</h3>
+                            <p class="timeline-card-desc">El instante en que todo cambió y cómo iluminaste mi vida desde
+                                el primer día.</p>
+                            <div class="timeline-card-footer">
+                                <span class="timeline-status">✦ Disponible</span>
+                                <span class="timeline-action">Leer Capítulo →</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="timeline-node" id="timeline-node-1">
+                        <span class="node-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                            </svg>
+                        </span>
+                        <span class="node-num">I</span>
+                        <div class="node-pulse-ring"></div>
+                    </div>
+
+                    <div class="timeline-side-scrapbook">
+                        <div class="scrapbook-polaroid rotate-right" id="polaroid-1">
+                            <div class="tape-strip"></div>
+                            <div class="polaroid-photo-wrapper">
+                                <img src="assets/timeline/cap1_comienzo.jpg" alt="Desde que te conocí" class="polaroid-photo">
+                                <div class="polaroid-lock-overlay">
+                                    <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="polaroid-caption">
+                                <span class="polaroid-handwriting">«El inicio de lo mejor de mi vida»</span>
+                                <span class="polaroid-tag">26 Feb 2026</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FILA 2: CAPÍTULO II -->
+                <div class="timeline-row row-right" data-chapter="2">
+                    <div class="timeline-side-scrapbook">
+                        <div class="scrapbook-polaroid rotate-left" id="polaroid-2">
+                            <div class="tape-strip"></div>
+                            <div class="polaroid-photo-wrapper">
+                                <img src="assets/timeline/cap2_confesion.jpg" alt="Razones por las que te amo" class="polaroid-photo">
+                                <div class="polaroid-lock-overlay">
+                                    <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="polaroid-caption">
+                                <span class="polaroid-handwriting">«Una flor para la niña de mis ojos»</span>
+                                <span class="polaroid-tag">Para Andrea</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-node" id="timeline-node-2">
+                        <span class="node-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                </path>
+                            </svg>
+                        </span>
+                        <span class="node-num">II</span>
+                        <div class="node-pulse-ring"></div>
+                    </div>
+
+                    <div class="timeline-side-content">
+                        <a href="capitulo2.html" class="timeline-card" id="timeline-card-2" data-chapter-id="2">
+                            <div class="timeline-card-badge">CAPÍTULO II · CONFESIÓN</div>
+                            <h3 class="timeline-card-title">Razones por las que te amo</h3>
+                            <p class="timeline-card-desc">Muchísimas razones que me hacen enamorarme de ti un poquito
+                                más a cada instante.</p>
+                            <div class="timeline-card-footer">
+                                <span class="timeline-status">✦ Disponible</span>
+                                <span class="timeline-action">Descubrir →</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- FILA 3: CAPÍTULO III -->
+                <div class="timeline-row row-left" data-chapter="3">
+                    <div class="timeline-side-content">
+                        <a href="capitulo3.html" class="timeline-card" id="timeline-card-3" data-chapter-id="3">
+                            <div class="timeline-card-badge">CAPÍTULO III · MEMORIAS</div>
+                            <h3 class="timeline-card-title">Nuestros Álbumes de Recuerdos</h3>
+                            <p class="timeline-card-desc">Fotografías, anécdotas y detalles que guardo como tesoros en
+                                el alma.</p>
+                            <div class="timeline-card-footer">
+                                <span class="timeline-status">✦ Disponible</span>
+                                <span class="timeline-action">Ver Álbumes →</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="timeline-node" id="timeline-node-3">
+                        <span class="node-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z">
+                                </path>
+                                <circle cx="12" cy="13" r="4"></circle>
+                            </svg>
+                        </span>
+                        <span class="node-num">III</span>
+                        <div class="node-pulse-ring"></div>
+                    </div>
+
+                    <div class="timeline-side-scrapbook">
+                        <div class="scrapbook-polaroid rotate-right" id="polaroid-3">
+                            <div class="tape-strip"></div>
+                            <div class="polaroid-photo-wrapper">
+                                <img src="assets/timeline/cap3_memorias.jpg" alt="Nuestros Álbumes de Recuerdos" class="polaroid-photo">
+                                <div class="polaroid-lock-overlay">
+                                    <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="polaroid-caption">
+                                <span class="polaroid-handwriting">«Cada instante a tu lado cuenta doble»</span>
+                                <span class="polaroid-tag">Álbum de Recuerdos</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FILA 4: CAPÍTULO IV -->
+                <div class="timeline-row row-right" data-chapter="4">
+                    <div class="timeline-side-scrapbook">
+                        <div class="scrapbook-polaroid rotate-left" id="polaroid-4">
+                            <div class="tape-strip"></div>
+                            <div class="polaroid-photo-wrapper">
+                                <img src="assets/timeline/cap4_cartas.jpg" alt="Cartas Para Cuando..." class="polaroid-photo">
+                                <div class="polaroid-lock-overlay">
+                                    <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="polaroid-caption">
+                                <span class="polaroid-handwriting">«Palabras selladas para cuando me extrañes»</span>
+                                <span class="polaroid-tag">Cartas de Amor</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-node" id="timeline-node-4">
+                        <span class="node-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
+                                </path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                        </span>
+                        <span class="node-num">IV</span>
+                        <div class="node-pulse-ring"></div>
+                    </div>
+
+                    <div class="timeline-side-content">
+                        <a href="capitulo5.html" class="timeline-card" id="timeline-card-4" data-chapter-id="4">
+                            <div class="timeline-card-badge">CAPÍTULO IV · REFUGIO</div>
+                            <h3 class="timeline-card-title">Cartas Para Cuando...</h3>
+                            <p class="timeline-card-desc">Para cuando estés triste, no puedas dormir o simplemente
+                                necesites un abrazo a la distancia.</p>
+                            <div class="timeline-card-footer">
+                                <span class="timeline-status">✦ Disponible</span>
+                                <span class="timeline-action">Abrir Sobres →</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- FILA 5: CAPÍTULO V -->
+                <div class="timeline-row row-left" data-chapter="5">
+                    <div class="timeline-side-content">
+                        <a href="capitulo6.html" class="timeline-card" id="timeline-card-5" data-chapter-id="5">
+                            <div class="timeline-card-badge">CAPÍTULO V · EL DESAFÍO</div>
+                            <h3 class="timeline-card-title">El Desafío de Iván</h3>
+                            <p class="timeline-card-desc">Trivia arcade de pareja para poner a prueba cuánto nos
+                                conocemos y nuestra telepatía.</p>
+                            <div class="timeline-card-footer">
+                                <span class="timeline-status">✦ Interactivo</span>
+                                <span class="timeline-action">Jugar Desafío →</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="timeline-node" id="timeline-node-5">
+                        <span class="node-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="6" width="20" height="12" rx="2"></rect>
+                                <circle cx="8" cy="12" r="2"></circle>
+                                <path d="M15 9v6M12 12h6"></path>
+                            </svg>
+                        </span>
+                        <span class="node-num">V</span>
+                        <div class="node-pulse-ring"></div>
+                    </div>
+
+                    <div class="timeline-side-scrapbook">
+                        <div class="scrapbook-polaroid rotate-right" id="polaroid-5">
+                            <div class="tape-strip"></div>
+                            <div class="polaroid-photo-wrapper">
+                                <img src="assets/timeline/cap5_desafio.jpg" alt="El Desafío de Iván" class="polaroid-photo">
+                                <div class="polaroid-lock-overlay">
+                                    <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="polaroid-caption">
+                                <span class="polaroid-handwriting">«Descubriendo qué tanto nos conocemos»</span>
+                                <span class="polaroid-tag">El Desafío Arcade</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FILA 6: CAPÍTULO VI -->
+                <div class="timeline-row row-right" data-chapter="6">
+                    <div class="timeline-side-scrapbook">
+                        <div class="scrapbook-polaroid rotate-left" id="polaroid-6">
+                            <div class="tape-strip"></div>
+                            <div class="polaroid-photo-wrapper">
+                                <img src="assets/timeline/cap6_playlist.jpg" alt="Nuestra Playlist" class="polaroid-photo">
+                                <div class="polaroid-lock-overlay">
+                                    <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="polaroid-caption">
+                                <span class="polaroid-handwriting">«Nuestra sintonía en cada canción»</span>
+                                <span class="polaroid-tag">Nuestra Frecuencia</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-node" id="timeline-node-6">
+                        <span class="node-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <circle cx="12" cy="12" r="3"></circle>
+                                <path d="M12 2a10 10 0 0 1 10 10"></path>
+                            </svg>
+                        </span>
+                        <span class="node-num">VI</span>
+                        <div class="node-pulse-ring"></div>
+                    </div>
+
+                    <div class="timeline-side-content">
+                        <a href="capitulo7.html" class="timeline-card" id="timeline-card-6" data-chapter-id="6">
+                            <div class="timeline-card-badge">CAPÍTULO VI · NUESTRA PLAYLIST</div>
+                            <h3 class="timeline-card-title">Nuestra Playlist</h3>
+                            <p class="timeline-card-desc">Una invitación íntima para construir nuestra banda sonora
+                                juntos en Spotify.</p>
+                            <div class="timeline-card-footer">
+                                <span class="timeline-status">✦ Invitación</span>
+                                <span class="timeline-action">Abrir →</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- FILA 7: CAPÍTULO VII -->
+                <div class="timeline-row row-left" data-chapter="7">
+                    <div class="timeline-side-content">
+                        <a href="capitulo9.html" class="timeline-card" id="timeline-card-7" data-chapter-id="7">
+                            <div class="timeline-card-badge">CAPÍTULO VII · SUEÑOS</div>
+                            <h3 class="timeline-card-title">Nuestro Futuro Juntos</h3>
+                            <p class="timeline-card-desc">Tablero de visiones, metas por cumplir y los viajes que nos
+                                esperan.</p>
+                            <div class="timeline-card-footer">
+                                <span class="timeline-status">✦ Disponible</span>
+                                <span class="timeline-action">Soñar →</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="timeline-node" id="timeline-node-7">
+                        <span class="node-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="12 2 19 21 12 17 5 21 12 2"></polygon>
+                            </svg>
+                        </span>
+                        <span class="node-num">VII</span>
+                        <div class="node-pulse-ring"></div>
+                    </div>
+
+                    <div class="timeline-side-scrapbook">
+                        <div class="scrapbook-polaroid rotate-right" id="polaroid-7">
+                            <div class="tape-strip"></div>
+                            <div class="polaroid-photo-wrapper">
+                                <img src="assets/timeline/cap7_suenos.jpg" alt="Nuestro Futuro Juntos" class="polaroid-photo">
+                                <div class="polaroid-lock-overlay">
+                                    <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="polaroid-caption">
+                                <span class="polaroid-handwriting">«No hay kilómetros que venzan nuestro amor»</span>
+                                <span class="polaroid-tag">Viajes &amp; Sueños</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FILA 8: CAPÍTULO VIII · EL JURAMENTO FINAL -->
+                <div class="timeline-row row-right" data-chapter="8">
+                    <div class="timeline-side-scrapbook">
+                        <div class="scrapbook-polaroid rotate-left" id="polaroid-8">
+                            <div class="tape-strip"></div>
+                            <div class="polaroid-photo-wrapper">
+                                <img src="assets/timeline/cap8_juramento.jpg" alt="El Juramento Final" class="polaroid-photo">
+                                <div class="polaroid-lock-overlay">
+                                    <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="polaroid-caption">
+                                <span class="polaroid-handwriting">«Con todo mi amor, por siempre Iván»</span>
+                                <span class="polaroid-tag">El Gran Juramento</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-node" id="timeline-node-8">
+                        <span class="node-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                            </svg>
+                        </span>
+                        <span class="node-num">VIII</span>
+                        <div class="node-pulse-ring"></div>
+                    </div>
+
+                    <div class="timeline-side-content">
+                        <a href="capitulo10.html" class="timeline-card" id="timeline-card-8" data-chapter-id="8">
+                            <div class="timeline-card-badge">CAPÍTULO VIII · EL JURAMENTO</div>
+                            <h3 class="timeline-card-title">Un Mensaje Final & La Gran Pregunta</h3>
+                            <p class="timeline-card-desc">Una carta íntima custodiada por un candado secreto que guarda
+                                la pregunta más importante.</p>
+                            <div class="timeline-card-footer">
+                                <span class="timeline-status">✦ Carta</span>
+                                <span class="timeline-action">Leer Carta →</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Toast Flotante de Bloqueo -->
+            <div class="timeline-lock-toast" id="timelineLockToast">
+                <div class="toast-lock-icon">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                </div>
+                <div class="toast-msg" id="timelineToastMsg">Debes leer el capítulo anterior para revelar este misterio.
+                </div>
+            </div>
+        </section>
+
+    </div> <!-- Fin del locked-content -->
+
+
+    <!-- =========================================================
+             FOOTER ELEGANTE
+             ========================================================= -->
+    <footer class="romantic-footer">
+        <div class="footer-container">
+            <p class="footer-quote">"De entre todos los universos posibles, coincidir contigo es mi mayor fortuna."</p>
+            <div class="footer-brand">
+                <span>Hecho con todo mi corazón por Iván para Andrea</span>
+                <span class="footer-heart">♥</span>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>

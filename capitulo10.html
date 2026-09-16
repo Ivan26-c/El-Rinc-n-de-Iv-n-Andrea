@@ -1,0 +1,1627 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capítulo VIII: El Juramento Final · Andrea & Iván</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700;800;900&family=Dancing+Script:wght@600;700&family=Caveat:wght@600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        body {
+            background-color: #090314 !important;
+            min-height: 100vh;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        #hearts-canvas,
+        #confetti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+        }
+
+        #hearts-canvas {
+            z-index: 1;
+        }
+
+        #confetti-canvas {
+            z-index: 500;
+        }
+
+        /* Barra de Navegación Estándar */
+        .chapter-navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(14, 5, 26, 0.94);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-bottom: 1px solid rgba(199, 125, 255, 0.25);
+            padding: 14px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.6);
+        }
+
+        .nav-back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--secondary-color, #c77dff);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.76rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-decoration: none;
+            text-transform: uppercase;
+            padding: 7px 18px;
+            border-radius: 20px;
+            background: rgba(199, 125, 255, 0.1);
+            border: 1px solid rgba(199, 125, 255, 0.3);
+            transition: all 0.25s ease;
+        }
+
+        .nav-back-btn:hover {
+            background: rgba(199, 125, 255, 0.25);
+            color: #ffffff;
+            transform: translateX(-3px);
+            box-shadow: 0 0 15px rgba(199, 125, 255, 0.4);
+        }
+
+        .nav-chapter-badge {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent, #ffd166);
+            text-transform: uppercase;
+            background: rgba(255, 183, 3, 0.12);
+            border: 1px solid rgba(255, 183, 3, 0.35);
+            padding: 5px 14px;
+            border-radius: 12px;
+        }
+
+        /* Contenedor Principal */
+        .final-page-wrapper {
+            position: relative;
+            z-index: 10;
+            max-width: 820px;
+            margin: 40px auto 90px auto;
+            padding: 0 20px;
+        }
+
+        /* Cabecera del Capítulo */
+        .final-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .final-pretitle {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 3px;
+            color: var(--accent, #ffd166);
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 10px;
+            text-shadow: 0 0 12px rgba(255, 183, 3, 0.5);
+        }
+
+        .final-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 0 0 12px 0;
+            text-shadow: 0 4px 25px rgba(199, 125, 255, 0.45);
+        }
+
+        .final-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.98rem;
+            color: #d8b4fe;
+            margin: 0 auto;
+            max-width: 580px;
+            line-height: 1.6;
+        }
+
+        /* =========================================================
+           1. CARTA PEQUEÑA ÍNTIMA
+           ========================================================= */
+        .intimate-letter-card {
+            background: linear-gradient(145deg, rgba(28, 12, 48, 0.85), rgba(16, 6, 30, 0.92));
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 209, 102, 0.3);
+            border-radius: 24px;
+            padding: 38px 36px 32px 36px;
+            box-shadow:
+                0 20px 50px rgba(0, 0, 0, 0.7),
+                0 0 30px rgba(199, 125, 255, 0.15),
+                inset 0 1px 1px rgba(255, 255, 255, 0.15);
+            position: relative;
+            margin-bottom: 45px;
+        }
+
+        /* Esquinas de adorno */
+        .card-corner {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            border-color: rgba(255, 209, 102, 0.7);
+            border-style: solid;
+            pointer-events: none;
+        }
+
+        .corner-tl {
+            top: 12px;
+            left: 12px;
+            border-width: 2px 0 0 2px;
+        }
+
+        .corner-tr {
+            top: 12px;
+            right: 12px;
+            border-width: 2px 2px 0 0;
+        }
+
+        .corner-bl {
+            bottom: 12px;
+            left: 12px;
+            border-width: 0 0 2px 2px;
+        }
+
+        .corner-br {
+            bottom: 12px;
+            right: 12px;
+            border-width: 0 2px 2px 0;
+        }
+
+        .letter-quote-opener {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.25rem;
+            color: #ffd166;
+            text-align: center;
+            margin-bottom: 22px;
+            line-height: 1.5;
+            text-shadow: 0 0 12px rgba(255, 209, 102, 0.3);
+        }
+
+        .letter-content p {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.02rem;
+            line-height: 1.8;
+            color: #f3e8ff;
+            margin: 0 0 18px 0;
+            text-align: justify;
+        }
+
+        .letter-signature-row {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px dashed rgba(255, 209, 102, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .wax-seal-mini {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #c9184a, #800f2f);
+            border: 2px solid #ffd166;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #fff0f3;
+            box-shadow: 0 4px 15px rgba(201, 24, 74, 0.5);
+            flex-shrink: 0;
+        }
+
+        .sig-text .sig-quote {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #ffd166;
+            text-transform: uppercase;
+            display: block;
+        }
+
+        .sig-text .sig-author {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.1rem;
+            color: #ff758f;
+            line-height: 1.1;
+        }
+
+        /* =========================================================
+           2. SECCIÓN DEL CANDADO INTERACTIVO
+           ========================================================= */
+        .padlock-vault-section {
+            background: linear-gradient(180deg, rgba(20, 8, 36, 0.9), rgba(11, 4, 20, 0.96));
+            border: 2px solid rgba(199, 125, 255, 0.35);
+            border-radius: 26px;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            box-shadow:
+                0 25px 60px rgba(0, 0, 0, 0.8),
+                0 0 35px rgba(199, 125, 255, 0.2);
+            transition: all 0.5s ease;
+        }
+
+        .padlock-vault-section.unlocked-vault {
+            display: none;
+        }
+
+        .padlock-header {
+            margin-bottom: 25px;
+        }
+
+        .padlock-badge {
+            display: inline-block;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 2.5px;
+            color: #ffd166;
+            text-transform: uppercase;
+            background: rgba(255, 209, 102, 0.12);
+            border: 1px solid rgba(255, 209, 102, 0.3);
+            padding: 4px 14px;
+            border-radius: 20px;
+            margin-bottom: 8px;
+        }
+
+        .padlock-instruction {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 0 0 8px 0;
+        }
+
+        .padlock-subinstruction {
+            font-size: 0.9rem;
+            color: #d8b4fe;
+            margin: 0;
+        }
+
+        /* Candado Metálico 3D SVG */
+        .padlock-svg-wrap {
+            width: 130px;
+            height: 160px;
+            margin: 0 auto 25px auto;
+            position: relative;
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.6));
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .padlock-svg-wrap:hover {
+            transform: scale(1.04);
+        }
+
+        /* Animación de Bloqueo / Sacudida */
+        .padlock-svg-wrap.shake-error {
+            animation: lockShake 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+        }
+
+        @keyframes lockShake {
+
+            10%,
+            90% {
+                transform: translate3d(-4px, 0, 0) rotate(-2deg);
+                filter: drop-shadow(0 0 15px rgba(239, 68, 68, 0.8));
+            }
+
+            20%,
+            80% {
+                transform: translate3d(6px, 0, 0) rotate(3deg);
+            }
+
+            30%,
+            50%,
+            70% {
+                transform: translate3d(-6px, 0, 0) rotate(-3deg);
+            }
+
+            40%,
+            60% {
+                transform: translate3d(6px, 0, 0) rotate(2deg);
+            }
+        }
+
+        /* Grillete Móvil */
+        #padlock-shackle {
+            transform-origin: 25px 50px;
+            transition: transform 0.65s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .shackle-opened {
+            transform: translateY(-16px) rotate(-30deg);
+        }
+
+        /* Tambores / Ruedas de Dígitos */
+        .digit-tumblers-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            margin-bottom: 25px;
+        }
+
+        .tumbler-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tumbler-arrow-btn {
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(199, 125, 255, 0.3);
+            color: #d8b4fe;
+            width: 38px;
+            height: 28px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .tumbler-arrow-btn:hover {
+            background: rgba(199, 125, 255, 0.25);
+            color: #ffd166;
+            border-color: #ffd166;
+            transform: scale(1.08);
+        }
+
+        .tumbler-arrow-btn svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .tumbler-box {
+            width: 58px;
+            height: 68px;
+            background: linear-gradient(180deg, #241138 0%, #150824 100%);
+            border: 2px solid rgba(255, 209, 102, 0.45);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow:
+                inset 0 2px 6px rgba(0, 0, 0, 0.8),
+                0 0 15px rgba(255, 209, 102, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tumbler-box::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .tumbler-digit-input {
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 800;
+            text-align: center;
+            outline: none;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        /* Botón Abrir Candado */
+        .btn-unlock-action {
+            background: linear-gradient(135deg, #ffd166 0%, #ff758f 100%);
+            color: #0b0314;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.92rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border: none;
+            padding: 15px 36px;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 0 25px rgba(255, 209, 102, 0.5);
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-unlock-action:hover {
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 0 35px rgba(255, 209, 102, 0.8);
+        }
+
+        .vault-feedback-msg {
+            margin-top: 15px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            min-height: 22px;
+            transition: opacity 0.3s ease;
+        }
+
+        .vault-feedback-msg.error {
+            color: #f87171;
+        }
+
+        .vault-feedback-msg.success {
+            color: #34d399;
+        }
+
+        /* =========================================================
+           3. PORTAL DE LA CÁMARA WEB EN VIVO (LA GRAN PROPUESTA)
+           ========================================================= */
+        .live-proposal-portal {
+            display: none;
+            background: linear-gradient(145deg, rgba(28, 9, 46, 0.94), rgba(12, 4, 22, 0.98));
+            border: 2px solid var(--accent, #ffd166);
+            border-radius: 28px;
+            padding: 45px 30px 40px 30px;
+            text-align: center;
+            position: relative;
+            box-shadow:
+                0 25px 70px rgba(0, 0, 0, 0.9),
+                0 0 45px rgba(255, 117, 143, 0.4);
+            animation: portalUnveil 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes portalUnveil {
+            0% {
+                opacity: 0;
+                transform: scale(0.92) translateY(30px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .proposal-lead-badge {
+            display: inline-block;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 900;
+            letter-spacing: 3px;
+            color: #ffd166;
+            text-transform: uppercase;
+            background: rgba(255, 209, 102, 0.15);
+            border: 1px solid rgba(255, 209, 102, 0.4);
+            padding: 6px 18px;
+            border-radius: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 0 15px rgba(255, 209, 102, 0.3);
+        }
+
+        .proposal-lead-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.6rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 0 0 10px 0;
+            text-shadow: 0 0 25px rgba(255, 117, 143, 0.6);
+        }
+
+        .proposal-live-instruction {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.05rem;
+            color: #f3e8ff;
+            margin: 0 auto 28px auto;
+            max-width: 520px;
+            line-height: 1.5;
+        }
+
+        /* Etapa 1: Espera con Avatar Pulsante y Barra Suave */
+        .speech-waiting-stage {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 20px;
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        .speech-pulsing-avatar {
+            position: relative;
+            width: 130px;
+            height: 130px;
+            margin-bottom: 24px;
+        }
+
+        .speech-otters-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ffd166;
+            box-shadow: 0 0 30px rgba(255, 209, 102, 0.45);
+            position: relative;
+            z-index: 2;
+        }
+
+        .heart-pulse-halo {
+            position: absolute;
+            top: -12px;
+            left: -12px;
+            right: -12px;
+            bottom: -12px;
+            border-radius: 50%;
+            border: 2px solid #ff758f;
+            animation: haloPulse 2s infinite ease-in-out;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes haloPulse {
+            0% {
+                transform: scale(0.92);
+                opacity: 0.8;
+                box-shadow: 0 0 10px rgba(255, 117, 143, 0.4);
+            }
+
+            50% {
+                transform: scale(1.15);
+                opacity: 0.25;
+                box-shadow: 0 0 30px rgba(255, 117, 143, 0.7);
+            }
+
+            100% {
+                transform: scale(0.92);
+                opacity: 0.8;
+                box-shadow: 0 0 10px rgba(255, 117, 143, 0.4);
+            }
+        }
+
+        .speech-live-instruction {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.25rem;
+            color: #ffd166;
+            margin: 0 0 25px 0;
+            text-align: center;
+            text-shadow: 0 0 15px rgba(255, 209, 102, 0.4);
+        }
+
+        .speech-timer-bar-wrap {
+            width: 220px;
+            height: 4px;
+            background: rgba(255, 209, 102, 0.15);
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .speech-timer-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #ffd166, #ff758f);
+            border-radius: 4px;
+            box-shadow: 0 0 8px rgba(255, 117, 143, 0.7);
+        }
+
+        /* Etapa 2: Gran Pregunta y Botones Sí / No */
+        .proposal-question-stage {
+            padding: 20px 10px;
+            animation: proposalPopIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes proposalPopIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.88) translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .proposal-big-question {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 0 0 35px 0;
+            text-align: center;
+            text-shadow: 0 0 30px rgba(255, 117, 143, 0.7), 0 4px 15px rgba(0, 0, 0, 0.8);
+            line-height: 1.2;
+        }
+
+        .proposal-buttons-playground {
+            position: relative;
+            min-height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 32px;
+            margin-top: 15px;
+        }
+
+        .btn-proposal-accept {
+            background: linear-gradient(135deg, #ff4d6d 0%, #ffb703 100%);
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border: none;
+            padding: 16px 46px;
+            border-radius: 35px;
+            cursor: pointer;
+            box-shadow: 0 0 30px rgba(255, 77, 109, 0.8), 0 6px 20px rgba(0, 0, 0, 0.4);
+            transition: all 0.25s ease;
+            z-index: 2;
+        }
+
+        .btn-proposal-accept:hover {
+            transform: scale(1.1) translateY(-2px);
+            box-shadow: 0 0 45px rgba(255, 183, 3, 0.95);
+        }
+
+        .btn-proposal-runaway {
+            background: rgba(255, 255, 255, 0.08);
+            color: #cbd5e1;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            padding: 15px 38px;
+            border-radius: 35px;
+            cursor: pointer;
+            transition: transform 0.18s cubic-bezier(0.2, 0, 0.1, 1), background 0.2s ease, border-color 0.2s ease;
+            position: relative;
+            user-select: none;
+            z-index: 5;
+            white-space: nowrap;
+        }
+
+
+        /* Panel de Celebración Triunfal */
+        .celebration-triumph-card {
+            display: none;
+            margin-top: 35px;
+            padding-top: 30px;
+            border-top: 1px dashed rgba(255, 209, 102, 0.4);
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        .celebration-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            color: #ffd166;
+            margin: 0 0 10px 0;
+            text-shadow: 0 0 20px rgba(255, 209, 102, 0.6);
+        }
+
+        .celebration-desc {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.25rem;
+            color: #ffffff;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto 25px auto;
+        }
+
+        .celebration-date-badge {
+            display: inline-block;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #34d399;
+            background: rgba(52, 211, 153, 0.15);
+            border: 1px solid rgba(52, 211, 153, 0.4);
+            padding: 8px 20px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+        }
+
+        /* Navegación Inferior Estándar */
+        .bottom-navigation {
+            margin-top: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .nav-btn-action {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(199, 125, 255, 0.3);
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-btn-action:hover {
+            background: linear-gradient(135deg, rgba(199, 125, 255, 0.3), rgba(255, 183, 3, 0.3));
+            border-color: #ffd166;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        @media (max-width: 700px) {
+            .chapter-navbar {
+                padding: 12px 16px;
+            }
+
+            .final-title {
+                font-size: 2.2rem;
+            }
+
+            .intimate-letter-card {
+                padding: 26px 20px 22px 20px;
+            }
+
+            .padlock-vault-section {
+                padding: 30px 18px;
+            }
+
+            .tumbler-box {
+                width: 50px;
+                height: 60px;
+            }
+
+            .tumbler-digit-input {
+                font-size: 1.9rem;
+            }
+
+            .camera-mirror-frame {
+                height: 280px;
+            }
+
+            .proposal-lead-title {
+                font-size: 2rem;
+            }
+
+            .btn-proposal-accept {
+                width: 100%;
+                font-size: 0.95rem;
+            }
+
+            .bottom-navigation {
+                flex-direction: column;
+            }
+
+            .nav-btn-action {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+    <canvas id="hearts-canvas"></canvas>
+    <canvas id="confetti-canvas"></canvas>
+
+    <!-- Barra de Navegación -->
+    <nav class="chapter-navbar">
+        <a href="index.html" class="nav-back-btn">
+            <span>←</span> Volver al Índice
+        </a>
+        <span class="nav-chapter-badge">Capítulo VIII · Final</span>
+    </nav>
+
+    <main class="final-page-wrapper">
+
+        <!-- Encabezado -->
+        <header class="final-header">
+            <span class="final-pretitle">✦ CAPÍTULO VIII · EL JURAMENTO ✦</span>
+            <h1 class="final-title">Un Mensaje Final</h1>
+            <p class="final-subtitle">
+                Todo lo que mi corazón guarda para ti, en una sola promesa escrita bajo las estrellas...
+            </p>
+        </header>
+
+        <!-- =========================================================
+             1. CARTA PEQUEÑA ÍNTIMA
+             ========================================================= -->
+        <article class="intimate-letter-card" id="intimateLetterCard">
+            <div class="card-corner corner-tl"></div>
+            <div class="card-corner corner-tr"></div>
+            <div class="card-corner corner-bl"></div>
+            <div class="card-corner corner-br"></div>
+
+            <div class="letter-quote-opener">
+                Antes de terminar ❤️
+            </div>
+
+            <div class="letter-content">
+                <p>
+                    <strong>Bueno, amor...</strong>
+                </p>
+                <p>
+                    Si llegaste hasta aquí, significa que ya viste todo lo que preparé para ti.
+                </p>
+                <p>
+                    Pasaste por nuestro pequeño libro, viste algunas de las razones por las que te amo, nuestro futuro
+                    álbum de fotos, las cartas para cuando necesites un poquito de mí, los juegos, nuestra música y
+                    hasta esas metas que espero que algún día podamos ir cumpliendo juntos.
+                </p>
+                <p>
+                    Hice todo esto porque quería darte algo diferente. Algo que no fuera simplemente un regalo que abres
+                    y ya, sino algo que pudieras recorrer, descubrir poco a poco, algo que actualice de nuestra relación
+                    y que tuviera un pedacito de nosotros en cada parte.
+                </p>
+                <p>
+                    No sé si quedó perfecto, pero sí sé que hice cada cosa pensando en ti y poniendo todo el cariño que
+                    pude.
+                </p>
+                <p>
+                    Espero que te haya gustado. Que alguna parte te haya hecho sonreír, que otra te haya dado ternura.
+                </p>
+                <p>
+                    Pero sobre todo, espero que hayas podido sentir aunque sea un poquito todo el cariño que tengo por
+                    ti.
+                </p>
+                <p>
+                    Porque al final, todo esto nació de algo muy simple:
+                </p>
+                <div style="text-align: center; margin: 24px 0;">
+                    <span
+                        style="font-family: 'Playfair Display', serif; font-size: 1.28rem; font-style: italic; color: #ffd166; text-shadow: 0 0 15px rgba(255, 209, 102, 0.45); display: inline-block; padding: 12px 26px; background: rgba(255, 209, 102, 0.08); border-radius: 16px; border: 1px dashed rgba(255, 209, 102, 0.35);">
+                        “te amo muchísimo y quería hacer algo que fuera solamente para ti.”
+                    </span>
+                </div>
+                <p>
+                    Y aunque esta página esté llegando a su final...
+                </p>
+                <p>
+                    <strong>todavía queda una última cosa.</strong>
+                </p>
+                <div style="text-align: center; margin-top: 26px;">
+                    <a href="#padlockVaultSection"
+                        style="display: inline-flex; align-items: center; gap: 10px; font-family: 'Montserrat', sans-serif; font-size: 0.95rem; font-weight: 700; color: #ff758f; text-decoration: none; padding: 12px 28px; border-radius: 25px; background: rgba(255, 117, 143, 0.12); border: 1px solid rgba(255, 117, 143, 0.35); transition: all 0.3s ease; box-shadow: 0 0 18px rgba(255, 117, 143, 0.2);"
+                        onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 0 25px rgba(255, 117, 143, 0.5)'"
+                        onmouseout="this.style.transform='none'; this.style.boxShadow='0 0 18px rgba(255, 117, 143, 0.2)'">
+                        <span>Así que cuando estés lista, continúa. ❤️</span>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="letter-signature-row">
+                <div class="sig-text">
+                    <span class="sig-quote">Por y para siempre tuyo,</span>
+                    <span class="sig-author">Iván</span>
+                </div>
+            </div>
+        </article>
+
+        <!-- =========================================================
+             2. CANDADO INTERACTIVO DE DÍGITOS
+             ========================================================= -->
+        <section class="padlock-vault-section" id="padlockVaultSection">
+            <div class="padlock-header">
+                <span class="padlock-badge">Bóveda Secreta</span>
+                <h2 class="padlock-instruction">El Candado de Nuestro Destino</h2>
+                <p class="padlock-subinstruction">Ingresa los 4 dígitos que encontraste para desbloquear el misterio
+                    final</p>
+            </div>
+
+            <!-- Candado Metálico 3D -->
+            <div class="padlock-svg-wrap" id="padlockSvgWrap" onclick="handleSecretPadlockClick()"
+                title="Candado cerrado · Ingresa la combinación">
+                <svg viewBox="0 0 140 180" width="100%" height="100%">
+                    <defs>
+                        <!-- Gradiente del grillete -->
+                        <linearGradient id="shackleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#ffffff" />
+                            <stop offset="30%" stop-color="#e2e8f0" />
+                            <stop offset="70%" stop-color="#94a3b8" />
+                            <stop offset="100%" stop-color="#475569" />
+                        </linearGradient>
+
+                        <!-- Gradiente dorado del cuerpo del candado -->
+                        <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#ffe699" />
+                            <stop offset="35%" stop-color="#ffc300" />
+                            <stop offset="70%" stop-color="#d48b00" />
+                            <stop offset="100%" stop-color="#7a4e00" />
+                        </linearGradient>
+
+                        <!-- Gradiente de reflejo metálico -->
+                        <linearGradient id="highlightGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="rgba(255,255,255,0.4)" />
+                            <stop offset="40%" stop-color="rgba(255,255,255,0)" />
+                            <stop offset="100%" stop-color="rgba(255,255,255,0.2)" />
+                        </linearGradient>
+                    </defs>
+
+                    <!-- Grillete (Arco superior del candado) -->
+                    <path id="padlock-shackle" d="M38 75 V 42 C 38 18, 102 18, 102 42 V 75" fill="none"
+                        stroke="url(#shackleGrad)" stroke-width="16" stroke-linecap="round" />
+
+                    <!-- Sombra del cuerpo -->
+                    <rect x="18" y="72" width="104" height="96" rx="20" fill="#000000" opacity="0.35" />
+
+                    <!-- Cuerpo del candado -->
+                    <rect x="15" y="68" width="110" height="98" rx="22" fill="url(#bodyGrad)" stroke="#ffd166"
+                        stroke-width="2" />
+                    <rect x="15" y="68" width="110" height="98" rx="22" fill="url(#highlightGrad)" />
+
+                    <!-- Ojo de la cerradura / Ranura del candado -->
+                    <circle cx="70" cy="110" r="10" fill="#241138" stroke="#ffd166" stroke-width="1.5" />
+                    <polygon points="66,110 74,110 77,130 63,130" fill="#241138" />
+
+                    <!-- Decoración corazón grabado en el candado -->
+                    <path
+                        d="M70 148 C 65 142, 54 135, 58 126 C 62 118, 69 122, 70 126 C 71 122, 78 118, 82 126 C 86 135, 75 142, 70 148 Z"
+                        fill="rgba(255, 117, 143, 0.45)" />
+                </svg>
+            </div>
+
+            <!-- Tambores mecánicos interactivos (4 dígitos) -->
+            <div class="digit-tumblers-row" id="tumblersRow">
+                <!-- Dígito 1 -->
+                <div class="tumbler-col">
+                    <button type="button" class="tumbler-arrow-btn" onclick="adjustDigit(0, 1)"
+                        aria-label="Aumentar dígito 1">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                            <polyline points="18 15 12 9 6 15"></polyline>
+                        </svg>
+                    </button>
+                    <div class="tumbler-box">
+                        <input type="text" class="tumbler-digit-input" id="digit-0" value="0" maxlength="1" readonly
+                            onclick="cycleDigit(0)">
+                    </div>
+                    <button type="button" class="tumbler-arrow-btn" onclick="adjustDigit(0, -1)"
+                        aria-label="Disminuir dígito 1">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Dígito 2 -->
+                <div class="tumbler-col">
+                    <button type="button" class="tumbler-arrow-btn" onclick="adjustDigit(1, 1)"
+                        aria-label="Aumentar dígito 2">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                            <polyline points="18 15 12 9 6 15"></polyline>
+                        </svg>
+                    </button>
+                    <div class="tumbler-box">
+                        <input type="text" class="tumbler-digit-input" id="digit-1" value="0" maxlength="1" readonly
+                            onclick="cycleDigit(1)">
+                    </div>
+                    <button type="button" class="tumbler-arrow-btn" onclick="adjustDigit(1, -1)"
+                        aria-label="Disminuir dígito 2">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Dígito 3 -->
+                <div class="tumbler-col">
+                    <button type="button" class="tumbler-arrow-btn" onclick="adjustDigit(2, 1)"
+                        aria-label="Aumentar dígito 3">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                            <polyline points="18 15 12 9 6 15"></polyline>
+                        </svg>
+                    </button>
+                    <div class="tumbler-box">
+                        <input type="text" class="tumbler-digit-input" id="digit-2" value="0" maxlength="1" readonly
+                            onclick="cycleDigit(2)">
+                    </div>
+                    <button type="button" class="tumbler-arrow-btn" onclick="adjustDigit(2, -1)"
+                        aria-label="Disminuir dígito 3">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Dígito 4 -->
+                <div class="tumbler-col">
+                    <button type="button" class="tumbler-arrow-btn" onclick="adjustDigit(3, 1)"
+                        aria-label="Aumentar dígito 4">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                            <polyline points="18 15 12 9 6 15"></polyline>
+                        </svg>
+                    </button>
+                    <div class="tumbler-box">
+                        <input type="text" class="tumbler-digit-input" id="digit-3" value="0" maxlength="1" readonly
+                            onclick="cycleDigit(3)">
+                    </div>
+                    <button type="button" class="tumbler-arrow-btn" onclick="adjustDigit(3, -1)"
+                        aria-label="Disminuir dígito 4">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Botón de apertura -->
+            <button type="button" class="btn-unlock-action" id="btnUnlockAction" onclick="handleAttemptUnlock()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 9.9-1"></path>
+                </svg>
+                <span>Probar Combinación</span>
+            </button>
+
+            <!-- Mensaje de Feedback -->
+            <div class="vault-feedback-msg" id="vaultFeedbackMsg"></div>
+        </section>
+
+        <!-- =========================================================
+             3. PORTAL DE LA CÁMARA WEB EN VIVO (LA GRAN PROPUESTA)
+             ========================================================= -->
+        <section class="live-proposal-portal" id="liveProposalPortal">
+            <span class="proposal-lead-badge" id="proposalLeadBadge" title="Haz doble clic para avanzar">✦ ESCÚCHAME
+                ATENTAMENTE ✦</span>
+            <h2 class="proposal-lead-title" id="proposalMainTitle">Tengo algo que decirte...</h2>
+
+            <!-- Etapa 1: Espera de 1 minuto mientras Iván habla en llamada -->
+            <div class="speech-waiting-stage" id="speechWaitingStage">
+                <p class="speech-live-instruction">
+                    Mírame a los ojos y escúchame con el corazón...
+                </p>
+                <div class="speech-timer-bar-wrap">
+                    <div class="speech-timer-bar" id="speechTimerBar"></div>
+                </div>
+            </div>
+
+            <!-- Etapa 2: Tras 1 minuto aparece la gran pregunta con Sí y No escurridizo -->
+            <div class="proposal-question-stage" id="proposalQuestionStage" style="display: none;">
+                <h3 class="proposal-big-question">¿Quieres ser mi novia?</h3>
+
+                <div class="proposal-buttons-playground" id="proposalButtonsPlayground">
+                    <button type="button" class="btn-proposal-accept" id="btnProposalYes"
+                        onclick="handleAndreaAccepts('¡Sí, acepto!')">
+                        ¡Sí!
+                    </button>
+                    <button type="button" class="btn-proposal-runaway" id="btnProposalNo" tabindex="-1">
+                        No
+                    </button>
+                </div>
+            </div>
+
+            <!-- Panel de Celebración Triunfal -->
+            <div class="celebration-triumph-card" id="celebrationTriumphCard">
+                <h3 class="celebration-title">¡Prometo hacerte la mujer más feliz del universo!</h3>
+                <p class="celebration-desc">
+                    “Te amo hoy, mañana y en cada una de las vidas que existan. Gracias por decir que sí y por ser mi
+                    mayor sueño hecho realidad.”
+                </p>
+                <div class="celebration-date-badge" id="celebrationDateBadge">
+                    OFICIALMENTE JUNTOS · 15 DE SEPTIEMBRE DE 2026
+                </div>
+                <div>
+                    <a href="index.html" class="nav-btn-action"
+                        style="background: linear-gradient(135deg, #ffd166, #ff758f); color: #0b0314; font-weight: 800;">
+                        Volver al Índice de Nuestra Historia ⌂
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Navegación Inferior -->
+        <div class="bottom-navigation">
+            <a href="capitulo9.html" class="nav-btn-action">
+                <span>←</span> Volver al capítulo anterior
+            </a>
+            <a href="index.html" class="nav-btn-action">
+                Volver al Índice de Nuestra Historia <span>⌂</span>
+            </a>
+        </div>
+
+    </main>
+
+    <!-- Scripts del Capítulo -->
+    <script>
+        /* =========================================================
+           SÍNTESIS DE AUDIO (WEB AUDIO API)
+           ========================================================= */
+        let audioCtx = null;
+        function getAudioContext() {
+            if (!audioCtx) {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                if (AudioContext) audioCtx = new AudioContext();
+            }
+            if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+            return audioCtx;
+        }
+
+        // Sonido de clic mecánico de rueda / dígito
+        function playClickSound() {
+            try {
+                const ctx = getAudioContext();
+                if (!ctx) return;
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(800, ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(300, ctx.currentTime + 0.04);
+                gain.gain.setValueAtTime(0.12, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.04);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start();
+                osc.stop(ctx.currentTime + 0.045);
+            } catch (e) { }
+        }
+
+        // Sonido de fallo / bloqueo (buzz de rechazo)
+        function playErrorBuzz() {
+            try {
+                const ctx = getAudioContext();
+                if (!ctx) return;
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(140, ctx.currentTime);
+                osc.frequency.linearRampToValueAtTime(110, ctx.currentTime + 0.25);
+                gain.gain.setValueAtTime(0.2, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start();
+                osc.stop(ctx.currentTime + 0.26);
+            } catch (e) { }
+        }
+
+        // Sonido triunfal de desbloqueo (resorte mecánico + campanas)
+        function playUnlockChime() {
+            try {
+                const ctx = getAudioContext();
+                if (!ctx) return;
+
+                // Golpe metálico del resorte
+                const snapOsc = ctx.createOscillator();
+                const snapGain = ctx.createGain();
+                snapOsc.type = 'square';
+                snapOsc.frequency.setValueAtTime(1200, ctx.currentTime);
+                snapOsc.frequency.exponentialRampToValueAtTime(200, ctx.currentTime + 0.08);
+                snapGain.gain.setValueAtTime(0.25, ctx.currentTime);
+                snapGain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.08);
+                snapOsc.connect(snapGain);
+                snapGain.connect(ctx.destination);
+                snapOsc.start();
+                snapOsc.stop(ctx.currentTime + 0.08);
+
+                // Acorde celestial brillante C - E - G - B - C
+                const notes = [523.25, 659.25, 783.99, 987.77, 1046.50];
+                notes.forEach((freq, idx) => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, ctx.currentTime + 0.06 + idx * 0.08);
+                    gain.gain.setValueAtTime(0.18, ctx.currentTime + 0.06 + idx * 0.08);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.06 + idx * 0.08 + 0.8);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(ctx.currentTime + 0.06 + idx * 0.08);
+                    osc.stop(ctx.currentTime + 0.06 + idx * 0.08 + 0.85);
+                });
+            } catch (e) { }
+        }
+
+        /* =========================================================
+           LÓGICA DEL CANDADO DE COMBINACIÓN (4 DÍGITOS)
+           ========================================================= */
+        // Código de la fecha especial de hoy: 15 de septiembre (1509)
+        const VALID_CODES = ['1509'];
+        const digits = [0, 0, 0, 0];
+
+        // "El primer digito 1 se va a poner solo obviamente sera cuando ella llegue a la hoja final del capitulo 1 del libro"
+        function initPadlockDigits() {
+            if (localStorage.getItem('clue_digit_1') === '1') {
+                digits[0] = 1;
+                const in0 = document.getElementById('digit-0');
+                if (in0) in0.value = '1';
+            }
+        }
+
+        function adjustDigit(index, delta) {
+            digits[index] = (digits[index] + delta + 10) % 10;
+            const input = document.getElementById(`digit-${index}`);
+            if (input) input.value = digits[index];
+            playClickSound();
+        }
+
+        function cycleDigit(index) {
+            adjustDigit(index, 1);
+        }
+
+        function getCurrentCode() {
+            return digits.join('');
+        }
+
+        function shakeLockFeedback() {
+            const wrap = document.getElementById('padlockSvgWrap');
+            if (wrap) {
+                wrap.classList.remove('shake-error');
+                void wrap.offsetWidth; // Reflow
+                wrap.classList.add('shake-error');
+            }
+        }
+
+        function handleSecretPadlockClick() {
+            shakeLockFeedback();
+        }
+
+        function handleAttemptUnlock() {
+            const entered = getCurrentCode();
+            const feedback = document.getElementById('vaultFeedbackMsg');
+            const wrap = document.getElementById('padlockSvgWrap');
+            const shackle = document.getElementById('padlock-shackle');
+
+            // Verificar si coincide con el código correcto (1509)
+            if (VALID_CODES.includes(entered)) {
+                // ÉXITO
+                playUnlockChime();
+                feedback.className = 'vault-feedback-msg success';
+                feedback.textContent = '¡Combinación correcta! Desbloqueando...';
+
+                // Animación física del grillete
+                if (shackle) shackle.classList.add('shackle-opened');
+
+                // Lluvia de confeti
+                triggerConfetti();
+
+                // Transición al portal de la propuesta
+                setTimeout(() => {
+                    document.getElementById('padlockVaultSection').classList.add('unlocked-vault');
+                    const portal = document.getElementById('liveProposalPortal');
+                    portal.style.display = 'block';
+                    portal.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    startProposalCountdown();
+                }, 1200);
+
+            } else {
+                // FALLO / BLOQUEO
+                playErrorBuzz();
+                shakeLockFeedback();
+                feedback.className = 'vault-feedback-msg error';
+                feedback.textContent = 'Combinación incorrecta... 🔒';
+            }
+        }
+
+        /* =========================================================
+           CUENTA REGRESIVA DE 1 MINUTO Y PROPUESTA (SÍ Y NO)
+           ========================================================= */
+        let proposalTimerTimeout = null;
+
+        function startProposalCountdown() {
+            const waitingStage = document.getElementById('speechWaitingStage');
+            const questionStage = document.getElementById('proposalQuestionStage');
+            const timerBar = document.getElementById('speechTimerBar');
+            const badge = document.getElementById('proposalLeadBadge');
+
+            if (waitingStage) waitingStage.style.display = 'flex';
+            if (questionStage) questionStage.style.display = 'none';
+
+            // Animación de la barra durante 60 segundos
+            if (timerBar) {
+                timerBar.style.transition = 'none';
+                timerBar.style.width = '0%';
+                setTimeout(() => {
+                    timerBar.style.transition = 'width 60s linear';
+                    timerBar.style.width = '100%';
+                }, 100);
+            }
+
+            // Atajo para pruebas rápidas mediante ?instant=1
+            const isInstant = (new URLSearchParams(window.location.search).get('instant') === '1');
+            const waitTime = isInstant ? 500 : 60000; // 60 segundos exactos (1 minuto)
+
+            proposalTimerTimeout = setTimeout(() => {
+                revealProposalStage();
+            }, waitTime);
+
+            // Permite hacer doble clic en el badge superior para avanzar de inmediato
+            if (badge) {
+                badge.onclick = () => {
+                    if (proposalTimerTimeout) clearTimeout(proposalTimerTimeout);
+                    revealProposalStage();
+                };
+            }
+
+            // Inicializar el botón "No" escurridizo
+            setupRunawayNoButton();
+        }
+
+        function revealProposalStage() {
+            const waitingStage = document.getElementById('speechWaitingStage');
+            const questionStage = document.getElementById('proposalQuestionStage');
+            const badge = document.getElementById('proposalLeadBadge');
+            const title = document.getElementById('proposalMainTitle');
+
+            if (waitingStage) waitingStage.style.display = 'none';
+            if (badge) badge.textContent = '✦ LA GRAN PREGUNTA ✦';
+            if (title) title.textContent = 'Andrea...';
+            if (questionStage) {
+                questionStage.style.display = 'block';
+                questionStage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+
+            playUnlockChime();
+            triggerConfetti();
+        }
+
+        /* =========================================================
+           BOTÓN "NO" ESCURRIDIZO (NO SE PUEDE PRESIONAR Y HUYE)
+           ========================================================= */
+        const runawayPhrases = [
+            "No",
+            "¿Segura?",
+            "¡Por aquí no!",
+            "¡Imposible!",
+            "¡Ese no vale!",
+            "¡Te amo demasiado!",
+            "Casi... ¡pero no!",
+            "¡Solo hay un Sí!"
+        ];
+        let runawayIndex = 0;
+
+        function escapeNoButton(e) {
+            if (e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            const btnNo = document.getElementById('btnProposalNo');
+            const playground = document.getElementById('proposalButtonsPlayground');
+            if (!btnNo || !playground) return;
+
+            playClickSound();
+
+            // Rango de desplazamiento aleatorio pero visible
+            const maxOffsetX = 160;
+            const maxOffsetY = 55;
+            let rx = (Math.random() - 0.5) * 2 * maxOffsetX;
+            let ry = (Math.random() - 0.5) * 2 * maxOffsetY;
+
+            // Garantizar salto mínimo apreciable
+            if (Math.abs(rx) < 50) rx = (rx >= 0 ? 65 : -65);
+            if (Math.abs(ry) < 25) ry = (ry >= 0 ? 35 : -35);
+
+            btnNo.style.transform = `translate(${rx}px, ${ry}px)`;
+
+            // Cambiar texto de forma graciosa
+            runawayIndex = (runawayIndex + 1) % runawayPhrases.length;
+            btnNo.textContent = runawayPhrases[runawayIndex];
+        }
+
+        function setupRunawayNoButton() {
+            const btnNo = document.getElementById('btnProposalNo');
+            if (!btnNo) return;
+
+            btnNo.addEventListener('mouseenter', escapeNoButton);
+            btnNo.addEventListener('pointerover', escapeNoButton);
+            btnNo.addEventListener('touchstart', escapeNoButton, { passive: false });
+            btnNo.addEventListener('touchmove', escapeNoButton, { passive: false });
+            btnNo.addEventListener('click', escapeNoButton);
+        }
+
+        /* =========================================================
+           RESPUESTA DE ANDREA ("¡SÍ, ACEPTO!")
+           ========================================================= */
+        function handleAndreaAccepts(responseMsg) {
+            playUnlockChime();
+            triggerConfetti();
+
+            // Guardar compromiso en localStorage para el contador de novios en index.html
+            const nowIso = new Date().toISOString();
+            localStorage.setItem('andrea_dijo_si', 'true');
+            localStorage.setItem('andrea_fecha_compromiso', nowIso);
+            localStorage.setItem('noviosAcceptedDate', nowIso);
+
+            // Ocultar botones y la pregunta
+            const questionStage = document.getElementById('proposalQuestionStage');
+            const badge = document.getElementById('proposalLeadBadge');
+            const mainTitle = document.getElementById('proposalMainTitle');
+
+            if (questionStage) questionStage.style.display = 'none';
+            if (badge) badge.style.display = 'none';
+            if (mainTitle) mainTitle.style.display = 'none';
+
+            // Mostrar celebración triunfal
+            const triumph = document.getElementById('celebrationTriumphCard');
+            if (triumph) {
+                triumph.style.display = 'block';
+                triumph.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        /* =========================================================
+           SISTEMA DE CONFETI A PANTALLA COMPLETA
+           ========================================================= */
+        const confettiCanvas = document.getElementById('confetti-canvas');
+        const cctx = confettiCanvas.getContext('2d');
+        let cWidth, cHeight, confettiPieces = [];
+
+        function resizeConfetti() {
+            cWidth = confettiCanvas.width = window.innerWidth;
+            cHeight = confettiCanvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeConfetti);
+        resizeConfetti();
+
+        function triggerConfetti() {
+            const colors = ['#ffd166', '#ff758f', '#c77dff', '#34d399', '#ffffff', '#ff4d6d'];
+            for (let i = 0; i < 90; i++) {
+                confettiPieces.push({
+                    x: cWidth / 2 + (Math.random() - 0.5) * 300,
+                    y: cHeight / 2 + (Math.random() - 0.5) * 100,
+                    vx: (Math.random() - 0.5) * 14,
+                    vy: (Math.random() - 0.8) * 16,
+                    size: Math.random() * 8 + 5,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    rot: Math.random() * 360,
+                    rotSpeed: (Math.random() - 0.5) * 10,
+                    opacity: 1
+                });
+            }
+            animateConfetti();
+        }
+
+        function animateConfetti() {
+            cctx.clearRect(0, 0, cWidth, cHeight);
+            for (let i = confettiPieces.length - 1; i >= 0; i--) {
+                const p = confettiPieces[i];
+                p.x += p.vx;
+                p.y += p.vy;
+                p.vy += 0.28;
+                p.rot += p.rotSpeed;
+                p.opacity -= 0.012;
+
+                if (p.opacity <= 0 || p.y > cHeight) {
+                    confettiPieces.splice(i, 1);
+                    continue;
+                }
+
+                cctx.save();
+                cctx.globalAlpha = p.opacity;
+                cctx.translate(p.x, p.y);
+                cctx.rotate(p.rot * Math.PI / 180);
+                cctx.fillStyle = p.color;
+                cctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+                cctx.restore();
+            }
+            if (confettiPieces.length > 0) {
+                requestAnimationFrame(animateConfetti);
+            } else {
+                cctx.clearRect(0, 0, cWidth, cHeight);
+            }
+        }
+
+        /* =========================================================
+           FONDO DE CORAZONES FLOTANTES
+           ========================================================= */
+        const canvas = document.getElementById('hearts-canvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            let width, height, hearts = [];
+            function resize() { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; }
+            window.addEventListener('resize', resize);
+            resize();
+            class Heart {
+                constructor() { this.reset(); }
+                reset() {
+                    this.x = Math.random() * width; this.y = height + Math.random() * 200;
+                    this.size = Math.random() * 3 + 1.5; this.speedY = Math.random() * 0.8 + 0.35;
+                    this.speedX = (Math.random() - 0.5) * 0.4; this.opacity = Math.random() * 0.45 + 0.15;
+                    this.color = Math.random() > 0.5 ? '#ff758f' : '#ffd166';
+                }
+                update() { this.y -= this.speedY; this.x += this.speedX; if (this.y < -30) this.reset(); }
+                draw() {
+                    ctx.save(); ctx.globalAlpha = this.opacity; ctx.fillStyle = this.color;
+                    ctx.beginPath();
+                    const topCurveHeight = this.size * 0.3;
+                    ctx.moveTo(this.x, this.y + topCurveHeight);
+                    ctx.bezierCurveTo(this.x, this.y, this.x - this.size, this.y, this.x - this.size, this.y + topCurveHeight);
+                    ctx.bezierCurveTo(this.x - this.size, this.y + (this.size + topCurveHeight) / 2, this.x, this.y + (this.size + topCurveHeight), this.x, this.y + this.size * 1.5);
+                    ctx.bezierCurveTo(this.x, this.y + (this.size + topCurveHeight), this.x + this.size, this.y + (this.size + topCurveHeight) / 2, this.x + this.size, this.y + topCurveHeight);
+                    ctx.bezierCurveTo(this.x + this.size, this.y, this.x, this.y, this.x, this.y + topCurveHeight);
+                    ctx.closePath(); ctx.fill(); ctx.restore();
+                }
+            }
+            for (let i = 0; i < 35; i++) hearts.push(new Heart());
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                for (let i = 0; i < hearts.length; i++) { hearts[i].update(); hearts[i].draw(); }
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
+
+        // Auto-colocar primer dígito si completó el Capítulo 1
+        initPadlockDigits();
+        window.addEventListener('storage', initPadlockDigits);
+
+        // Soporte para pruebas directas en URL: ?stage=waiting | ?stage=proposal | ?stage=yes
+        const testParam = new URLSearchParams(window.location.search).get('stage');
+        if (testParam === 'waiting') {
+            document.getElementById('padlockVaultSection').classList.add('unlocked-vault');
+            const portal = document.getElementById('liveProposalPortal');
+            portal.style.display = 'block';
+            startProposalCountdown();
+        } else if (testParam === 'proposal') {
+            document.getElementById('padlockVaultSection').classList.add('unlocked-vault');
+            const portal = document.getElementById('liveProposalPortal');
+            portal.style.display = 'block';
+            revealProposalStage();
+        } else if (testParam === 'padlock') {
+            const letter = document.getElementById('intimateLetterCard');
+            if (letter) letter.style.display = 'none';
+        } else if (testParam === 'yes') {
+            document.getElementById('padlockVaultSection').classList.add('unlocked-vault');
+            const portal = document.getElementById('liveProposalPortal');
+            portal.style.display = 'block';
+            handleAndreaAccepts('¡Sí, acepto!');
+        }
+    </script>
+    <script src="progress-tracker.js"></script>
+
+</body>
+
+</html>

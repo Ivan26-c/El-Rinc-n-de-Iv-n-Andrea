@@ -1,0 +1,3591 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capítulo V: El Desafío de Iván · Andrea & Iván</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700;800;900&family=Press+Start+2P&family=Orbitron:wght@600;700;800;900&family=Dancing+Script:wght@600;700&family=Caveat:wght@600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        /* =========================================================
+           CAPÍTULO V · EL DESAFÍO DE IVÁN: ¿CUÁNTO ME CONOCES?
+           ========================================================= */
+        :root {
+            --primary-purple: #7209b7;
+            --secondary-violet: #b5179e;
+            --accent-gold: #ffd166;
+            --accent-rose: #ff758f;
+            --accent-teal: #06d6a0;
+            --card-bg: rgba(22, 9, 38, 0.88);
+            --card-border: rgba(199, 125, 255, 0.35);
+            --hud-bg: rgba(14, 5, 26, 0.92);
+        }
+
+        body {
+            background-color: #0c031a !important;
+            min-height: 100vh;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        #hearts-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        #confetti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 3000;
+        }
+
+        /* Barra de Navegación */
+        .chapter-navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(13, 4, 25, 0.94);
+            border-bottom: 1px solid rgba(199, 125, 255, 0.25);
+            padding: 14px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.6);
+        }
+
+        .nav-back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--secondary-color, #c77dff);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.76rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-decoration: none;
+            text-transform: uppercase;
+            padding: 7px 18px;
+            border-radius: 20px;
+            background: rgba(199, 125, 255, 0.1);
+            border: 1px solid rgba(199, 125, 255, 0.3);
+            transition: all 0.25s ease;
+        }
+
+        .nav-back-btn:hover {
+            background: rgba(199, 125, 255, 0.25);
+            color: #ffffff;
+            transform: translateX(-3px);
+            box-shadow: 0 0 15px rgba(199, 125, 255, 0.4);
+        }
+
+        .nav-chapter-badge {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            background: rgba(255, 183, 3, 0.12);
+            border: 1px solid rgba(255, 183, 3, 0.35);
+            padding: 5px 14px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Contenedor Principal */
+        .challenge-page-wrapper {
+            position: relative;
+            z-index: 10;
+            max-width: 1020px;
+            margin: 35px auto 70px auto;
+            padding: 0 20px;
+        }
+
+        .challenge-header-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .challenge-header-pre {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 3px;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            text-shadow: 0 0 12px rgba(255, 209, 102, 0.5);
+        }
+
+        .challenge-header-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 1px;
+            margin: 0 0 10px 0;
+            text-shadow: 0 4px 20px rgba(199, 125, 255, 0.4);
+        }
+
+        .challenge-header-sub {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin: 0 auto;
+            max-width: 720px;
+            line-height: 1.5;
+        }
+
+        /* =========================================================
+           LOVE ARCADE STATION: GABINETE, MARQUESINA Y ESTACIONES CRT
+           ========================================================= */
+        .arcade-cabinet-frame {
+            background: radial-gradient(circle at 50% 0%, #1e0a3a 0%, #0d031c 60%, #06010d 100%);
+            border: 3px solid rgba(199, 125, 255, 0.45);
+            border-radius: 36px;
+            padding: 30px 26px;
+            box-shadow: 0 35px 100px rgba(0, 0, 0, 0.98), 0 0 70px rgba(114, 9, 183, 0.45), inset 0 0 50px rgba(0, 0, 0, 0.85);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Moldura perimetral de Neón del Gabinete */
+        .arcade-cabinet-frame::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 34px;
+            padding: 2px;
+            background: linear-gradient(135deg, #f72585, #7209b7 40%, #ffd166 70%, #4cc9f0);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            opacity: 0.85;
+            z-index: 2;
+        }
+
+        /* T-MOLDING 3D: Perfil de goma lateral auténtico de recreativa */
+        .arcade-t-molding {
+            position: absolute;
+            top: 14px;
+            bottom: 14px;
+            width: 12px;
+            border-radius: 6px;
+            z-index: 15;
+            pointer-events: none;
+        }
+        .arcade-t-molding-left {
+            left: 7px;
+            background: linear-gradient(90deg, #3a0ca3 0%, #7209b7 30%, #f72585 60%, #ffd166 85%, #ff4d6d 100%);
+            box-shadow: -2px 0 16px rgba(247, 37, 133, 0.7), inset -1px 0 2px rgba(255, 255, 255, 0.7);
+        }
+        .arcade-t-molding-right {
+            right: 7px;
+            background: linear-gradient(90deg, #ff4d6d 0%, #ffd166 15%, #f72585 40%, #7209b7 70%, #3a0ca3 100%);
+            box-shadow: 2px 0 16px rgba(247, 37, 133, 0.7), inset 1px 0 2px rgba(255, 255, 255, 0.7);
+        }
+
+        /* MARQUESINA ACRÍLICA RETROILUMINADA CON TUBO FLUORESCENTE */
+        .arcade-marquee-banner {
+            background: linear-gradient(180deg, #350f61 0%, #17042f 100%);
+            border: 2.5px solid var(--accent-gold);
+            border-radius: 20px;
+            padding: 18px 22px;
+            margin-bottom: 16px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 0 35px rgba(255, 209, 102, 0.4), inset 0 0 30px rgba(255, 209, 102, 0.2);
+            overflow: hidden;
+        }
+
+        /* Luz difusa de tubo fluorescente interior */
+        .marquee-tube-glow {
+            position: absolute;
+            top: 50%;
+            left: 5%;
+            right: 5%;
+            height: 14px;
+            background: rgba(255, 255, 255, 0.15);
+            filter: blur(12px);
+            border-radius: 10px;
+            pointer-events: none;
+            animation: tubeFlicker 4s infinite alternate ease-in-out;
+        }
+
+        @keyframes tubeFlicker {
+            0%, 100% { opacity: 0.9; }
+            92% { opacity: 0.85; }
+            93% { opacity: 0.45; }
+            94% { opacity: 0.9; }
+            97% { opacity: 0.7; }
+            98% { opacity: 0.95; }
+        }
+
+        .marquee-screw {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #ffffff, #888888 60%, #222222 100%);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.9), 0 1px 2px rgba(0, 0, 0, 0.8);
+            z-index: 5;
+        }
+        .screw-tl { top: 9px; left: 10px; }
+        .screw-tr { top: 9px; right: 10px; }
+        .screw-bl { bottom: 9px; left: 10px; }
+        .screw-br { bottom: 9px; right: 10px; }
+
+        .marquee-sub-label {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.62rem;
+            color: #4cc9f0;
+            letter-spacing: 2.5px;
+            margin-bottom: 8px;
+            text-shadow: 0 0 10px rgba(76, 201, 240, 0.85);
+            position: relative;
+            z-index: 4;
+        }
+
+        .marquee-main-title {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 1.45rem;
+            color: #ffd166;
+            letter-spacing: 3px;
+            margin: 0 0 12px 0;
+            text-shadow: 0 0 15px rgba(255, 209, 102, 0.95), 0 0 30px rgba(247, 37, 133, 0.85);
+            animation: marqueeGlow 2.5s infinite alternate ease-in-out;
+            position: relative;
+            z-index: 4;
+        }
+
+        @keyframes marqueeGlow {
+            0% { text-shadow: 0 0 12px rgba(255, 209, 102, 0.8), 0 0 25px rgba(247, 37, 133, 0.6); }
+            100% { text-shadow: 0 0 20px rgba(255, 209, 102, 1), 0 0 40px rgba(247, 37, 133, 0.95), 0 0 50px rgba(114, 9, 183, 0.8); }
+        }
+
+        .marquee-ticker-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: rgba(0, 0, 0, 0.65);
+            border: 1px solid rgba(76, 201, 240, 0.35);
+            border-radius: 12px;
+            padding: 7px 16px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.76rem;
+            font-weight: 700;
+            color: #ffffff;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 4;
+        }
+
+        .ticker-chip {
+            background: rgba(247, 37, 133, 0.25);
+            border: 1px solid #f72585;
+            color: #ff758f;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.52rem;
+            letter-spacing: 1px;
+        }
+
+        .ticker-chip.high-score-chip {
+            background: rgba(255, 209, 102, 0.2);
+            border-color: #ffd166;
+            color: #ffd166;
+        }
+
+        /* REJILLA DE ALTAVOCES ESTÉREO SUPERIOR (ACOUSTIC GRILLE) */
+        .arcade-stereo-speaker-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(180deg, #120324, #080112);
+            border: 1.5px solid rgba(199, 125, 255, 0.25);
+            border-radius: 14px;
+            padding: 8px 18px;
+            margin-bottom: 22px;
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.95);
+        }
+
+        .speaker-grille-pod {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+
+        .speaker-hole {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #000000;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.9);
+        }
+
+        .speaker-center-badge {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.48rem;
+            color: rgba(255, 209, 102, 0.85);
+            letter-spacing: 1.8px;
+            text-shadow: 0 0 6px rgba(255, 209, 102, 0.5);
+        }
+
+        /* CONTENEDOR DE CABINAS DUALES Y MONEDERO CENTRAL */
+        .arcade-stations-container {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 20px;
+            align-items: stretch;
+            margin-bottom: 24px;
+        }
+
+        @media (max-width: 960px) {
+            .arcade-stations-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* CABINA INDIVIDUAL CRT */
+        .arcade-unit-cabinet {
+            background: linear-gradient(180deg, #240b3f 0%, #120324 100%);
+            border: 2px solid rgba(199, 125, 255, 0.45);
+            border-radius: 26px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.28s cubic-bezier(0.2, 0.8, 0.3, 1);
+            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.75), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+        }
+
+        .arcade-unit-cabinet:hover {
+            transform: translateY(-6px) scale(1.02);
+            border-color: var(--accent-gold);
+            box-shadow: 0 22px 55px rgba(0, 0, 0, 0.95), 0 0 35px rgba(255, 209, 102, 0.4);
+        }
+
+        .arcade-unit-cabinet.unit-right:hover {
+            border-color: #4cc9f0;
+            box-shadow: 0 22px 55px rgba(0, 0, 0, 0.95), 0 0 35px rgba(76, 201, 240, 0.4);
+        }
+
+        /* Estado al lanzar el juego (animación de clic épico) */
+        .arcade-unit-cabinet.cabinet-launching {
+            transform: scale(1.06) translateY(-10px) !important;
+            box-shadow: 0 0 60px rgba(255, 209, 102, 0.9), 0 0 100px rgba(247, 37, 133, 0.8) !important;
+            border-color: #ffd166 !important;
+            z-index: 25;
+        }
+
+        .arcade-unit-cabinet.unit-right.cabinet-launching {
+            box-shadow: 0 0 60px rgba(0, 240, 255, 0.9), 0 0 100px rgba(114, 9, 183, 0.8) !important;
+            border-color: #00f0ff !important;
+        }
+
+        /* Visor Superior de Cabina */
+        .cabinet-top-visor {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 12px;
+        }
+
+        .visor-led {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #ff4d6d;
+            box-shadow: 0 0 8px #ff4d6d;
+            animation: blinkLed 1.2s infinite ease-in-out;
+        }
+        .visor-led.cyan-led {
+            background: #00f0ff;
+            box-shadow: 0 0 8px #00f0ff;
+        }
+
+        @keyframes blinkLed {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.85); }
+        }
+
+        .visor-mode-name {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.62rem;
+            color: #ffd166;
+            letter-spacing: 1px;
+        }
+        .unit-right .visor-mode-name {
+            color: #4cc9f0;
+        }
+
+        .visor-badge-live {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 800;
+            background: rgba(6, 214, 160, 0.15);
+            border: 1px solid #06d6a0;
+            color: #06d6a0;
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+
+        /* MARCO BISELADO DE MONITOR CRT ARCADE VINTAGE */
+        .arcade-crt-monitor-frame {
+            background: #0b0314;
+            border: 3px solid #2d0e4e;
+            border-radius: 20px;
+            padding: 10px 10px 8px 10px;
+            position: relative;
+            box-shadow: inset 0 3px 12px rgba(0, 0, 0, 0.95), 0 6px 20px rgba(0, 0, 0, 0.6);
+        }
+
+        .monitor-top-silkscreen {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.42rem;
+            color: rgba(255, 255, 255, 0.45);
+            letter-spacing: 1px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            margin-bottom: 8px;
+        }
+
+        .monitor-bottom-silkscreen {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.4rem;
+            color: rgba(255, 209, 102, 0.5);
+            padding-top: 8px;
+            margin-top: 8px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .monitor-dials {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .dial-knob {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #999, #333);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.8);
+        }
+
+        /* PANTALLA CRT INTERIOR CON VIDRIO CURVO */
+        .crt-screen-wrapper {
+            background: radial-gradient(circle at 50% 50%, #15062b 0%, #080112 85%);
+            border: 2px solid #3c1566;
+            border-radius: 16px;
+            padding: 20px 18px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 35px rgba(0, 0, 0, 0.98), 0 0 15px rgba(114, 9, 183, 0.25);
+            min-height: 220px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .crt-screen-wrapper.crt-cyan-theme {
+            background: radial-gradient(circle at 50% 50%, #061c33 0%, #030c17 85%);
+            border-color: #123f66;
+            box-shadow: inset 0 0 35px rgba(0, 0, 0, 0.98), 0 0 15px rgba(76, 201, 240, 0.25);
+        }
+
+        /* Efecto Scanline CRT */
+        .crt-scanlines {
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.18) 0px,
+                rgba(0, 0, 0, 0.18) 1px,
+                transparent 1px,
+                transparent 3px
+            );
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* Reflejo de Vidrio de Tubo CRT */
+        .crt-glare {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.09) 0%, transparent 65%);
+            border-radius: 14px 14px 0 0;
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        .crt-content {
+            position: relative;
+            z-index: 4;
+        }
+
+        .arcade-pixel-badge {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.52rem;
+            color: #f72585;
+            background: rgba(247, 37, 133, 0.15);
+            border: 1px solid rgba(247, 37, 133, 0.5);
+            padding: 4px 8px;
+            border-radius: 6px;
+            display: inline-block;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+
+        .arcade-pixel-badge.cyan-badge {
+            color: #00f0ff;
+            background: rgba(0, 240, 255, 0.15);
+            border-color: rgba(0, 240, 255, 0.5);
+        }
+
+        .arcade-game-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 900;
+            color: #ffffff;
+            margin: 0 0 10px 0;
+            line-height: 1.25;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .arcade-game-desc {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.84rem;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.45;
+            margin: 0 0 18px 0;
+        }
+
+        .arcade-specs-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            background: rgba(0, 0, 0, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 8px 10px;
+            margin-bottom: 18px;
+            text-align: center;
+        }
+
+        .arcade-spec-item span {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.45rem;
+            color: rgba(255, 255, 255, 0.6);
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        .arcade-spec-item strong {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.76rem;
+            font-weight: 800;
+            color: #ffd166;
+        }
+
+        .arcade-press-start-btn {
+            background: linear-gradient(135deg, #7209b7, #b5179e);
+            border: 1.5px solid var(--accent-gold);
+            border-radius: 16px;
+            padding: 12px 16px;
+            color: #ffffff;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.62rem;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(181, 23, 158, 0.4);
+            transition: all 0.25s ease;
+        }
+
+        .arcade-press-start-btn.cyan-btn {
+            background: linear-gradient(135deg, #0d3b66, #0077b6);
+            border-color: #00f0ff;
+            box-shadow: 0 4px 15px rgba(0, 240, 255, 0.3);
+        }
+
+        .arcade-unit-cabinet:hover .arcade-press-start-btn {
+            background: linear-gradient(135deg, #ffd166, #ff758f);
+            color: #1a0628;
+            transform: scale(1.03);
+            box-shadow: 0 6px 22px rgba(255, 209, 102, 0.6);
+        }
+
+        .arcade-unit-cabinet:hover .arcade-press-start-btn.cyan-btn {
+            background: linear-gradient(135deg, #00f0ff, #4cc9f0);
+            color: #001220;
+            box-shadow: 0 6px 22px rgba(0, 240, 255, 0.6);
+        }
+
+        .blinking-cursor {
+            animation: blinkCursor 0.9s infinite ease-in-out;
+        }
+        @keyframes blinkCursor {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* MONEDERO DOBLE REALISTA (TWIN COIN DOOR) */
+        .arcade-center-coin-station {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0 4px;
+        }
+
+        .arcade-double-coin-door {
+            background: linear-gradient(180deg, #260a3f 0%, #110220 100%);
+            border: 2px solid #5a2391;
+            border-radius: 20px;
+            padding: 14px 12px;
+            width: 140px;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.95), 0 8px 25px rgba(0, 0, 0, 0.85);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .coin-door-lock-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 10px;
+        }
+
+        .coin-door-brand {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.44rem;
+            color: #ffd166;
+            letter-spacing: 0.5px;
+        }
+
+        .coin-cam-lock {
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #ffffff, #777 60%, #111 100%);
+            border: 1px solid #000;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.8);
+            position: relative;
+        }
+        .coin-cam-lock::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 5px;
+            width: 1.5px;
+            height: 7px;
+            background: #111;
+            border-radius: 1px;
+        }
+
+        .coin-door-twin-slots {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .twin-slot-item {
+            background: #080112;
+            border: 1.5px solid #ff758f;
+            border-radius: 10px;
+            padding: 7px 4px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        .twin-slot-item:hover {
+            transform: scale(1.05);
+            border-color: #ffd166;
+            box-shadow: 0 0 14px rgba(255, 209, 102, 0.6);
+        }
+        .twin-slot-item:active {
+            transform: scale(0.95);
+        }
+
+        .twin-slot-item.slot-2p {
+            border-color: #00f0ff;
+        }
+        .twin-slot-item.slot-2p:hover {
+            border-color: #00f0ff;
+            box-shadow: 0 0 14px rgba(0, 240, 255, 0.6);
+        }
+
+        .twin-slit {
+            width: 22px;
+            height: 4px;
+            background: #000;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin: 0 auto 6px auto;
+            border-radius: 2px;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.9);
+        }
+
+        .twin-reject-btn {
+            background: #ff4d6d;
+            border: none;
+            border-radius: 5px;
+            color: #ffffff;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.38rem;
+            padding: 5px 2px;
+            width: 100%;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(255, 77, 109, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+        }
+        .twin-slot-item.slot-2p .twin-reject-btn {
+            background: #0096c7;
+            box-shadow: 0 2px 5px rgba(0, 150, 199, 0.5);
+        }
+
+        .coin-counter-display {
+            margin-top: 10px;
+            width: 100%;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.42rem;
+            color: #06d6a0;
+            background: #000000;
+            border: 1px solid #06d6a0;
+            padding: 4px;
+            border-radius: 6px;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        .coin-return-pockets-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .coin-return-pocket {
+            background: #05000a;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 6px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.9);
+            cursor: pointer;
+        }
+
+        .coin-flap-metal {
+            width: 82%;
+            height: 18px;
+            background: linear-gradient(180deg, #777, #333);
+            border-radius: 3px;
+            border: 1px solid #555;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.34rem;
+            color: rgba(255, 255, 255, 0.7);
+            transition: transform 0.2s ease;
+        }
+
+        .coin-return-pocket:hover .coin-flap-metal {
+            transform: rotateX(40deg);
+        }
+
+        .coin-toast-popup {
+            position: absolute;
+            bottom: -32px;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            background: #ffd166;
+            color: #1a0628;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 0.68rem;
+            padding: 4px 10px;
+            border-radius: 12px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 12px rgba(255, 209, 102, 0.6);
+            z-index: 100;
+        }
+
+        .coin-toast-popup.active {
+            opacity: 1;
+            transform: translate(-50%, -6px);
+        }
+
+        /* =========================================================
+           TELÓN DE APERTURA ÉPICA DE JUEGO (CRT HYPERSPACE TRANSITION)
+           ========================================================= */
+        .arcade-transition-curtain {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(20, 4, 38, 0.97) 0%, rgba(6, 1, 14, 0.99) 100%);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 34px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.22s ease;
+        }
+
+        .arcade-transition-curtain.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .crt-beam-flash {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: #ffffff;
+            box-shadow: 0 0 25px #ffffff, 0 0 50px #ffd166, 0 0 80px #f72585;
+            transform: translateY(-50%) scaleX(0);
+            pointer-events: none;
+        }
+
+        .arcade-transition-curtain.active .crt-beam-flash {
+            animation: crtBeamExpand 0.75s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+        }
+
+        @keyframes crtBeamExpand {
+            0% { transform: translateY(-50%) scaleX(0) scaleY(1); opacity: 1; }
+            35% { transform: translateY(-50%) scaleX(1) scaleY(6px); opacity: 1; }
+            70% { transform: translateY(-50%) scaleX(1) scaleY(320px); opacity: 0.85; }
+            100% { transform: translateY(-50%) scaleX(1) scaleY(700px); opacity: 0; }
+        }
+
+        .arcade-boot-announcer {
+            text-align: center;
+            z-index: 5;
+            padding: 24px;
+            transform: scale(0.85);
+            opacity: 0;
+            transition: all 0.35s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+        }
+
+        .arcade-transition-curtain.active .arcade-boot-announcer {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .boot-signal-badge {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.65rem;
+            padding: 7px 16px;
+            border-radius: 8px;
+            display: inline-block;
+            margin-bottom: 16px;
+            letter-spacing: 2px;
+        }
+
+        .boot-signal-badge.gold-badge {
+            background: rgba(255, 209, 102, 0.2);
+            border: 1.5px solid #ffd166;
+            color: #ffd166;
+            box-shadow: 0 0 16px rgba(255, 209, 102, 0.5);
+        }
+
+        .boot-signal-badge.cyan-badge {
+            background: rgba(0, 240, 255, 0.2);
+            border: 1.5px solid #00f0ff;
+            color: #00f0ff;
+            box-shadow: 0 0 16px rgba(0, 240, 255, 0.5);
+        }
+
+        .boot-title {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 1.35rem;
+            letter-spacing: 2px;
+            margin: 0 0 14px 0;
+            animation: pulseBootTitle 0.6s infinite alternate;
+        }
+
+        .boot-title.gold-title {
+            color: #ffd166;
+            text-shadow: 0 0 15px rgba(255, 209, 102, 0.9), 0 0 30px rgba(247, 37, 133, 0.8);
+        }
+
+        .boot-title.cyan-title {
+            color: #00f0ff;
+            text-shadow: 0 0 15px rgba(0, 240, 255, 0.9), 0 0 30px rgba(114, 9, 183, 0.8);
+        }
+
+        @keyframes pulseBootTitle {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.03); }
+        }
+
+        .boot-subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.86rem;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 22px;
+            letter-spacing: 1px;
+        }
+
+        .boot-progress-wrap {
+            width: 260px;
+            height: 9px;
+            background: rgba(0, 0, 0, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .boot-progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #f72585, #ffd166, #4cc9f0);
+            transition: width 0.5s ease-in-out;
+            box-shadow: 0 0 12px #ffd166;
+        }
+
+        /* ANIMACIONES DE ENTRADA Y RETORNO DE JUEGO A PANTALLA COMPLETA */
+        .game-epic-opened {
+            animation: gameEpicUnfold 0.55s cubic-bezier(0.18, 0.89, 0.32, 1.15) forwards;
+        }
+
+        @keyframes gameEpicUnfold {
+            0% { opacity: 0; transform: scale(0.91) translateY(20px); filter: brightness(2) contrast(1.2); }
+            60% { filter: brightness(1.2) contrast(1.1); }
+            100% { opacity: 1; transform: scale(1) translateY(0); filter: brightness(1) contrast(1); }
+        }
+
+        .game-closing-shrink {
+            animation: gameClosingShrink 0.28s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes gameClosingShrink {
+            0% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0.93) translateY(14px); }
+        }
+
+        .lobby-reentering {
+            animation: lobbyReentering 0.38s cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
+        }
+
+        @keyframes lobbyReentering {
+            0% { opacity: 0; transform: scale(0.96); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        /* =========================================================
+           PANEL DE CONTROL ARCADE FÍSICO (DECK INFERIOR)
+           ========================================================= */
+        .arcade-deck-control-panel {
+            background: linear-gradient(180deg, #1f0738 0%, #100221 100%);
+            border: 2px solid #5a189a;
+            border-radius: 24px;
+            padding: 18px 24px;
+            margin-top: 8px;
+            box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.1), 0 8px 25px rgba(0, 0, 0, 0.6);
+            position: relative;
+        }
+
+        .deck-surface {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        /* Joystick 3D Interactivo */
+        .deck-joystick-subsystem {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .joystick-base-plate {
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 40% 40%, #3a1563, #150529 75%);
+            border: 2px solid #ffd166;
+            box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.9), 0 4px 12px rgba(0, 0, 0, 0.7);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: grab;
+        }
+
+        .joystick-washer {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: #111111;
+            border: 1px solid #333333;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.8);
+        }
+
+        .joystick-shaft {
+            position: absolute;
+            width: 10px;
+            height: 28px;
+            background: linear-gradient(90deg, #888, #eee, #666);
+            border-radius: 4px;
+            top: 10px;
+            left: 29px;
+            transform-origin: bottom center;
+            transition: transform 0.1s ease-out;
+        }
+
+        .joystick-ball {
+            position: absolute;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #ff758f, #b5179e 60%, #480ca8 100%);
+            border: 1.5px solid #ffffff;
+            top: -20px;
+            left: -9px;
+            box-shadow: 0 0 15px rgba(247, 37, 133, 0.7);
+        }
+
+        .deck-label {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.48rem;
+            color: rgba(255, 255, 255, 0.7);
+            letter-spacing: 1px;
+        }
+
+        /* Centro del Deck */
+        .deck-center-instructions {
+            text-align: center;
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .deck-arcade-brand {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.58rem;
+            color: #ffd166;
+            letter-spacing: 1.5px;
+            margin-bottom: 6px;
+            text-shadow: 0 0 8px rgba(255, 209, 102, 0.6);
+        }
+
+        .deck-prompt-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.74rem;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.85);
+            letter-spacing: 0.5px;
+        }
+
+        /* 4 Botones Físicos Arcade */
+        .deck-arcade-buttons-rack {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .arcade-physical-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.08s ease, box-shadow 0.08s ease;
+            box-shadow: 0 5px 0 #110321, 0 8px 15px rgba(0, 0, 0, 0.6);
+        }
+
+        .arcade-physical-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 1px 0 #110321, 0 3px 8px rgba(0, 0, 0, 0.8);
+        }
+
+        .arcade-physical-btn .btn-cap {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.75rem;
+            color: #ffffff;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+        }
+
+        .btn-color-red {
+            background: radial-gradient(circle at 35% 35%, #ff4d6d, #c9184a 70%, #590d22 100%);
+            border: 2px solid #ff758f;
+        }
+        .btn-color-gold {
+            background: radial-gradient(circle at 35% 35%, #ffe66d, #f4a261 70%, #b0621d 100%);
+            border: 2px solid #ffd166;
+        }
+        .btn-color-violet {
+            background: radial-gradient(circle at 35% 35%, #c77dff, #7b2cbf 70%, #3c096c 100%);
+            border: 2px solid #e0aaff;
+        }
+        .btn-color-cyan {
+            background: radial-gradient(circle at 35% 35%, #00f0ff, #0096c7 70%, #03045e 100%);
+            border: 2px solid #90e0ef;
+        }
+
+        /* Toast Arcade Central */
+        .arcade-action-toast {
+            position: fixed;
+            top: 25px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-20px);
+            background: #120424;
+            border: 2px solid var(--accent-gold);
+            color: #ffd166;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.68rem;
+            padding: 10px 20px;
+            border-radius: 14px;
+            box-shadow: 0 0 25px rgba(255, 209, 102, 0.6);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.25s ease;
+            z-index: 4000;
+        }
+
+        .arcade-action-toast.active {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* =========================================================
+           HUD SUPERIOR DE JUEGO (COMÚN PARA AMBOS MODOS)
+           ========================================================= */
+        .game-top-hud {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px dashed rgba(199, 125, 255, 0.25);
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .hud-back-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.74rem;
+            font-weight: 700;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .hud-back-btn:hover {
+            background: rgba(255, 117, 143, 0.3);
+            border-color: var(--accent-rose);
+            transform: translateX(-2px);
+        }
+
+        .hud-stats-cluster {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .hud-affinity-meter {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid rgba(199, 125, 255, 0.3);
+        }
+
+        .hud-affinity-label {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.68rem;
+            font-weight: 800;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hud-affinity-bar-outer {
+            width: 110px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .hud-affinity-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--accent-rose), var(--accent-gold));
+            border-radius: 6px;
+            transition: width 0.45s ease;
+            box-shadow: 0 0 10px rgba(255, 209, 102, 0.5);
+        }
+
+        .hud-lives-rack {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .hud-heart-icon {
+            width: 22px;
+            height: 22px;
+            color: #ff4d6d;
+            filter: drop-shadow(0 0 6px rgba(255, 77, 109, 0.6));
+            transition: transform 0.25s ease, opacity 0.25s ease;
+        }
+
+        .hud-heart-icon.lost {
+            opacity: 0.2;
+            transform: scale(0.8);
+            filter: none;
+            color: #555;
+        }
+
+        /* =========================================================
+           MODO 1: TRIVIA CONCURSO & COMODINES
+           ========================================================= */
+        .lifelines-action-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .lifeline-pill-btn {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1.5px solid rgba(199, 125, 255, 0.3);
+            border-radius: 20px;
+            padding: 8px 18px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: #ffffff;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .lifeline-pill-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            border-color: var(--accent-gold);
+            background: rgba(255, 209, 102, 0.18);
+            color: var(--accent-gold);
+            box-shadow: 0 6px 18px rgba(255, 209, 102, 0.3);
+        }
+
+        .lifeline-pill-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .trivia-question-stage {
+            background: rgba(18, 6, 34, 0.7);
+            border: 1px solid rgba(199, 125, 255, 0.25);
+            border-radius: 24px;
+            padding: 28px 32px;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .trivia-category-badge {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.68rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            background: rgba(255, 209, 102, 0.12);
+            border: 1px solid rgba(255, 209, 102, 0.35);
+            padding: 4px 14px;
+            border-radius: 12px;
+            display: inline-block;
+            margin-bottom: 14px;
+        }
+
+        .trivia-question-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.35;
+            margin: 0 0 8px 0;
+        }
+
+        .trivia-question-step {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.6);
+            letter-spacing: 1px;
+        }
+
+        /* Opciones de la Trivia */
+        .trivia-options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .trivia-opt-btn {
+            background: linear-gradient(180deg, #2b0e4f 0%, #17052e 100%);
+            border: 2px solid rgba(199, 125, 255, 0.4);
+            border-radius: 18px;
+            padding: 16px 20px;
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 600;
+            line-height: 1.4;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.12s ease;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            box-shadow: 0 6px 0 #0b0217, 0 10px 20px rgba(0, 0, 0, 0.6);
+            position: relative;
+        }
+
+        .trivia-opt-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            border-color: var(--accent-gold);
+            background: linear-gradient(180deg, #3f1572 0%, #200742 100%);
+            box-shadow: 0 8px 0 #0b0217, 0 14px 25px rgba(255, 209, 102, 0.35);
+        }
+
+        .trivia-opt-btn:active:not(:disabled) {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #0b0217, 0 4px 10px rgba(0, 0, 0, 0.7);
+        }
+
+        .trivia-opt-letter {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: rgba(255, 209, 102, 0.15);
+            border: 1.5px solid var(--accent-gold);
+            color: var(--accent-gold);
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.72rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+        }
+
+        .trivia-opt-btn.correct {
+            background: linear-gradient(135deg, rgba(6, 214, 160, 0.25), rgba(6, 214, 160, 0.45)) !important;
+            border-color: var(--accent-teal) !important;
+            box-shadow: 0 0 30px rgba(6, 214, 160, 0.5) !important;
+            transform: scale(1.02);
+        }
+
+        .trivia-opt-btn.correct .trivia-opt-letter {
+            background: var(--accent-teal);
+            color: #04241c;
+        }
+
+        .trivia-opt-btn.incorrect {
+            background: linear-gradient(135deg, rgba(230, 57, 70, 0.25), rgba(230, 57, 70, 0.45)) !important;
+            border-color: #e63946 !important;
+            box-shadow: 0 0 25px rgba(230, 57, 70, 0.5) !important;
+            transform: scale(0.98);
+        }
+
+        .trivia-opt-btn.eliminated-5050 {
+            opacity: 0.25 !important;
+            pointer-events: none !important;
+            filter: grayscale(1);
+            text-decoration: line-through;
+        }
+
+        /* Banner de Reacción en Vivo de Iván */
+        .ivan-live-reaction-card {
+            background: rgba(25, 10, 46, 0.95);
+            border-radius: 20px;
+            padding: 18px 24px;
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            animation: slideUpFade 0.35s ease-out forwards;
+            border: 1.5px solid var(--accent-gold);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        .ivan-live-reaction-card.active {
+            display: flex;
+        }
+
+        .ivan-reaction-avatar-col {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .ivan-reaction-avatar {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-purple), var(--accent-rose));
+            border: 2px solid var(--accent-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #ffffff;
+            flex-shrink: 0;
+            box-shadow: 0 0 15px rgba(255, 209, 102, 0.4);
+        }
+
+        .ivan-reaction-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.76rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 2px;
+            display: block;
+        }
+
+        .ivan-reaction-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.15rem;
+            color: #ffffff;
+            margin: 0;
+            line-height: 1.35;
+        }
+
+        .next-stage-btn {
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-rose));
+            border: none;
+            color: #1a0628;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+            padding: 10px 22px;
+            border-radius: 20px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 14px rgba(255, 209, 102, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .next-stage-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(255, 117, 143, 0.6);
+        }
+
+        /* =========================================================
+           MODAL DE LLAMADA ENTRANTE DE IVÁN (COMODÍN)
+           ========================================================= */
+        .call-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(8, 2, 16, 0.94);
+            z-index: 2500;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .call-modal-overlay.active {
+            display: flex;
+            animation: fadeIn 0.25s ease-out;
+        }
+
+        .phone-call-card {
+            background: linear-gradient(150deg, #2a0f4e, #140528);
+            border: 2px solid var(--accent-gold);
+            border-radius: 28px;
+            max-width: 440px;
+            width: 100%;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(255, 209, 102, 0.3);
+            position: relative;
+        }
+
+        .phone-pulse-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #7209b7, #ff758f);
+            border: 3px solid var(--accent-gold);
+            margin: 0 auto 16px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ffffff;
+            box-shadow: 0 0 25px rgba(255, 209, 102, 0.5);
+            animation: ringPulse 1.4s infinite alternate;
+        }
+
+        @keyframes ringPulse {
+            0% { transform: scale(1); box-shadow: 0 0 15px rgba(255, 209, 102, 0.4); }
+            100% { transform: scale(1.08); box-shadow: 0 0 30px rgba(255, 117, 143, 0.7); }
+        }
+
+        .phone-caller-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 0 0 4px 0;
+        }
+
+        .phone-call-status {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--accent-teal);
+            text-transform: uppercase;
+            margin-bottom: 18px;
+        }
+
+        .phone-clue-bubble {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px dashed rgba(255, 209, 102, 0.4);
+            border-radius: 18px;
+            padding: 16px 20px;
+            margin-bottom: 22px;
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.25rem;
+            line-height: 1.45;
+            color: #ffd166;
+            text-align: center;
+        }
+
+        /* =========================================================
+           MODO 2: ¿QUÉ PREFERIRÍA IVÁN? (DILEMAS A vs B)
+           ========================================================= */
+        .dilemma-header-card {
+            background: rgba(18, 6, 34, 0.7);
+            border: 1px solid rgba(199, 125, 255, 0.25);
+            border-radius: 24px;
+            padding: 24px 30px;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .dilemma-badge {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.68rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: var(--accent-rose);
+            text-transform: uppercase;
+            background: rgba(255, 117, 143, 0.15);
+            border: 1px solid rgba(255, 117, 143, 0.35);
+            padding: 4px 14px;
+            border-radius: 12px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .dilemma-prompt-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 0;
+            line-height: 1.35;
+        }
+
+        .dilemma-duel-arena {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 20px;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .dilemma-choice-card {
+            background: linear-gradient(180deg, #260c46 0%, #120326 100%);
+            border: 2.5px solid rgba(199, 125, 255, 0.4);
+            border-radius: 22px;
+            padding: 30px 24px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.14s ease;
+            position: relative;
+            box-shadow: 0 8px 0 #0c0119, 0 14px 30px rgba(0, 0, 0, 0.6);
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .dilemma-choice-card:hover:not(.disabled) {
+            transform: translateY(-3px) scale(1.01);
+            border-color: var(--accent-gold);
+            box-shadow: 0 11px 0 #0c0119, 0 18px 40px rgba(255, 209, 102, 0.35);
+        }
+
+        .dilemma-choice-card:active:not(.disabled) {
+            transform: translateY(5px);
+            box-shadow: 0 3px 0 #0c0119, 0 6px 15px rgba(0, 0, 0, 0.8);
+        }
+
+        .dilemma-card-letter {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255, 209, 102, 0.18);
+            border: 2px solid var(--accent-gold);
+            color: var(--accent-gold);
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.82rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 14px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .dilemma-card-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.98rem;
+            font-weight: 600;
+            line-height: 1.45;
+            color: #ffffff;
+            margin: 0;
+        }
+
+        .dilemma-vs-divider {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-rose), var(--primary-purple));
+            border: 2px solid var(--accent-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 900;
+            color: #ffffff;
+            box-shadow: 0 0 20px rgba(255, 117, 143, 0.6);
+            flex-shrink: 0;
+        }
+
+        /* Estados de Selección de Dilema */
+        .dilemma-choice-card.ivan-pick {
+            border-color: var(--accent-gold) !important;
+            background: linear-gradient(145deg, rgba(114, 9, 183, 0.4), rgba(255, 209, 102, 0.2)) !important;
+            box-shadow: 0 0 35px rgba(255, 209, 102, 0.6) !important;
+        }
+
+        .dilemma-choice-card.user-match {
+            border-color: var(--accent-teal) !important;
+        }
+
+        .dilemma-choice-card.unpicked {
+            opacity: 0.4;
+            transform: scale(0.95);
+        }
+
+        /* Caja de Revelación "La Verdad de Iván" */
+        .ivan-truth-reveal-box {
+            background: rgba(22, 8, 42, 0.95);
+            border: 1.5px solid var(--accent-gold);
+            border-radius: 22px;
+            padding: 22px 28px;
+            margin-top: 20px;
+            display: none;
+            animation: slideUpFade 0.35s ease-out forwards;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7);
+        }
+
+        .ivan-truth-reveal-box.active {
+            display: block;
+        }
+
+        .truth-match-pill {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 4px 14px;
+            border-radius: 12px;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+
+        .truth-match-success {
+            background: rgba(6, 214, 160, 0.15);
+            border: 1px solid rgba(6, 214, 160, 0.4);
+            color: var(--accent-teal);
+        }
+
+        .truth-match-different {
+            background: rgba(255, 117, 143, 0.15);
+            border: 1px solid rgba(255, 117, 143, 0.4);
+            color: var(--accent-rose);
+        }
+
+        .truth-quote-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.3rem;
+            line-height: 1.5;
+            color: #ffffff;
+            margin: 0 0 18px 0;
+        }
+
+        /* =========================================================
+           PANTALLA DE VICTORIA & CERTIFICADO DE AFINIDAD
+           ========================================================= */
+        .victory-screen-wrap {
+            display: none;
+            text-align: center;
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+
+        .victory-screen-wrap.active {
+            display: block;
+        }
+
+        .victory-trophy-halo {
+            width: 85px;
+            height: 85px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 209, 102, 0.25), rgba(114, 9, 183, 0.4));
+            border: 2px solid var(--accent-gold);
+            margin: 0 auto 16px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 35px rgba(255, 209, 102, 0.6);
+            color: var(--accent-gold);
+        }
+
+        .affinity-score-circle {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.4rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            text-shadow: 0 0 25px rgba(255, 209, 102, 0.5);
+            margin: 0 0 6px 0;
+        }
+
+        .affinity-tier-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent-rose);
+            margin-bottom: 24px;
+        }
+
+        /* Diploma de Amor Oficial */
+        .love-diploma-sheet {
+            background: linear-gradient(to bottom, #fcf9f2 0%, #f6f0e2 100%);
+            color: #1e0e2e;
+            border-radius: 24px;
+            border: 2px solid #dfd3bd;
+            max-width: 640px;
+            margin: 0 auto 30px auto;
+            padding: 38px 42px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(255, 209, 102, 0.3);
+            position: relative;
+            text-align: center;
+        }
+
+        .love-diploma-sheet::before {
+            content: '';
+            position: absolute;
+            inset: 12px;
+            border: 1.5px dashed rgba(114, 9, 183, 0.3);
+            border-radius: 16px;
+            pointer-events: none;
+        }
+
+        .diploma-header-tag {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.68rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: var(--primary-purple);
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .diploma-recipient-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #1a0628;
+            margin: 0 0 12px 0;
+            letter-spacing: 1px;
+        }
+
+        .diploma-prose-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.25rem;
+            line-height: 1.6;
+            color: #2b0b42;
+            margin: 0 0 24px 0;
+        }
+
+        .diploma-seal-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 16px;
+            border-top: 1px dashed rgba(0, 0, 0, 0.15);
+        }
+
+        .diploma-wax-seal {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #e63946, #9d0208 70%, #54091a 100%);
+            border: 2px solid var(--accent-gold);
+            color: var(--accent-gold);
+            font-family: 'Playfair Display', serif;
+            font-size: 0.82rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(157, 2, 8, 0.4);
+        }
+
+        .victory-actions-grid {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        /* Navegación Inferior entre Capítulos */
+        .bottom-chapter-nav {
+            margin-top: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .nav-btn-action {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(199, 125, 255, 0.3);
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-btn-action:hover {
+            background: linear-gradient(135deg, rgba(199, 125, 255, 0.3), rgba(255, 183, 3, 0.3));
+            border-color: var(--accent-gold);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .nav-btn-action.next-chapter {
+            background: linear-gradient(135deg, #9d4edd, #ff758f);
+            border-color: transparent;
+        }
+
+        .nav-btn-action.next-chapter:hover {
+            box-shadow: 0 0 20px rgba(255, 117, 143, 0.5);
+            transform: translateY(-2px);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(14px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsividad */
+        @media screen and (max-width: 768px) {
+            .arcade-cabinet-frame {
+                padding: 22px 16px;
+                border-radius: 24px;
+            }
+
+            .challenge-header-title {
+                font-size: 2.1rem;
+            }
+
+            .lobby-modes-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .trivia-options-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dilemma-duel-arena {
+                grid-template-columns: 1fr;
+            }
+
+            .dilemma-vs-divider {
+                margin: 4px auto;
+            }
+
+            .love-diploma-sheet {
+                padding: 26px 20px;
+            }
+
+            .diploma-recipient-name {
+                font-size: 1.8rem;
+            }
+
+            .bottom-chapter-nav {
+                flex-direction: column;
+            }
+
+            .nav-btn-action {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Canvas de Fondo (Estrellas y Confetti) -->
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+    <canvas id="hearts-canvas"></canvas>
+    <canvas id="confetti-canvas"></canvas>
+
+    <!-- Barra de Navegación Superior -->
+    <nav class="chapter-navbar">
+        <a href="index.html" class="nav-back-btn">
+            <span>←</span> Volver al Índice
+        </a>
+        <span class="nav-chapter-badge">Capítulo V · El Desafío de Iván</span>
+    </nav>
+
+    <!-- Contenedor Principal -->
+    <main class="challenge-page-wrapper">
+
+        <!-- Cabecera -->
+        <header class="challenge-header-section">
+            <span class="challenge-header-pre">✦ QUINTO CAPÍTULO ✦</span>
+            <h1 class="challenge-header-title">El Desafío de Iván</h1>
+            <p class="challenge-header-sub">
+                “Dicen que el amor se nota en los detalles más pequeños... Demuestra qué tan bien conoces la mente, las manías y el corazón de Iván.”
+            </p>
+        </header>
+
+        <!-- Gabinete Principal de Juego -->
+        <div class="arcade-cabinet-frame">
+
+            <!-- T-Molding 3D: Perfiles laterales de goma redondeada -->
+            <div class="arcade-t-molding arcade-t-molding-left"></div>
+            <div class="arcade-t-molding arcade-t-molding-right"></div>
+
+            <!-- Telón de Transición Épica (CRT Hyperspace Curtain) -->
+            <div id="arcade-transition-curtain" class="arcade-transition-curtain">
+                <div class="crt-beam-flash" id="crt-beam-flash"></div>
+                <div class="arcade-boot-announcer" id="arcade-boot-announcer">
+                    <div class="boot-signal-badge gold-badge" id="boot-signal-badge">PLAYER 1 READY</div>
+                    <h2 class="boot-title gold-title" id="boot-title">★ INITIALIZING TRIVIA SHOW ★</h2>
+                    <div class="boot-subtitle" id="boot-subtitle">CARGANDO RONDAS DE AFINIDAD · PREPÁRATE</div>
+                    <div class="boot-progress-wrap">
+                        <div class="boot-progress-bar" id="boot-progress-bar"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- =========================================================
+                 VISTA 1: LOBBY ARCADE · LOVE ARCADE STATION
+                 ========================================================= -->
+            <div id="lobby-view">
+                
+                <!-- Marquesina Neón Superior -->
+                <div class="arcade-marquee-banner">
+                    <div class="marquee-tube-glow"></div>
+                    <div class="marquee-screw screw-tl"></div>
+                    <div class="marquee-screw screw-tr"></div>
+                    <div class="marquee-screw screw-bl"></div>
+                    <div class="marquee-screw screw-br"></div>
+                    
+                    <div class="marquee-sub-label">★ N E O - A R C A D E   E D I T I O N ★</div>
+                    <h2 class="marquee-main-title">LOVE ARCADE STATION</h2>
+                    
+                    <div class="marquee-ticker-bar">
+                        <span class="ticker-chip">CREDITS: ∞</span>
+                        <span class="ticker-text">EXCLUSIVO PARA ANDREA · SELECCIONA TU MODO DE JUEGO</span>
+                        <span class="ticker-chip high-score-chip">TOP: 100% AFINIDAD</span>
+                    </div>
+                </div>
+
+                <!-- Barra de Altavoces Estéreo Superior -->
+                <div class="arcade-stereo-speaker-bar">
+                    <div class="speaker-grille-pod">
+                        <span class="speaker-hole"></span><span class="speaker-hole"></span><span class="speaker-hole"></span><span class="speaker-hole"></span><span class="speaker-hole"></span>
+                    </div>
+                    <div class="speaker-center-badge">✦ STEREO HI-FI SOUND ✦</div>
+                    <div class="speaker-grille-pod">
+                        <span class="speaker-hole"></span><span class="speaker-hole"></span><span class="speaker-hole"></span><span class="speaker-hole"></span><span class="speaker-hole"></span>
+                    </div>
+                </div>
+
+                <!-- Estaciones Arcade CRT Duales con Monedero Central -->
+                <div class="arcade-stations-container">
+                    
+                    <!-- Estación 1: TRIVIA SHOW ARCADE (1P) -->
+                    <div class="arcade-unit-cabinet unit-left" onclick="startTriviaMode()">
+                        <div class="cabinet-top-visor">
+                            <span class="visor-led"></span>
+                            <span class="visor-mode-name">1P · TRIVIA SHOW</span>
+                            <span class="visor-badge-live">ONLINE</span>
+                        </div>
+                        
+                        <div class="arcade-crt-monitor-frame">
+                            <div class="monitor-top-silkscreen">
+                                <span>15KHz RGB CRT</span>
+                                <span>HI-RES COLOR</span>
+                            </div>
+
+                            <div class="crt-screen-wrapper">
+                                <div class="crt-scanlines"></div>
+                                <div class="crt-glare"></div>
+                                
+                                <div class="crt-content">
+                                    <div class="arcade-pixel-badge">1-PLAYER CHALLENGE</div>
+                                    <h3 class="arcade-game-title">¿CUÁNTO ME CONOCES?</h3>
+                                    <p class="arcade-game-desc">
+                                        12 rondas de preguntas íntimas sobre Iván. Desbloquea reacciones en vivo y usa los 3 power-ups.
+                                    </p>
+                                    
+                                    <div class="arcade-specs-grid">
+                                        <div class="arcade-spec-item">
+                                            <span>ROUNDS</span>
+                                            <strong>12</strong>
+                                        </div>
+                                        <div class="arcade-spec-item">
+                                            <span>POWER-UPS</span>
+                                            <strong>3</strong>
+                                        </div>
+                                        <div class="arcade-spec-item">
+                                            <span>PREMIO</span>
+                                            <strong>DIPLOMA</strong>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="arcade-press-start-btn">
+                                        <span class="blinking-cursor">▶</span>
+                                        <span>PRESS 1P START</span>
+                                        <span class="blinking-cursor">◀</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="monitor-bottom-silkscreen">
+                                <span>MODEL IA-2026</span>
+                                <div class="monitor-dials">
+                                    <span class="dial-knob"></span>
+                                    <span class="dial-knob"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Monedero Central Realista Doble (Twin Coin Door) -->
+                    <div class="arcade-center-coin-station">
+                        <div class="arcade-double-coin-door">
+                            <div class="coin-door-lock-row">
+                                <span class="coin-door-brand">LOVE COIN</span>
+                                <div class="coin-cam-lock" title="Arcade Cam Lock"></div>
+                            </div>
+                            
+                            <div class="coin-door-twin-slots">
+                                <!-- Ranura 1P -->
+                                <div class="twin-slot-item slot-1p" id="arcade-coin-slot-1" onclick="insertLoveCoin(1)" title="Insertar Ficha 1P">
+                                    <div class="twin-slit"></div>
+                                    <button class="twin-reject-btn" type="button">
+                                        <span>25¢ 1P</span>
+                                    </button>
+                                </div>
+                                <!-- Ranura 2P -->
+                                <div class="twin-slot-item slot-2p" id="arcade-coin-slot-2" onclick="insertLoveCoin(2)" title="Insertar Ficha 2P">
+                                    <div class="twin-slit"></div>
+                                    <button class="twin-reject-btn" type="button">
+                                        <span>25¢ 2P</span>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="coin-counter-display" id="coin-counter-display">FICHAS: 100%</div>
+                            
+                            <!-- Cajetines de retorno de monedas -->
+                            <div class="coin-return-pockets-row">
+                                <div class="coin-return-pocket" onclick="clickCoinReturn()" title="Bandeja de Monedas 1P">
+                                    <div class="coin-flap-metal">PUSH</div>
+                                </div>
+                                <div class="coin-return-pocket" onclick="clickCoinReturn()" title="Bandeja de Monedas 2P">
+                                    <div class="coin-flap-metal">PUSH</div>
+                                </div>
+                            </div>
+                            
+                            <div class="coin-toast-popup" id="coin-toast-popup">¡FICHA ACEPTADA! +100 LOVE CREDITS</div>
+                        </div>
+                    </div>
+
+                    <!-- Estación 2: TELEPATÍA DILEMAS A vs B (2P CO-OP) -->
+                    <div class="arcade-unit-cabinet unit-right" onclick="startDilemmasMode()">
+                        <div class="cabinet-top-visor">
+                            <span class="visor-led cyan-led"></span>
+                            <span class="visor-mode-name">2P · DILEMAS A vs B</span>
+                            <span class="visor-badge-live">CO-OP</span>
+                        </div>
+                        
+                        <div class="arcade-crt-monitor-frame">
+                            <div class="monitor-top-silkscreen">
+                                <span>15KHz RGB CRT</span>
+                                <span>CO-OP TELEPATHY</span>
+                            </div>
+
+                            <div class="crt-screen-wrapper crt-cyan-theme">
+                                <div class="crt-scanlines"></div>
+                                <div class="crt-glare"></div>
+                                
+                                <div class="crt-content">
+                                    <div class="arcade-pixel-badge cyan-badge">CO-OP TELEPATÍA</div>
+                                    <h3 class="arcade-game-title">¿QUÉ PREFERIRÍA IVÁN?</h3>
+                                    <p class="arcade-game-desc">
+                                        Dilemas de pareja en pantalla dividida. Adivina qué elegiría Iván y desbloquea "La Verdad de Iván".
+                                    </p>
+                                    
+                                    <div class="arcade-specs-grid">
+                                        <div class="arcade-spec-item">
+                                            <span>DILEMAS</span>
+                                            <strong>7</strong>
+                                        </div>
+                                        <div class="arcade-spec-item">
+                                            <span>FORMATO</span>
+                                            <strong>A vs B</strong>
+                                        </div>
+                                        <div class="arcade-spec-item">
+                                            <span>BONUS</span>
+                                            <strong>CONFESIÓN</strong>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="arcade-press-start-btn cyan-btn">
+                                        <span class="blinking-cursor">▶</span>
+                                        <span>PRESS 2P START</span>
+                                        <span class="blinking-cursor">◀</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="monitor-bottom-silkscreen">
+                                <span>MODEL IA-2026</span>
+                                <div class="monitor-dials">
+                                    <span class="dial-knob"></span>
+                                    <span class="dial-knob"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Panel de Control Arcade Físico (Deck Inferior con Joystick y Botones) -->
+                <div class="arcade-deck-control-panel">
+                    <div class="deck-surface">
+                        
+                        <!-- Joystick 3D Interactivo -->
+                        <div class="deck-joystick-subsystem" id="arcade-joystick-unit">
+                            <div class="joystick-base-plate">
+                                <div class="joystick-washer"></div>
+                                <div class="joystick-shaft" id="joystick-shaft">
+                                    <div class="joystick-ball" id="joystick-ball"></div>
+                                </div>
+                            </div>
+                            <span class="deck-label">JOYSTICK</span>
+                        </div>
+
+                        <!-- Instrucciones Centrales del Deck -->
+                        <div class="deck-center-instructions">
+                            <div class="deck-arcade-brand">ANDREA & IVÁN · LOVE EDITION</div>
+                            <div class="deck-prompt-text">¡MUEVE EL JOYSTICK O PULSA LOS BOTONES!</div>
+                        </div>
+
+                        <!-- 4 Botones Físicos Arcade -->
+                        <div class="deck-arcade-buttons-rack">
+                            <button class="arcade-physical-btn btn-color-red" type="button" onclick="triggerArcadeButton('A')">
+                                <span class="btn-cap">A</span>
+                            </button>
+                            <button class="arcade-physical-btn btn-color-gold" type="button" onclick="triggerArcadeButton('B')">
+                                <span class="btn-cap">B</span>
+                            </button>
+                            <button class="arcade-physical-btn btn-color-violet" type="button" onclick="triggerArcadeButton('X')">
+                                <span class="btn-cap">X</span>
+                            </button>
+                            <button class="arcade-physical-btn btn-color-cyan" type="button" onclick="triggerArcadeButton('Y')">
+                                <span class="btn-cap">Y</span>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- =========================================================
+                 VISTA 2: MODO TRIVIA SHOW
+                 ========================================================= -->
+            <div id="trivia-view" style="display: none;">
+                
+                <!-- HUD de Trivia -->
+                <div class="game-top-hud">
+                    <button class="hud-back-btn" onclick="returnToLobby()">
+                        <span>← Menú de Modos</span>
+                    </button>
+                    
+                    <div class="hud-stats-cluster">
+                        <div class="hud-affinity-meter">
+                            <span class="hud-affinity-label">Afinidad:</span>
+                            <div class="hud-affinity-bar-outer">
+                                <div class="hud-affinity-bar-fill" id="trivia-affinity-fill"></div>
+                            </div>
+                            <span id="trivia-affinity-val" style="font-family: 'Montserrat', sans-serif; font-size: 0.7rem; font-weight: 800; color: #ffd166;">0%</span>
+                        </div>
+
+                        <div class="hud-lives-rack" id="trivia-lives-rack">
+                            <svg class="hud-heart-icon" id="heart-1" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                            <svg class="hud-heart-icon" id="heart-2" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                            <svg class="hud-heart-icon" id="heart-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Comodines (Lifelines) -->
+                <div class="lifelines-action-bar">
+                    <span style="font-family: 'Montserrat', sans-serif; font-size: 0.65rem; font-weight: 800; color: rgba(255,255,255,0.6); letter-spacing: 1.5px; text-transform: uppercase;">Comodines:</span>
+                    <button class="lifeline-pill-btn" id="btn-5050" onclick="useLifeline5050()">
+                        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line></svg>
+                        <span>50 / 50</span>
+                    </button>
+                    <button class="lifeline-pill-btn" id="btn-call-ivan" onclick="useLifelineCallIvan()">
+                        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                        <span>Llamar a Iván</span>
+                    </button>
+                    <button class="lifeline-pill-btn" id="btn-otter-tip" onclick="useLifelineOtterTip()">
+                        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path></svg>
+                        <span>Pista de la Nutria</span>
+                    </button>
+                </div>
+
+                <!-- Escenario de Pregunta -->
+                <div class="trivia-question-stage">
+                    <span class="trivia-category-badge" id="trivia-category-tag">GUSTOS & ANTOJOS</span>
+                    <h2 class="trivia-question-text" id="trivia-question-title">¿Cargando pregunta de la Trivia?</h2>
+                    <span class="trivia-question-step" id="trivia-question-step-label">Pregunta 1 de 12</span>
+                </div>
+
+                <!-- Opciones de Respuesta -->
+                <div class="trivia-options-grid" id="trivia-options-container">
+                    <!-- Inyectadas dinámicamente -->
+                </div>
+
+                <!-- Banner de Reacción en Vivo de Iván -->
+                <div class="ivan-live-reaction-card" id="ivan-reaction-card">
+                    <div class="ivan-reaction-avatar-col">
+                        <div class="ivan-reaction-avatar">Iván</div>
+                        <div>
+                            <span class="ivan-reaction-title" id="ivan-reaction-badge">REACCIÓN DE IVÁN:</span>
+                            <p class="ivan-reaction-text" id="ivan-reaction-text">¡Reacción de Iván!</p>
+                        </div>
+                    </div>
+                    <button class="next-stage-btn" id="trivia-next-btn" onclick="nextTriviaQuestion()">
+                        <span>Siguiente Pregunta</span>
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- =========================================================
+                 VISTA 3: MODO ¿QUÉ PREFERIRÍA IVÁN? (DILEMAS A vs B)
+                 ========================================================= -->
+            <div id="dilemmas-view" style="display: none;">
+                
+                <!-- HUD de Dilemas -->
+                <div class="game-top-hud">
+                    <button class="hud-back-btn" onclick="returnToLobby()">
+                        <span>← Menú de Modos</span>
+                    </button>
+                    
+                    <div class="hud-stats-cluster">
+                        <div class="hud-affinity-meter">
+                            <span class="hud-affinity-label">Telepatía:</span>
+                            <span id="dilemma-match-count" style="font-family: 'Montserrat', sans-serif; font-size: 0.8rem; font-weight: 800; color: #ff758f;">0 / 6</span>
+                        </div>
+                        <span id="dilemma-step-pill" style="font-family: 'Montserrat', sans-serif; font-size: 0.72rem; font-weight: 700; color: #ffd166; background: rgba(255,209,102,0.15); border: 1px solid rgba(255,209,102,0.35); padding: 5px 12px; border-radius: 14px;">
+                            Dilema 1 de 6
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Cabecera del Dilema Actual -->
+                <div class="dilemma-header-card">
+                    <span class="dilemma-badge" id="dilemma-category-badge">DILEMA DE PAREJA</span>
+                    <h2 class="dilemma-prompt-title" id="dilemma-prompt-text">Si Iván tuviera que elegir...</h2>
+                </div>
+
+                <!-- Arena de Duelo A vs B -->
+                <div class="dilemma-duel-arena">
+                    <div class="dilemma-choice-card" id="dilemma-card-a" onclick="selectDilemmaChoice('A')">
+                        <div class="dilemma-card-letter">A</div>
+                        <p class="dilemma-card-text" id="dilemma-text-a">Opción A</p>
+                    </div>
+
+                    <div class="dilemma-vs-divider">VS</div>
+
+                    <div class="dilemma-choice-card" id="dilemma-card-b" onclick="selectDilemmaChoice('B')">
+                        <div class="dilemma-card-letter">B</div>
+                        <p class="dilemma-card-text" id="dilemma-text-b">Opción B</p>
+                    </div>
+                </div>
+
+                <!-- Caja de Revelación "La Verdad de Iván" -->
+                <div class="ivan-truth-reveal-box" id="ivan-truth-box">
+                    <span class="truth-match-pill" id="truth-match-pill">¡MENTES CONECTADAS!</span>
+                    <p class="truth-quote-text" id="truth-explanation-text">Explicación sincera y cariñosa de Iván sobre por qué eligió esta opción.</p>
+                    <div style="text-align: right;">
+                        <button class="next-stage-btn" onclick="nextDilemma()">
+                            <span>Siguiente Dilema</span>
+                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- =========================================================
+                 VISTA 4: CERTIFICADO FINAL DE AFINIDAD Y VICTORIA
+                 ========================================================= -->
+            <div class="victory-screen-wrap" id="victory-view">
+                
+                <div class="victory-trophy-halo">
+                    <svg viewBox="0 0 24 24" width="46" height="46" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+                </div>
+
+                <div class="affinity-score-circle" id="final-score-val">100%</div>
+                <div class="affinity-tier-title" id="final-tier-title">✦ ALMA GEMELA OFICIAL DE IVÁN ✦</div>
+
+                <!-- Diploma de Reconocimiento Oficial -->
+                <div class="love-diploma-sheet">
+                    <span class="diploma-header-tag">✦ TÍTULO HONORÍFICO DE NUESTRA HISTORIA ✦</span>
+                    <h3 class="diploma-recipient-name">Andrea</h3>
+                    <p class="diploma-prose-text" id="diploma-prose-content">
+                        Por haber demostrado que conoces cada rincón de la mente, las manías, los gustos y el corazón de Iván a la perfección. Queda oficialmente certificado que entre tú y yo existe una conexión única que nada ni nadie en este mundo podrá igualar.
+                    </p>
+                    
+                    <div class="diploma-seal-row">
+                        <div style="text-align: left;">
+                            <span style="font-family: 'Montserrat', sans-serif; font-size: 0.65rem; color: #777; text-transform: uppercase; letter-spacing: 1px; display: block;">Firmado con devoción eterna:</span>
+                            <span style="font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; font-style: italic; color: #7209b7;">Iván</span>
+                        </div>
+                        <div class="diploma-wax-seal">I · A</div>
+                    </div>
+                </div>
+
+                <div class="victory-actions-grid">
+                    <button class="nav-btn-action" onclick="returnToLobby()">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+                        <span>Jugar Otro Modo</span>
+                    </button>
+                    <a href="capitulo7.html" class="nav-btn-action next-chapter">
+                        <span>Avanzar al siguiente capítulo</span> <span>→</span>
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Navegación Inferior entre Capítulos -->
+        <div class="bottom-chapter-nav">
+            <a href="capitulo5.html" class="nav-btn-action">
+                <span>←</span> Volver al capítulo anterior
+            </a>
+            <a href="capitulo7.html" class="nav-btn-action next-chapter">
+                <span>Avanzar al siguiente capítulo</span> <span>→</span>
+            </a>
+        </div>
+
+    </main>
+
+    <!-- Modal de Llamada Entrante de Iván (Comodín) -->
+    <div class="call-modal-overlay" id="call-modal-overlay" onclick="closeCallModal()">
+        <div class="phone-call-card" onclick="event.stopPropagation()">
+            <div class="phone-pulse-avatar">I · A</div>
+            <h3 class="phone-caller-name">Iván</h3>
+            <div class="phone-call-status">Llamada Conectada · Pista en Directo</div>
+            
+            <div class="phone-clue-bubble" id="phone-clue-text">
+                “Hola mi amor... te doy una pista: fíjate en lo que siempre te digo cuando estamos juntos.”
+            </div>
+
+            <button class="next-stage-btn" onclick="closeCallModal()" style="width: 100%; justify-content: center;">
+                <span>¡Gracias mi amor, ya sé cuál es!</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         SCRIPTS: MOTORES DE JUEGO, SONIDO Y LÓGICA
+         ========================================================= -->
+    <script>
+        // =========================================================
+        // BANCO DE PREGUNTAS: MODO 1 (TRIVIA: ¿CUÁNTO ME CONOCES?)
+        // =========================================================
+        const triviaDatabase = [
+            {
+                id: 1,
+                category: "GUSTOS & ANTOJOS",
+                question: "¿Cuál es mi comida favorita de todas?",
+                options: [
+                    "Arroz chaufa",
+                    "Makis",
+                    "Alitas acevichadas",
+                    "Papa rellena"
+                ],
+                correct: 1,
+                clue: "“Piénsalo bien mi niña... viene en rollitos deliciosos y me encanta comerlos contigo.”",
+                otterTip: "La nutria dice: Es comida japonesa, rollitos exquisitos que a Iván le fascinan.",
+                ivanHappy: "¡Exacto, los makis! Me encantan con locura y más si los comemos juntitos.",
+                ivanSad: "¡No amor! Me gusta el chaufa y las alitas, pero mis favoritos indiscutibles son los makis."
+            },
+            {
+                id: 2,
+                category: "ANTIPATÍAS CULINARIAS",
+                question: "¿Qué comida no soportaría comer ni aunque me pagaran una fortuna?",
+                options: [
+                    "Sopas",
+                    "Sudado de pescado",
+                    "Cabrito",
+                    "Fideos con patas de chancho"
+                ],
+                correct: 3,
+                clue: "“Solo de acordarme me da escalofríos... tiene fideos y una parte del cerdo que ni loco probaría jaja.”",
+                otterTip: "La nutria dice: Tiene patitas y fideos... a Iván se le quita el apetito solo de mirarlo.",
+                ivanHappy: "¡Uff, jamás! Los fideos con patas de chancho no los comería ni por todo el oro del mundo.",
+                ivanSad: "¡No me hagas comer eso por favor! Son los fideos con patas de chancho, ¡qué horror jaja!"
+            },
+            {
+                id: 3,
+                category: "ESTILO & PREFERENCIAS",
+                question: "¿Qué color elegiría para usarlo prácticamente en todo?",
+                options: [
+                    "Negro",
+                    "Morado",
+                    "Blanco",
+                    "Verde"
+                ],
+                correct: 0,
+                clue: "“Es el color más elegante, combina con todo y es mi tono por excelencia.”",
+                otterTip: "La nutria dice: Es el color de la noche profunda... sobrio, clásico y su favorito absoluto.",
+                ivanHappy: "¡Negro siempre! Si pudiera, vestiría y tendría todo de negro, es mi color predilecto.",
+                ivanSad: "¡Casi amor! El morado me gusta por nosotros, pero el negro es el que usaría en todo."
+            },
+            {
+                id: 4,
+                category: "MANÍAS & HÁBITOS",
+                question: "¿Cuál de estas es una costumbre típica de Iván que Andrea conoce a la perfección?",
+                options: [
+                    "Quedarse mirando al infinito pensando cosas profundas",
+                    "Desvelarse hablando contigo aunque al día siguiente tenga que madrugar",
+                    "Reírse de sus propias ocurrencias antes de contarlas",
+                    "Todas las anteriores son 100% Iván"
+                ],
+                correct: 3,
+                clue: "“Seamos sinceros... hago más de una de esas tres cosas todo el tiempo cuando estoy contigo jaja.”",
+                otterTip: "La nutria dice: Iván tiene muchas manías lindas, y sospecho que todas son verdad.",
+                ivanHappy: "¡Todas y cada una de ellas! Me conoces tan bien que da miedo jaja.",
+                ivanSad: "¡Eran todas amor! Tengo todas esas manías y tú te las sabes de memoria jaja."
+            },
+            {
+                id: 5,
+                category: "ANIMES & SERIES",
+                question: "¿Qué anime considero mi favorito absoluto?",
+                options: [
+                    "Solo Leveling",
+                    "Black Clover",
+                    "Hunter x Hunter",
+                    "Kaguya-sama: Love Is War"
+                ],
+                correct: 2,
+                clue: "“Gon, Killua, cazadores legendarios... una obra de arte que jamás me cansaré de alabar.”",
+                otterTip: "La nutria dice: Trata de cazadores y una amistad legendaria entre dos chicos extraordinarios.",
+                ivanHappy: "¡Hunter x Hunter de lejos! Es mi anime favorito de toda la vida, me conoces perfecto.",
+                ivanSad: "¡No amor! Los otros son buenísimos, pero mi corazón otaku le pertenece a Hunter x Hunter."
+            },
+            {
+                id: 6,
+                category: "GAMING & VICIOS",
+                question: "¿Cuál es mi videojuego favorito?",
+                options: [
+                    "MC",
+                    "Mainkra",
+                    "Minecraft",
+                    "Maincraft"
+                ],
+                correct: 2,
+                clue: "“Cubos, construir casitas contigo, minar diamantitos... escrito en su nombre oficial y canónico jaja.”",
+                otterTip: "La nutria dice: El juego de los bloques donde han compartido madrugadas inolvidables.",
+                ivanHappy: "¡Minecraft! Bien escrito y en todo su esplendor, el juego de nuestras mejores noches.",
+                ivanSad: "Jaja caíste en la trampa de los nombres inventados. ¡Es Minecraft bien escrito!"
+            },
+            {
+                id: 7,
+                category: "MÚSICA DEL CORAZÓN",
+                question: "¿Qué canción considero verdaderamente especial y mi favorita?",
+                options: [
+                    "My One And Only Love",
+                    "Mi Buen Amor",
+                    "Melancolía",
+                    "Primaveral"
+                ],
+                correct: 0,
+                clue: "“Es nuestra canción sagrada, la que siempre suena de fondo en esta página para ti.”",
+                otterTip: "La nutria dice: Canta Mon Laferte junto a Silvana y Natalia... 'My One and Only Love'.",
+                ivanHappy: "«My One And Only Love», porque no existe ni existirá nadie más en mi vida que tú.",
+                ivanSad: "¡Ay mi niña! Las otras son hermosas, pero la más sagrada para mí siempre es My One And Only Love."
+            },
+            {
+                id: 8,
+                category: "MÚSICA & ARTISTAS",
+                question: "¿Cuál es mi artista musical favorito?",
+                options: [
+                    "Natalia Lafourcade",
+                    "Mon Laferte",
+                    "Gustavo Cerati",
+                    "Bad Bunny"
+                ],
+                correct: 1,
+                clue: "“Tiene una voz desgarradora y potente, chilena, y canta canciones de amor extraordinarias.”",
+                otterTip: "La nutria dice: Su voz femenina nos acompaña siempre con notas llenas de emoción.",
+                ivanHappy: "¡Mon Laferte! Su música me fascina y sus letras me hacen pensar tanto en ti.",
+                ivanSad: "¡Casi amor! Cerati y Natalia son gigantes, pero mi artista favorita indiscutible es Mon Laferte."
+            },
+            {
+                id: 9,
+                category: "COMPLICIDAD",
+                question: "¿Qué es lo que más le derrite el corazón a Iván de Andrea?",
+                options: [
+                    "Su risa tierna y la luz preciosa de su mirada",
+                    "Cuando le hace berrinches bonitos y pucheros tiernos",
+                    "Lo inteligente, noble y bondadosa que es con todos",
+                    "Absolutamente todo de ella, es perfecta a sus ojos"
+                ],
+                correct: 3,
+                clue: "“No puedo elegir solo una... para mí cada detalle tuyo es un milagro.”",
+                otterTip: "La nutria dice: Iván no se conforma con una sola cualidad; te ama completa.",
+                ivanHappy: "¡Absolutamente todo! Eres mi niña perfecta tal y como eres, con todo y berrinches bonitos.",
+                ivanSad: "¡Eran todas! No puedo elegir solo una cuando me derrite todo de ti."
+            },
+            {
+                id: 10,
+                category: "NUESTRO COMIENZO",
+                question: "¿Qué estaba haciendo yo cuando empezamos a hablar por primera vez?",
+                options: [
+                    "En mi casa jugando",
+                    "En una fiesta con amigos",
+                    "En la casa de mi hermano",
+                    "Haciendo tareas y estudiando"
+                ],
+                correct: 2,
+                clue: "“No estaba en mi casa, estaba de visita relajado con alguien muy cercano de mi familia...”",
+                otterTip: "La nutria dice: Estaba pasando la tarde en casa de su hermano cuando Sierpito apareció.",
+                ivanHappy: "¡Sí! Estaba en la casa de mi hermano cuando el destino hizo que empezáramos a hablar.",
+                ivanSad: "¡No amor! No estaba jugando ni de fiesta, estaba tranquilo en la casa de mi hermano."
+            },
+            {
+                id: 11,
+                category: "TIEMPO CONTIGO",
+                question: "¿Qué cosa puedo hacer durante horas enteras sin aburrirme jamás?",
+                options: [
+                    "Verte y contemplar tu carita",
+                    "Escucharte atentamente hablar de lo que sea",
+                    "Hablar contigo durante horas por llamada",
+                    "Todas las anteriores son 100% verdad"
+                ],
+                correct: 3,
+                clue: "“Piénsalo bien amor... ¿hay algo de ti que me aburra? La respuesta es obvia.”",
+                otterTip: "La nutria dice: Iván no se cansa de ninguna; cuando está contigo el reloj no existe.",
+                ivanHappy: "¡Todas son verdaderas! Verte, escucharte y hablar contigo es lo que más disfruto en el universo.",
+                ivanSad: "¡Eran todas mi amor! Jamás me aburriría de mirarte, escucharte ni hablar contigo por horas."
+            },
+            {
+                id: 12,
+                category: "CLIMA & DÍAS",
+                question: "¿Qué tipo de clima prefiero sobre todos los demás?",
+                options: [
+                    "Verano soleado y caluroso",
+                    "Invierno frío y nublado",
+                    "Primavera templada",
+                    "Otoño ventoso y seco"
+                ],
+                correct: 1,
+                clue: "“Me fascina el frío, ponerme ropa abrigada y que den ganas de estar acurrucados bajo las cobijas.”",
+                otterTip: "La nutria dice: Prefiere mil veces el frío de manta y suéteres antes que el calor sofocante.",
+                ivanHappy: "¡El invierno mil veces! Prefiero el frío toda la vida antes que derretirme con el calor.",
+                ivanSad: "¡Odio el calor sofocante jaja! Mi clima favorito de siempre es el frío del invierno."
+            }
+        ];
+
+        // =========================================================
+        // BANCO DE DILEMAS: MODO 2 (¿QUÉ PREFERIRÍA IVÁN?)
+        // =========================================================
+        const dilemmasDatabase = [
+            {
+                id: 1,
+                theme: "NOCHE JUNTOS",
+                prompt: "¿Qué preferiría Iván para pasar una noche juntos a la distancia?",
+                optionA: "Entrar a jugar Minecraft para jugar mientras hablamos en llamada.",
+                optionB: "Quedarnos solo en llamada hablando de cualquier tontería hasta tarde.",
+                ivanChoice: "B",
+                explanation: "“Aunque me encanta jugar Minecraft contigo, quedarme en llamada hablando de cualquier tontería sin apuro siempre le gana a todo.”"
+            },
+            {
+                id: 2,
+                theme: "PRIMER ENCUENTRO",
+                prompt: "El primer segundo en que nos veamos en persona por fin, ¿qué haría Iván?",
+                optionA: "Darte un abrazo fuertísimo sin soltarte por 10 minutos.",
+                optionB: "Quedarnos mirando fijamente con cara de bobos enamorados sin creérnoslo todavía.",
+                ivanChoice: "B",
+                explanation: "“Seguro me quedaría congelado mirándote con cara de bobo enamorado pensando 'por fin estás aquí frente a mí'.”"
+            },
+            {
+                id: 3,
+                theme: "COMIDA & CITA",
+                prompt: "¿Cuál sería la cita perfecta comiendo juntos para Iván?",
+                optionA: "Salir a un buen buffet de makis bien arreglados y vestidos.",
+                optionB: "Pedir comida a domicilio y comer en pijama en la cama viendo algo juntos.",
+                ivanChoice: "B",
+                explanation: "“Estar en pijama contigo en la cama, comiendo rico y viendo series sin que nadie nos moleste es la gloria absoluta.”"
+            },
+            {
+                id: 4,
+                theme: "DESVELO A LAS 3:00 AM",
+                prompt: "Cuando ya son las 3:00 AM y ambos nos caemos de sueño en llamada, ¿qué haría Iván?",
+                optionA: "Decirte 'ya duerme amor, descansa' pero seguir hablando contigo otra hora más.",
+                optionB: "Ponerme firme, mandarte a dormir y decirte 'descansa mi reina'.",
+                ivanChoice: "A",
+                explanation: "“Siempre te digo que te duermas para que descanses... pero la verdad es que en el fondo nunca quiero colgarte.”"
+            },
+            {
+                id: 5,
+                theme: "DÍA DE FRÍO",
+                prompt: "En un día nublado y con mucho frío, ¿qué plan elegiría Iván?",
+                optionA: "Estar encerrados en casa y mantenernos calientitos juntos.",
+                optionB: "Salir abrigados a pasear sintiendo el frío juntos.",
+                ivanChoice: "A",
+                explanation: "“Con el frío que hace, nada en el universo le gana a estar bien encerraditos en casa calientitos y acurrucados.”"
+            },
+            {
+                id: 6,
+                theme: "BATERÍA AL 1%",
+                prompt: "Si el celular de Iván está en 1% en plena llamada contigo y no hay cargador cerca, ¿qué haría?",
+                optionA: "Correr desesperado en la oscuridad buscando el cargador para que no se corte la llamada por nada del mundo.",
+                optionB: "Decirte a toda velocidad '¡te amo te amo te amo!' antes de que el celular se apague en seco.",
+                ivanChoice: "A",
+                explanation: "“¡Ni loco dejo que se corte la llamada! Salgo corriendo a oscuras y tropiezo con lo que sea con tal de enchufar ese cargador.”"
+            },
+            {
+                id: 7,
+                theme: "EL HOGAR SOÑADO",
+                prompt: "Al pensar en el hogar de nuestros sueños en el futuro, ¿qué elegiría Iván?",
+                optionA: "Una casota con jardín gigante para tener muchas mascotas (siempre pensando en grande :D).",
+                optionB: "Una casita acogedora para vivir tranquilos ambos solos.",
+                ivanChoice: "A",
+                explanation: "“¡Siempre pensando en grande! Una casota con un patio inmenso lleno de perritos y mascotas felices con nosotros.”"
+            }
+        ];
+
+        // =========================================================
+        // EFECTOS DE SONIDO SINTÉTICOS (WEB AUDIO - INSTANTÁNEO, 0 LAG)
+        // =========================================================
+        let sfxCtx = null;
+        function getAudioContext() {
+            if (!sfxCtx) sfxCtx = new (window.AudioContext || window.webkitAudioContext)();
+            if (sfxCtx.state === 'suspended') sfxCtx.resume();
+            return sfxCtx;
+        }
+
+        function playSound(type, customFreq) {
+            try {
+                const ctx = getAudioContext();
+                const now = ctx.currentTime;
+
+                if (type === 'click') {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.frequency.setValueAtTime(320, now);
+                    osc.frequency.exponentialRampToValueAtTime(140, now + 0.08);
+                    gain.gain.setValueAtTime(0.12, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.08);
+                    osc.start(now);
+                    osc.stop(now + 0.08);
+                } else if (type === 'arcade_launch') {
+                    // Potente sonido ascendente de arranque arcade / haz CRT
+                    const osc1 = ctx.createOscillator();
+                    const osc2 = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc1.connect(gain);
+                    osc2.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc1.type = 'sawtooth';
+                    osc2.type = 'square';
+                    osc1.frequency.setValueAtTime(130.81, now); // C3
+                    osc1.frequency.exponentialRampToValueAtTime(1046.50, now + 0.48); // C6
+                    osc2.frequency.setValueAtTime(261.63, now); // C4
+                    osc2.frequency.exponentialRampToValueAtTime(2093.00, now + 0.48); // C7
+                    gain.gain.setValueAtTime(0.20, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.58);
+                    osc1.start(now);
+                    osc2.start(now);
+                    osc1.stop(now + 0.58);
+                    osc2.stop(now + 0.58);
+                } else if (type === 'arcade_return') {
+                    // Sonido retro descendente de descompresión al regresar al salón arcade
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(880, now);
+                    osc.frequency.exponentialRampToValueAtTime(220, now + 0.32);
+                    gain.gain.setValueAtTime(0.18, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.32);
+                    osc.start(now);
+                    osc.stop(now + 0.32);
+                } else if (type === 'coin') {
+                    // Auténtico sonido de ficha arcade en dos tonos brillantes
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(987.77, now); // B5
+                    osc.frequency.setValueAtTime(1318.51, now + 0.07); // E6
+                    gain.gain.setValueAtTime(0.24, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.38);
+                    osc.start(now);
+                    osc.stop(now + 0.38);
+                } else if (type === 'arcade_btn') {
+                    // Tono retro cuadrado para botones físicos arcade
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.type = 'square';
+                    const f = customFreq || 440;
+                    osc.frequency.setValueAtTime(f, now);
+                    osc.frequency.exponentialRampToValueAtTime(f * 0.75, now + 0.12);
+                    gain.gain.setValueAtTime(0.14, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.12);
+                    osc.start(now);
+                    osc.stop(now + 0.12);
+                } else if (type === 'correct') {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(523.25, now); // C5
+                    osc.frequency.setValueAtTime(659.25, now + 0.08); // E5
+                    osc.frequency.setValueAtTime(783.99, now + 0.16); // G5
+                    gain.gain.setValueAtTime(0.16, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.32);
+                    osc.start(now);
+                    osc.stop(now + 0.32);
+                } else if (type === 'wrong') {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(220, now);
+                    osc.frequency.exponentialRampToValueAtTime(110, now + 0.2);
+                    gain.gain.setValueAtTime(0.15, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.22);
+                    osc.start(now);
+                    osc.stop(now + 0.22);
+                } else if (type === 'laser') {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(880, now);
+                    osc.frequency.exponentialRampToValueAtTime(220, now + 0.18);
+                    gain.gain.setValueAtTime(0.2, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.18);
+                    osc.start(now);
+                    osc.stop(now + 0.18);
+                } else if (type === 'call') {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(440, now);
+                    osc.frequency.setValueAtTime(480, now + 0.05);
+                    gain.gain.setValueAtTime(0.18, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.25);
+                    osc.start(now);
+                    osc.stop(now + 0.25);
+                }
+            } catch(e) {}
+        }
+
+        // =========================================================
+        // INTERACTIVIDAD ARCADE: MONEDERO, BOTONES Y JOYSTICK
+        // =========================================================
+        let loveCoinCount = 100;
+        const coinMessages = [
+            "FICHAS: 100% AMOR",
+            "+100 LOVE CREDITS!",
+            "READY PLAYER ANDREA!",
+            "IVÁN READY!",
+            "COMBO x10 CARIÑO!",
+            "AFINIDAD AL MÁXIMO!"
+        ];
+        let coinMsgIndex = 0;
+
+        function insertLoveCoin(slotNum) {
+            playSound('coin');
+            triggerConfetti();
+            
+            const slot = document.getElementById(slotNum === 2 ? 'arcade-coin-slot-2' : 'arcade-coin-slot-1') || document.querySelector('.twin-slot-item');
+            const display = document.getElementById('coin-counter-display');
+            const popup = document.getElementById('coin-toast-popup');
+
+            if (slot) {
+                slot.style.transform = 'scale(0.92)';
+                setTimeout(() => slot.style.transform = '', 150);
+            }
+
+            loveCoinCount += 10;
+            coinMsgIndex = (coinMsgIndex + 1) % coinMessages.length;
+
+            if (display) {
+                display.textContent = coinMessages[coinMsgIndex];
+                display.style.color = '#ffd166';
+                setTimeout(() => display.style.color = '#06d6a0', 400);
+            }
+
+            if (popup) {
+                popup.classList.add('active');
+                setTimeout(() => popup.classList.remove('active'), 1600);
+            }
+        }
+
+        function clickCoinReturn() {
+            playSound('arcade_btn', 300);
+            showArcadeToast("★ BANDEJA: ¡DEVOLUCIÓN DE FICHAS DE CARIÑO! ★");
+        }
+
+        function triggerArcadeButton(letter) {
+            const freqs = { 'A': 440, 'B': 554.37, 'X': 659.25, 'Y': 880 };
+            playSound('arcade_btn', freqs[letter] || 500);
+
+            const toastMessages = {
+                'A': "★ BOTÓN A: ¡AMOR NIVEL DIOS ACTIVADO! ★",
+                'B': "★ BOTÓN B: ¡BESITOS DE IVÁN DESBLOQUEADOS! ★",
+                'X': "★ BOTÓN X: ¡TELEPATÍA EN TIEMPO REAL! ★",
+                'Y': "★ BOTÓN Y: ¡ALMA GEMELA OFICIAL! ★"
+            };
+
+            showArcadeToast(toastMessages[letter] || `BOTÓN [${letter}] ACTIVADO`);
+        }
+
+        let toastTimeout = null;
+        function showArcadeToast(msg) {
+            let toast = document.getElementById('arcade-action-toast');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.id = 'arcade-action-toast';
+                toast.className = 'arcade-action-toast';
+                document.body.appendChild(toast);
+            }
+
+            toast.textContent = msg;
+            toast.classList.add('active');
+
+            if (toastTimeout) clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('active');
+            }, 1800);
+        }
+
+        // Joystick 3D dinámico que sigue el cursor
+        const joystickUnit = document.getElementById('arcade-joystick-unit');
+        const joystickShaft = document.getElementById('joystick-shaft');
+        if (joystickUnit && joystickShaft) {
+            joystickUnit.addEventListener('mousemove', (e) => {
+                const rect = joystickUnit.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                const deltaX = e.clientX - centerX;
+                const deltaY = e.clientY - centerY;
+                
+                const angleX = Math.max(-20, Math.min(20, -deltaY * 0.5));
+                const angleY = Math.max(-20, Math.min(20, deltaX * 0.5));
+                
+                joystickShaft.style.transform = `rotateX(${angleX}deg) rotateY(${angleY}deg)`;
+            });
+
+            joystickUnit.addEventListener('mouseleave', () => {
+                joystickShaft.style.transform = 'rotateX(0deg) rotateY(0deg)';
+            });
+
+            joystickUnit.addEventListener('click', () => {
+                playSound('arcade_btn', 587.33); // D5
+                showArcadeToast("★ JOYSTICK: ¡DIRECCIÓN CORRECTA AL CORAZÓN DE IVÁN! ★");
+            });
+        }
+
+        // =========================================================
+        // CONTROL DE VISTAS Y ANIMACIÓN ÉPICA DE APERTURA ARCADE
+        // =========================================================
+        const viewLobby = document.getElementById('lobby-view');
+        const viewTrivia = document.getElementById('trivia-view');
+        const viewDilemmas = document.getElementById('dilemmas-view');
+        const viewVictory = document.getElementById('victory-view');
+
+        function switchView(target) {
+            viewLobby.style.display = 'none';
+            viewTrivia.style.display = 'none';
+            viewDilemmas.style.display = 'none';
+            viewVictory.classList.remove('active');
+
+            if (target === 'lobby') viewLobby.style.display = 'block';
+            if (target === 'trivia') viewTrivia.style.display = 'block';
+            if (target === 'dilemmas') viewDilemmas.style.display = 'block';
+            if (target === 'victory') viewVictory.classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        let isLaunchingGame = false;
+        function triggerEpicGameLaunch(mode) {
+            if (isLaunchingGame) return;
+            isLaunchingGame = true;
+
+            // Sonido épico de arranque arcade ascendente
+            playSound('arcade_launch');
+
+            const curtain = document.getElementById('arcade-transition-curtain');
+            const badge = document.getElementById('boot-signal-badge');
+            const title = document.getElementById('boot-title');
+            const subtitle = document.getElementById('boot-subtitle');
+            const pBar = document.getElementById('boot-progress-bar');
+
+            // Foco y zoom en la cabina elegida
+            const unitLeft = document.querySelector('.unit-left');
+            const unitRight = document.querySelector('.unit-right');
+
+            if (mode === 'trivia' && unitLeft) {
+                unitLeft.classList.add('cabinet-launching');
+            } else if (mode === 'dilemmas' && unitRight) {
+                unitRight.classList.add('cabinet-launching');
+            }
+
+            if (mode === 'trivia') {
+                if (badge) {
+                    badge.textContent = "1-PLAYER CHALLENGE · PLAYER 1 READY";
+                    badge.className = "boot-signal-badge gold-badge";
+                }
+                if (title) {
+                    title.textContent = "★ INITIALIZING TRIVIA SHOW ★";
+                    title.className = "boot-title gold-title";
+                }
+                if (subtitle) {
+                    subtitle.textContent = "12 RONDAS ÍNTIMAS SOBRE IVÁN · PREPÁRATE";
+                }
+            } else {
+                if (badge) {
+                    badge.textContent = "2-PLAYER CO-OP · LINK ESTABLISHED";
+                    badge.className = "boot-signal-badge cyan-badge";
+                }
+                if (title) {
+                    title.textContent = "★ BOOTING TELEPATÍA CO-OP ★";
+                    title.className = "boot-title cyan-title";
+                }
+                if (subtitle) {
+                    subtitle.textContent = "6 DILEMAS A vs B · REVELANDO LA VERDAD DE IVÁN";
+                }
+            }
+
+            if (curtain) {
+                curtain.classList.add('active');
+            }
+
+            if (pBar) {
+                pBar.style.width = '0%';
+                setTimeout(() => { pBar.style.width = '100%'; }, 60);
+            }
+
+            // Inicializar estado del modo seleccionado
+            if (mode === 'trivia') {
+                triviaIndex = 0;
+                triviaCorrectCount = 0;
+                triviaLives = 3;
+                lifeline5050Used = false;
+                lifelineCallUsed = false;
+                lifelineOtterUsed = false;
+                document.getElementById('btn-5050').disabled = false;
+                document.getElementById('btn-call-ivan').disabled = false;
+                document.getElementById('btn-otter-tip').disabled = false;
+                updateTriviaHUD();
+                renderTriviaQuestion();
+            } else if (mode === 'dilemmas') {
+                dilemmaIndex = 0;
+                dilemmaMatches = 0;
+                updateDilemmaHUD();
+                renderDilemma();
+            }
+
+            // A los 550ms, desplegar el juego a pantalla completa con efecto expansivo
+            setTimeout(() => {
+                switchView(mode);
+                const targetView = (mode === 'trivia') ? viewTrivia : viewDilemmas;
+                if (targetView) {
+                    targetView.classList.add('game-epic-opened');
+                    setTimeout(() => targetView.classList.remove('game-epic-opened'), 600);
+                }
+            }, 550);
+
+            // A los 850ms, retirar suavemente el telón
+            setTimeout(() => {
+                if (curtain) curtain.classList.remove('active');
+                if (unitLeft) unitLeft.classList.remove('cabinet-launching');
+                if (unitRight) unitRight.classList.remove('cabinet-launching');
+                isLaunchingGame = false;
+            }, 850);
+        }
+
+        function returnToLobby() {
+            playSound('arcade_return');
+
+            const activeView = (viewTrivia.style.display !== 'none') ? viewTrivia : viewDilemmas;
+            if (activeView) {
+                activeView.classList.add('game-closing-shrink');
+            }
+
+            setTimeout(() => {
+                if (activeView) activeView.classList.remove('game-closing-shrink');
+                switchView('lobby');
+                if (viewLobby) {
+                    viewLobby.classList.add('lobby-reentering');
+                    setTimeout(() => viewLobby.classList.remove('lobby-reentering'), 400);
+                }
+            }, 260);
+        }
+
+        // =========================================================
+        // MOTOR DE JUEGO 1: TRIVIA SHOW
+        // =========================================================
+        let triviaIndex = 0;
+        let triviaCorrectCount = 0;
+        let triviaLives = 3;
+        let isTriviaAnswered = false;
+        let lifeline5050Used = false;
+        let lifelineCallUsed = false;
+        let lifelineOtterUsed = false;
+
+        function startTriviaMode() {
+            triggerEpicGameLaunch('trivia');
+        }
+
+        function updateTriviaHUD() {
+            const pct = Math.round((triviaCorrectCount / triviaDatabase.length) * 100);
+            document.getElementById('trivia-affinity-fill').style.width = `${pct}%`;
+            document.getElementById('trivia-affinity-val').textContent = `${pct}%`;
+
+            for (let i = 1; i <= 3; i++) {
+                const heart = document.getElementById(`heart-${i}`);
+                if (i <= triviaLives) {
+                    heart.classList.remove('lost');
+                } else {
+                    heart.classList.add('lost');
+                }
+            }
+        }
+
+        function renderTriviaQuestion() {
+            isTriviaAnswered = false;
+            const q = triviaDatabase[triviaIndex];
+
+            document.getElementById('trivia-category-tag').textContent = q.category;
+            document.getElementById('trivia-question-title').textContent = q.question;
+            document.getElementById('trivia-question-step-label').textContent = `Pregunta ${triviaIndex + 1} de ${triviaDatabase.length}`;
+            
+            const reactionCard = document.getElementById('ivan-reaction-card');
+            reactionCard.classList.remove('active');
+
+            const container = document.getElementById('trivia-options-container');
+            container.innerHTML = '';
+
+            const letters = ['A', 'B', 'C', 'D'];
+            q.options.forEach((optText, optIdx) => {
+                const btn = document.createElement('button');
+                btn.className = 'trivia-opt-btn';
+                btn.id = `opt-btn-${optIdx}`;
+                btn.innerHTML = `
+                    <div class="trivia-opt-letter">${letters[optIdx]}</div>
+                    <span>${optText}</span>
+                `;
+                btn.onclick = () => handleTriviaOptionSelect(optIdx);
+                container.appendChild(btn);
+            });
+        }
+
+        function handleTriviaOptionSelect(selectedIndex) {
+            if (isTriviaAnswered) return;
+            isTriviaAnswered = true;
+
+            const q = triviaDatabase[triviaIndex];
+            const reactionCard = document.getElementById('ivan-reaction-card');
+            const reactionBadge = document.getElementById('ivan-reaction-badge');
+            const reactionText = document.getElementById('ivan-reaction-text');
+
+            // Deshabilitar todas las opciones
+            for (let i = 0; i < q.options.length; i++) {
+                const btn = document.getElementById(`opt-btn-${i}`);
+                if (btn) btn.disabled = true;
+            }
+
+            const chosenBtn = document.getElementById(`opt-btn-${selectedIndex}`);
+            const correctBtn = document.getElementById(`opt-btn-${q.correct}`);
+
+            if (selectedIndex === q.correct) {
+                playSound('correct');
+                if (chosenBtn) chosenBtn.classList.add('correct');
+                triviaCorrectCount++;
+                reactionBadge.textContent = '¡ACIERTO TOTAL! IVÁN DICE:';
+                reactionBadge.style.color = '#06d6a0';
+                reactionText.textContent = '¡ACERTASTE MI AMOR!';
+            } else {
+                playSound('wrong');
+                if (chosenBtn) chosenBtn.classList.add('incorrect');
+                if (correctBtn) correctBtn.classList.add('correct');
+                triviaLives = Math.max(0, triviaLives - 1);
+                reactionBadge.textContent = '¡CASI CASI! IVÁN DICE:';
+                reactionBadge.style.color = '#ff758f';
+                reactionText.textContent = 'Oh ño, acabas de fallar ... 💔';
+            }
+
+            updateTriviaHUD();
+            reactionCard.classList.add('active');
+        }
+
+        function nextTriviaQuestion() {
+            playSound('click');
+            triviaIndex++;
+            if (triviaIndex < triviaDatabase.length && triviaLives > 0) {
+                renderTriviaQuestion();
+            } else {
+                showVictoryScreen('trivia');
+            }
+        }
+
+        // Comodines de Trivia
+        function useLifeline5050() {
+            if (lifeline5050Used || isTriviaAnswered) return;
+            playSound('laser');
+            lifeline5050Used = true;
+            document.getElementById('btn-5050').disabled = true;
+
+            const q = triviaDatabase[triviaIndex];
+            const indices = [0, 1, 2, 3].filter(idx => idx !== q.correct);
+
+            // Mezclar aleatoriamente las opciones erróneas y eliminar 2
+            indices.sort(() => Math.random() - 0.5);
+            for (let i = 0; i < 2; i++) {
+                const btn = document.getElementById(`opt-btn-${indices[i]}`);
+                if (btn) btn.classList.add('eliminated-5050');
+            }
+        }
+
+        function useLifelineCallIvan() {
+            if (lifelineCallUsed || isTriviaAnswered) return;
+            playSound('call');
+            lifelineCallUsed = true;
+            const callBtn = document.getElementById('btn-call-ivan');
+            if (callBtn) {
+                callBtn.disabled = true;
+                callBtn.title = "Comodín utilizado: ¡Iván te lo dirá por llamada!";
+            }
+        }
+
+        function closeCallModal() {
+            playSound('click');
+            document.getElementById('call-modal-overlay').classList.remove('active');
+        }
+
+        function useLifelineOtterTip() {
+            if (lifelineOtterUsed || isTriviaAnswered) return;
+            playSound('laser');
+            lifelineOtterUsed = true;
+            document.getElementById('btn-otter-tip').disabled = true;
+
+            const q = triviaDatabase[triviaIndex];
+            alert(`Consejo de la Nutria Sabia:\n\n${q.otterTip}`);
+        }
+
+        // =========================================================
+        // MOTOR DE JUEGO 2: ¿QUÉ PREFERIRÍA IVÁN? (DILEMAS A vs B)
+        // =========================================================
+        let dilemmaIndex = 0;
+        let dilemmaMatches = 0;
+        let isDilemmaAnswered = false;
+
+        function startDilemmasMode() {
+            triggerEpicGameLaunch('dilemmas');
+        }
+
+        function updateDilemmaHUD() {
+            document.getElementById('dilemma-match-count').textContent = `${dilemmaMatches} / ${dilemmasDatabase.length}`;
+            document.getElementById('dilemma-step-pill').textContent = `Dilema ${dilemmaIndex + 1} de ${dilemmasDatabase.length}`;
+        }
+
+        function renderDilemma() {
+            isDilemmaAnswered = false;
+            const d = dilemmasDatabase[dilemmaIndex];
+
+            document.getElementById('dilemma-category-badge').textContent = d.theme;
+            document.getElementById('dilemma-prompt-text').textContent = d.prompt;
+            document.getElementById('dilemma-text-a').textContent = d.optionA;
+            document.getElementById('dilemma-text-b').textContent = d.optionB;
+
+            const cardA = document.getElementById('dilemma-card-a');
+            const cardB = document.getElementById('dilemma-card-b');
+            cardA.className = 'dilemma-choice-card';
+            cardB.className = 'dilemma-choice-card';
+
+            const truthBox = document.getElementById('ivan-truth-box');
+            truthBox.classList.remove('active');
+        }
+
+        function selectDilemmaChoice(userChoice) {
+            if (isDilemmaAnswered) return;
+            isDilemmaAnswered = true;
+
+            const d = dilemmasDatabase[dilemmaIndex];
+            const cardA = document.getElementById('dilemma-card-a');
+            const cardB = document.getElementById('dilemma-card-b');
+            const truthBox = document.getElementById('ivan-truth-box');
+            const matchPill = document.getElementById('truth-match-pill');
+            const explanationText = document.getElementById('truth-explanation-text');
+
+            cardA.classList.add('disabled');
+            cardB.classList.add('disabled');
+
+            const isMatch = (userChoice === d.ivanChoice);
+
+            if (d.ivanChoice === 'A') {
+                cardA.classList.add('ivan-pick');
+                cardB.classList.add('unpicked');
+            } else {
+                cardB.classList.add('ivan-pick');
+                cardA.classList.add('unpicked');
+            }
+
+            if (isMatch) {
+                playSound('correct');
+                dilemmaMatches++;
+                matchPill.className = 'truth-match-pill truth-match-success';
+                matchPill.textContent = '¡ACERTASTE MI AMOR!';
+            } else {
+                playSound('wrong');
+                matchPill.className = 'truth-match-pill truth-match-different';
+                matchPill.textContent = 'Oh ño, acabas de fallar ... 💔';
+            }
+
+            explanationText.textContent = d.explanation;
+            updateDilemmaHUD();
+            truthBox.classList.add('active');
+        }
+
+        function nextDilemma() {
+            playSound('click');
+            dilemmaIndex++;
+            if (dilemmaIndex < dilemmasDatabase.length) {
+                renderDilemma();
+            } else {
+                showVictoryScreen('dilemmas');
+            }
+        }
+
+        // =========================================================
+        // PANTALLA DE VICTORIA & CERTIFICADO DE AFINIDAD
+        // =========================================================
+        function showVictoryScreen(mode) {
+            playSound('correct');
+            triggerConfetti();
+
+            let percentage = 100;
+            let tierTitle = "✦ ALMA GEMELA OFICIAL DE IVÁN ✦";
+            let prose = "";
+
+            if (mode === 'trivia') {
+                percentage = Math.round((triviaCorrectCount / triviaDatabase.length) * 100);
+                if (percentage === 100) {
+                    localStorage.setItem('trivia_100_completed', 'true');
+                    tierTitle = "✦ TRIVIA 100% PERFECTA · ALMA GEMELA ✦";
+                    prose = `¡Puntaje perfecto de 12 sobre 12! Andrea demostró que conoce cada secreto, manía, comida favorita y rincón del corazón de Iván sin dudar ni una sola vez.`;
+                } else {
+                    localStorage.removeItem('trivia_100_completed');
+                    tierTitle = "✦ CASI CASI PERFECTA · ¡INTÉNTALO OTRA VEZ! ✦";
+                    prose = `Obtuviste ${triviaCorrectCount} de ${triviaDatabase.length} aciertos (${percentage}%). Para desbloquear la pista del candado final, ¡debes conseguir el 100% en ambos juegos arcade! Puedes reintentar este modo para lograrlo.`;
+                }
+            } else {
+                percentage = Math.round((dilemmaMatches / dilemmasDatabase.length) * 100);
+                if (percentage === 100) {
+                    localStorage.setItem('dilemmas_100_completed', 'true');
+                    tierTitle = "✦ TELEPATÍA 100% PURA · CONEXIÓN TOTAL ✦";
+                    prose = `¡Coincidencia absoluta de 7 sobre 7! Andrea e Iván eligen exactamente lo mismo en cada decisión de la vida. Sus corazones laten en una sola y perfecta frecuencia.`;
+                } else {
+                    localStorage.removeItem('dilemmas_100_completed');
+                    tierTitle = "✦ MUY CERCA · ¡INTÉNTALO OTRA VEZ! ✦";
+                    prose = `Acertaste ${dilemmaMatches} de ${dilemmasDatabase.length} dilemas (${percentage}%). Para desbloquear la pista del candado final, ¡debes conseguir el 100% en ambos juegos arcade! Puedes reintentar este modo para lograrlo.`;
+                }
+            }
+
+            // Desbloqueo del Tercer Dígito (0) si ambos juegos están al 100%
+            const t100 = (localStorage.getItem('trivia_100_completed') === 'true');
+            const d100 = (localStorage.getItem('dilemmas_100_completed') === 'true');
+            if (t100 && d100) {
+                if (typeof window.unlockClueDigit === 'function') {
+                    window.unlockClueDigit(3, '0', 'Arcade 100% en Ambos Juegos', '¡Conseguiste el 100% perfecto tanto en la Trivia como en los Dilemas! El tercer dígito del candado final es el 0.');
+                }
+            }
+
+            document.getElementById('final-score-val').textContent = `${percentage}%`;
+            document.getElementById('final-tier-title').textContent = tierTitle;
+            document.getElementById('diploma-prose-content').textContent = prose;
+
+            switchView('victory');
+        }
+
+        // =========================================================
+        // CONFETTI EN CANVAS (ACCELERADO POR HARDWARE, SIN LAG)
+        // =========================================================
+        function triggerConfetti() {
+            const canvas = document.getElementById('confetti-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const particles = [];
+            const colors = ['#ffd166', '#ff758f', '#7209b7', '#06d6a0', '#ffffff', '#c77dff'];
+
+            for (let i = 0; i < 90; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: -20 - Math.random() * 200,
+                    size: Math.random() * 8 + 4,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    speedY: Math.random() * 3 + 2,
+                    speedX: (Math.random() - 0.5) * 2,
+                    rotation: Math.random() * 360,
+                    rotSpeed: (Math.random() - 0.5) * 6
+                });
+            }
+
+            let frames = 0;
+            function animateConfetti() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => {
+                    p.y += p.speedY;
+                    p.x += p.speedX;
+                    p.rotation += p.rotSpeed;
+
+                    ctx.save();
+                    ctx.translate(p.x, p.y);
+                    ctx.rotate((p.rotation * Math.PI) / 180);
+                    ctx.fillStyle = p.color;
+                    ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+                    ctx.restore();
+                });
+
+                frames++;
+                if (frames < 200) {
+                    requestAnimationFrame(animateConfetti);
+                } else {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                }
+            }
+            animateConfetti();
+        }
+
+        // Permitir iniciar el modo trivia o dilemas directamente mediante parámetro URL
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('start') === 'trivia') {
+            switchView('trivia');
+            const qParam = parseInt(urlParams.get('q') || '0', 10);
+            triviaIndex = (!isNaN(qParam) && qParam >= 0 && qParam < triviaDatabase.length) ? qParam : 0;
+            triviaCorrectCount = 0;
+            triviaLives = 3;
+            updateTriviaHUD();
+            renderTriviaQuestion();
+
+            if (urlParams.get('ans') !== null) {
+                const ansIdx = parseInt(urlParams.get('ans'), 10);
+                setTimeout(() => handleTriviaOptionSelect(ansIdx), 150);
+            }
+            if (urlParams.get('call') === '1') {
+                useLifelineCallIvan();
+            }
+        } else if (urlParams.get('start') === 'dilemmas') {
+            switchView('dilemmas');
+            const dParam = parseInt(urlParams.get('d') || '0', 10);
+            dilemmaIndex = (!isNaN(dParam) && dParam >= 0 && dParam < dilemmasDatabase.length) ? dParam : 0;
+            dilemmaMatches = 0;
+            updateDilemmaHUD();
+            renderDilemma();
+
+            if (urlParams.get('pick') !== null) {
+                const pick = urlParams.get('pick').toUpperCase();
+                setTimeout(() => selectDilemmaChoice(pick), 150);
+            }
+        }
+    </script>
+    <script src="progress-tracker.js"></script>
+</body>
+
+</html>

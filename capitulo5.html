@@ -1,0 +1,2200 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capítulo IV: Cartas Para Cuando... · Andrea & Iván</title>
+
+    <!-- Google Fonts: Caligrafía fina y Serif de máxima legibilidad -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700;800&family=Caveat:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        /* =========================================================
+           CAPÍTULO IV · CARTAS PARA CUANDO... (CORRESPONDENCIA 3D FLIP)
+           ========================================================= */
+        body {
+            background-color: #0b0318 !important;
+            min-height: 100vh;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        #hearts-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Barra de Navegación */
+        .chapter-navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(13, 4, 25, 0.94);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(199, 125, 255, 0.25);
+            padding: 14px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.6);
+        }
+
+        .nav-back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--secondary-color);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.76rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-decoration: none;
+            text-transform: uppercase;
+            padding: 7px 18px;
+            border-radius: 20px;
+            background: rgba(199, 125, 255, 0.1);
+            border: 1px solid rgba(199, 125, 255, 0.3);
+            transition: all 0.25s ease;
+        }
+
+        .nav-back-btn:hover {
+            background: rgba(199, 125, 255, 0.25);
+            color: #ffffff;
+            transform: translateX(-3px);
+            box-shadow: 0 0 15px rgba(199, 125, 255, 0.4);
+        }
+
+        .nav-chapter-badge {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent);
+            text-transform: uppercase;
+            background: rgba(255, 183, 3, 0.12);
+            border: 1px solid rgba(255, 183, 3, 0.35);
+            padding: 5px 14px;
+            border-radius: 12px;
+        }
+
+        /* Contenedor Principal */
+        .envelopes-page-wrapper {
+            position: relative;
+            z-index: 10;
+            max-width: 1240px;
+            margin: 35px auto 70px auto;
+            padding: 0 25px;
+        }
+
+        .envelopes-header-section {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .envelopes-header-pre {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: var(--accent);
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            text-shadow: 0 0 10px rgba(255, 183, 3, 0.4);
+        }
+
+        .envelopes-header-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.9rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 1px;
+            margin: 0 0 10px 0;
+            text-shadow: 0 4px 20px rgba(199, 125, 255, 0.4);
+        }
+
+        .envelopes-header-sub {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.25rem;
+            color: var(--text-light);
+            opacity: 0.92;
+            margin: 0 auto;
+            max-width: 680px;
+            line-height: 1.5;
+        }
+
+        /* Escritorio de Correspondencia */
+        .desk-container {
+            background: radial-gradient(circle at 50% 30%, #1e0d36 0%, #110622 65%, #080214 100%);
+            border: 1px solid rgba(199, 125, 255, 0.35);
+            border-radius: 28px;
+            padding: 40px 32px;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.85), 0 0 50px rgba(157, 78, 221, 0.18);
+            position: relative;
+        }
+
+        .desk-banner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 35px;
+            padding-bottom: 18px;
+            border-bottom: 1px dashed rgba(199, 125, 255, 0.3);
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .desk-banner-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #ffd166;
+            margin: 0;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 15px rgba(255, 209, 102, 0.25);
+        }
+
+        .desk-banner-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .desk-badge-count {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: #ffffff;
+            background: rgba(199, 125, 255, 0.15);
+            border: 1px solid rgba(199, 125, 255, 0.3);
+            padding: 6px 15px;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+
+        .desk-write-new-btn {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #120524;
+            background: linear-gradient(135deg, #ffd166, #ff758f);
+            border: none;
+            padding: 8px 18px;
+            border-radius: 20px;
+            cursor: pointer;
+            box-shadow: 0 3px 12px rgba(255, 209, 102, 0.4);
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .desk-write-new-btn:hover {
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 5px 18px rgba(255, 117, 143, 0.6);
+        }
+
+        /* =========================================================
+           SOBRES 3D INTERACTIVOS CON FORMA DE CARTA REAL & FLIP
+           ========================================================= */
+        .envelopes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px 24px;
+        }
+
+        @media (min-width: 1040px) {
+            .envelopes-grid>.envelope-flip-wrap:last-child:nth-child(3n+1) {
+                grid-column: 2;
+            }
+        }
+
+        /* Contenedor del giro 3D */
+        .envelope-flip-wrap {
+            perspective: 1200px;
+            height: 220px;
+            cursor: pointer;
+            border-radius: 14px;
+        }
+
+        .envelope-3d-card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.55s cubic-bezier(0.2, 0.85, 0.3, 1);
+            border-radius: 14px;
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.65);
+        }
+
+        /* Giro 3D al pasar el cursor (Hover) */
+        .envelope-flip-wrap:hover .envelope-3d-card,
+        .envelope-3d-card.is-flipped {
+            transform: rotateY(180deg) translateY(-6px);
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.85), 0 0 28px var(--env-glow);
+        }
+
+        /* Caras Frontal y Posterior */
+        .envelope-face {
+            position: absolute !important;
+            inset: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            border-radius: 14px;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            overflow: hidden;
+            box-sizing: border-box;
+            border: 1px solid var(--env-border);
+        }
+
+        /* =========================================================
+           CARA FRONTAL: SOBRE CERRADO REAL (FORMA DE CARTA FÍSICA)
+           ========================================================= */
+        .envelope-face-front {
+            background: var(--env-base);
+            transform: rotateY(0deg);
+            position: relative;
+            z-index: 2;
+            box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Capa de fondo del sobre */
+        .env-pocket-base {
+            position: absolute;
+            inset: 0;
+            background: var(--env-base);
+            z-index: 1;
+        }
+
+        /* Pliegue lateral izquierdo de la carta */
+        .env-flap-side-left {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            clip-path: polygon(0 0, 48% 50%, 0 100%);
+            background: linear-gradient(135deg, var(--env-flap-dark) 0%, rgba(0, 0, 0, 0.18) 100%);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* Pliegue lateral derecho de la carta */
+        .env-flap-side-right {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            clip-path: polygon(100% 0, 52% 50%, 100% 100%);
+            background: linear-gradient(225deg, var(--env-flap-dark) 0%, rgba(0, 0, 0, 0.18) 100%);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* Pliegue inferior del sobre */
+        .env-flap-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            clip-path: polygon(0 100%, 50% 46%, 100% 100%);
+            background: linear-gradient(0deg, var(--env-flap-light) 0%, rgba(0, 0, 0, 0.22) 100%);
+            border-bottom: 1px solid var(--env-border);
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        /* Solapa superior triangular que sella la carta hacia abajo */
+        .env-flap-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            clip-path: polygon(0 0, 50% 55%, 100% 0);
+            background: linear-gradient(180deg, var(--env-flap-light) 0%, var(--env-flap-dark) 100%);
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.65));
+            z-index: 4;
+            pointer-events: none;
+        }
+
+        /* Sello de cera en relieve 3D en el centro de la solapa */
+        .env-wax-seal {
+            position: absolute;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #e63946, #9d0208 70%, #54091a 100%);
+            border: 2px solid #ffd166;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.75), 0 0 14px rgba(255, 92, 124, 0.45);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 0.74rem;
+            font-weight: 700;
+            color: #ffd166;
+            letter-spacing: 1px;
+            z-index: 5;
+            transition: transform 0.25s ease;
+        }
+
+        .envelope-flip-wrap:hover .env-wax-seal {
+            transform: translate(-50%, -50%) scale(1.08);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.85), 0 0 18px rgba(255, 209, 102, 0.6);
+        }
+
+        /* Inscripción de la carta en el frente */
+        .env-front-caption {
+            position: absolute;
+            bottom: 14px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            width: 85%;
+            pointer-events: none;
+            text-align: center;
+        }
+
+        .env-badge-tag {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.58rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #ffd166;
+            text-transform: uppercase;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 3px 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 209, 102, 0.35);
+        }
+
+        .env-for-recipient {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.18rem;
+            color: #ffffff;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.85);
+            letter-spacing: 0.5px;
+        }
+
+        .env-flip-prompt {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.54rem;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: uppercase;
+        }
+
+        /* =========================================================
+           CARA POSTERIOR: TÍTULO, MOTIVO & DESCRIPCIÓN (AL VOLTEAR)
+           ========================================================= */
+        .envelope-face-back {
+            background: var(--env-flap-dark);
+            transform: rotateY(180deg);
+            padding: 16px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            box-sizing: border-box;
+            z-index: 2;
+        }
+
+        .back-postal-header {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .vintage-postage-stamp {
+            width: 36px;
+            height: 44px;
+            background: #fffdf5;
+            border: 1.5px dashed rgba(212, 163, 115, 0.75);
+            border-radius: 3px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+            transform: rotate(3deg);
+            padding: 2px;
+        }
+
+        .stamp-flower-icon {
+            color: #7f4f24;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stamp-date-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.48rem;
+            font-weight: 800;
+            color: #7f4f24;
+            letter-spacing: 0.5px;
+        }
+
+        .postmark-lines-circle {
+            width: 36px;
+            height: 36px;
+            border: 1px dashed rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transform: rotate(-12deg);
+            pointer-events: none;
+        }
+
+        .postmark-lines-circle span {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.38rem;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.7);
+            letter-spacing: 0.5px;
+            line-height: 1.1;
+        }
+
+        .back-occasion-badge {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.58rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            color: #ffd166;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 209, 102, 0.35);
+            padding: 3px 9px;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+
+        .back-content-center {
+            margin: 6px 0;
+            width: 100%;
+        }
+
+        .back-card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.25;
+            margin: 0 0 6px 0;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+        }
+
+        .back-card-quote {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 0.98rem;
+            line-height: 1.35;
+            color: rgba(255, 255, 255, 0.92);
+            margin: 0;
+            padding: 0 4px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+        }
+
+        .back-open-btn {
+            background: linear-gradient(135deg, #ffd166, #ff758f);
+            border: none;
+            color: #1a052e;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+            padding: 7px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(255, 209, 102, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .back-open-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(255, 117, 143, 0.6);
+        }
+
+        /* PALETAS DE COLOR DE LOS SOBRES (CON TONOS PROFUNDOS & FORROS DECORATIVOS) */
+        .theme-lavender {
+            --env-base: #241434;
+            --env-flap-dark: #190c26;
+            --env-flap-light: #341e4c;
+            --env-border: rgba(199, 125, 255, 0.4);
+            --env-glow: rgba(199, 125, 255, 0.45);
+            --env-accent: #c77dff;
+        }
+
+        .theme-midnight {
+            --env-base: #0f162e;
+            --env-flap-dark: #090e1f;
+            --env-flap-light: #1b264d;
+            --env-border: rgba(100, 180, 255, 0.4);
+            --env-glow: rgba(100, 180, 255, 0.45);
+            --env-accent: #70b8ff;
+        }
+
+        .theme-burgundy {
+            --env-base: #2d0e20;
+            --env-flap-dark: #1e0714;
+            --env-flap-light: #441631;
+            --env-border: rgba(255, 117, 143, 0.4);
+            --env-glow: rgba(255, 117, 143, 0.45);
+            --env-accent: #ff758f;
+        }
+
+        .theme-amber {
+            --env-base: #301f0d;
+            --env-flap-dark: #201306;
+            --env-flap-light: #482f14;
+            --env-border: rgba(255, 183, 3, 0.45);
+            --env-glow: rgba(255, 183, 3, 0.5);
+            --env-accent: #ffd166;
+        }
+
+        .theme-violet {
+            --env-base: #220d32;
+            --env-flap-dark: #150621;
+            --env-flap-light: #361450;
+            --env-border: rgba(217, 70, 239, 0.4);
+            --env-glow: rgba(217, 70, 239, 0.45);
+            --env-accent: #e879f9;
+        }
+
+        .theme-crimson {
+            --env-base: #330818;
+            --env-flap-dark: #20030d;
+            --env-flap-light: #4d0d25;
+            --env-border: rgba(244, 63, 94, 0.45);
+            --env-glow: rgba(244, 63, 94, 0.5);
+            --env-accent: #fb7185;
+        }
+
+        .theme-rose {
+            --env-base: #2b0c1e;
+            --env-flap-dark: #1b0713;
+            --env-flap-light: #40142e;
+            --env-border: rgba(255, 143, 171, 0.45);
+            --env-glow: rgba(255, 143, 171, 0.5);
+            --env-accent: #ff8fab;
+        }
+
+        .theme-indigo {
+            --env-base: #0f1335;
+            --env-flap-dark: #080a22;
+            --env-flap-light: #181e52;
+            --env-border: rgba(129, 140, 248, 0.45);
+            --env-glow: rgba(129, 140, 248, 0.5);
+            --env-accent: #818cf8;
+        }
+
+        /* =========================================================
+           ESCENARIO DE APERTURA CINEMATOGRÁFICA (SIN LAG, 60 FPS)
+           ========================================================= */
+        /* =========================================================
+           ESCENARIO DE APERTURA CINEMATOGRÁFICA (SIN LAG, 60-120 FPS)
+           ========================================================= */
+        #letter-reader-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at center, #140723 0%, #05010b 100%);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            box-sizing: border-box;
+            opacity: 0;
+            transition: opacity 0.3s ease-out;
+            perspective: 1400px;
+        }
+
+        #letter-reader-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .cinematic-stage {
+            position: relative;
+            width: 100%;
+            max-width: 720px;
+            height: 92vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform-style: preserve-3d;
+        }
+
+        /* Sobre 3D en el centro del escenario */
+        .stage-envelope-box {
+            position: absolute;
+            width: 480px;
+            max-width: 90vw;
+            height: 290px;
+            border-radius: 18px;
+            background: var(--env-base, #241434);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 30px var(--env-glow, rgba(199, 125, 255, 0.2));
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            z-index: 10;
+            opacity: 0;
+            transform: translate3d(0, 30px, 0) scale(0.88);
+            transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.3, 1), opacity 0.35s ease;
+            pointer-events: none;
+        }
+
+        /* Cuando entra el sobre al centro */
+        .cinematic-stage.envelope-in .stage-envelope-box {
+            opacity: 1;
+            transform: translate3d(0, 0, 0) scale(1);
+        }
+
+        /* Pared de fondo interior del sobre */
+        .stage-env-back-wall {
+            position: absolute;
+            inset: 0;
+            border-radius: 18px;
+            background: linear-gradient(180deg, var(--env-flap-dark, #190c26) 0%, rgba(10, 3, 18, 0.95) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            z-index: 1;
+        }
+
+        /* Solapa triangular superior (se abre hacia arriba en 3D) */
+        .stage-env-flap-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 165px;
+            clip-path: polygon(0 0, 50% 100%, 100% 0);
+            background: linear-gradient(180deg, var(--env-flap-light, #341e4c) 0%, var(--env-flap-dark, #190c26) 100%);
+            transform-origin: top center;
+            transform: rotateX(0deg);
+            transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.3, 1), z-index 0.2s ease;
+            z-index: 30;
+            filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.75));
+        }
+
+        /* Sello de cera en la punta de la solapa */
+        .stage-wax-seal {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%) scale(1);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #e63946, #9d0208 70%, #54091a 100%);
+            border: 2px solid #ffd166;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.8), 0 0 12px rgba(255, 209, 102, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 0.76rem;
+            font-weight: 700;
+            color: #ffd166;
+            letter-spacing: 1px;
+            transition: transform 0.35s ease, opacity 0.3s ease;
+        }
+
+        /* Bolsillo frontal del sobre (triángulos laterales e inferior) */
+        .stage-env-pocket-front {
+            position: absolute;
+            inset: 0;
+            border-radius: 18px;
+            overflow: hidden;
+            z-index: 20;
+            pointer-events: none;
+        }
+
+        .stage-pocket-fold-left {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            clip-path: polygon(0 0, 48% 50%, 0 100%);
+            background: linear-gradient(135deg, var(--env-flap-dark, #190c26) 0%, rgba(0, 0, 0, 0.3) 100%);
+        }
+
+        .stage-pocket-fold-right {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            clip-path: polygon(100% 0, 52% 50%, 100% 100%);
+            background: linear-gradient(225deg, var(--env-flap-dark, #190c26) 0%, rgba(0, 0, 0, 0.3) 100%);
+        }
+
+        .stage-pocket-fold-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            clip-path: polygon(0 100%, 50% 46%, 100% 100%);
+            background: linear-gradient(0deg, var(--env-flap-light, #341e4c) 0%, rgba(0, 0, 0, 0.25) 100%);
+            border-bottom: 1px solid var(--env-border, rgba(199, 125, 255, 0.4));
+        }
+
+        .stage-env-front-label {
+            position: absolute;
+            bottom: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            z-index: 22;
+            transition: opacity 0.3s ease;
+        }
+
+        .stage-badge-tag {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.58rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #ffd166;
+            background: rgba(0, 0, 0, 0.45);
+            padding: 3px 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 209, 102, 0.35);
+        }
+
+        .stage-for-recipient {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.22rem;
+            color: #ffffff;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
+        }
+
+        /* ETAPA 2: Solapa se abre en 3D */
+        .cinematic-stage.flap-open .stage-env-flap-top {
+            transform: rotateX(180deg);
+            z-index: 2;
+            /* se oculta detrás de la hoja */
+        }
+
+        .cinematic-stage.flap-open .stage-wax-seal {
+            transform: translateX(-50%) scale(0);
+            opacity: 0;
+        }
+
+        /* =========================================================
+           HOJA INTERNA QUE EMERGE DEL SOBRE (SLIP PAPER)
+           ========================================================= */
+        .stage-letter-slip {
+            position: absolute;
+            top: 20px;
+            left: 24px;
+            right: 24px;
+            height: 250px;
+            background: linear-gradient(to bottom, #fcf9f2 0%, #f6f0e2 100%);
+            border-radius: 12px;
+            border: 1px solid #dfd3bd;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.45);
+            z-index: 5;
+            /* Dentro del sobre: entre fondo (z:1) y bolsillo frontal (z:20) */
+            transform: translate3d(0, 45px, 0);
+            transition: transform 0.55s cubic-bezier(0.18, 0.9, 0.3, 1), opacity 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            padding: 22px 26px;
+            box-sizing: border-box;
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        /* Al abrir la solapa, se asoma la hoja dentro */
+        .cinematic-stage.flap-open .stage-letter-slip {
+            opacity: 1;
+            transform: translate3d(0, 20px, 0);
+        }
+
+        /* La hoja sale físicamente deslizándose hacia arriba del sobre */
+        .cinematic-stage.sheet-emerged .stage-letter-slip {
+            transform: translate3d(0, -210px, 0);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65);
+        }
+
+        /* Al entrar en lectura completa, el slip se desvanece suavemente */
+        .cinematic-stage.sheet-reading .stage-letter-slip {
+            opacity: 0;
+            transform: translate3d(0, -210px, 0);
+        }
+
+        .slip-header-decor {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed rgba(0, 0, 0, 0.15);
+        }
+
+        .slip-monogram {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #7209b7;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .slip-date {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.62rem;
+            font-weight: 600;
+            color: #888;
+        }
+
+        .slip-title-preview {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #240b38;
+            margin: 0 0 12px 0;
+        }
+
+        .slip-lines-preview {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .slip-lines-preview span {
+            display: block;
+            height: 4px;
+            background: rgba(114, 9, 183, 0.12);
+            border-radius: 2px;
+            width: 100%;
+        }
+
+        .slip-lines-preview span:nth-child(2) {
+            width: 85%;
+        }
+
+        .slip-lines-preview span:nth-child(3) {
+            width: 65%;
+        }
+
+        /* =========================================================
+           HOJA DE CARTA INTERACTIVA DE LECTURA (CERO LAG, 60-120 FPS)
+           ========================================================= */
+        .stationery-letter-sheet {
+            position: relative;
+            width: 100%;
+            max-width: 680px;
+            height: 86vh;
+            max-height: 86vh;
+            background: linear-gradient(to bottom, #fcf9f2 0%, #f6f0e2 100%);
+            color: #1e0e2e;
+            border-radius: 20px;
+            border: 1px solid #dfd3bd;
+            box-shadow: 0 18px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 209, 102, 0.2);
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            padding: 30px 40px;
+            z-index: 50;
+            opacity: 0;
+            transform: scale(0.92) translate3d(0, 20px, 0);
+            pointer-events: none;
+            transition: opacity 0.35s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: hidden;
+        }
+
+        /* Cuando está activa la lectura: se despliega con 100% de fluidez */
+        .cinematic-stage.sheet-reading .stationery-letter-sheet {
+            opacity: 1;
+            transform: scale(1) translate3d(0, 0, 0);
+            pointer-events: auto;
+        }
+
+        /* Al estar en modo lectura, el sobre del fondo se desvanece suavemente */
+        .cinematic-stage.sheet-reading .stage-envelope-box {
+            opacity: 0.12;
+            transform: translate3d(0, 80px, 0) scale(0.85);
+            pointer-events: none;
+        }
+
+        /* Contenedor de scroll interno independiente (Cero lag garantizado) */
+        .stationery-scroll-area {
+            flex: 1;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
+            padding-right: 8px;
+        }
+
+        /* Scrollbar fina y estética */
+        .stationery-scroll-area::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .stationery-scroll-area::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.04);
+            border-radius: 4px;
+        }
+
+        .stationery-scroll-area::-webkit-scrollbar-thumb {
+            background: rgba(114, 9, 183, 0.35);
+            border-radius: 4px;
+        }
+
+        .stationery-scroll-area::-webkit-scrollbar-thumb:hover {
+            background: #7209b7;
+        }
+
+        /* Borde lateral sutil de papel */
+        .stationery-letter-sheet::before {
+            content: '';
+            position: absolute;
+            top: 25px;
+            bottom: 25px;
+            left: 32px;
+            width: 1px;
+            background: rgba(212, 163, 115, 0.4);
+            pointer-events: none;
+        }
+
+        .letter-modal-close-btn {
+            position: absolute;
+            top: 16px;
+            right: 18px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.12);
+            color: #2b0b42;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            z-index: 10;
+        }
+
+        .letter-modal-close-btn:hover {
+            background: #ff4d6d;
+            color: #ffffff;
+            border-color: #ff4d6d;
+            transform: rotate(90deg) scale(1.05);
+        }
+
+        .stationery-top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px dashed rgba(0, 0, 0, 0.12);
+        }
+
+        .stationery-monogram {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: #7209b7;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .stationery-date-seal {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.68rem;
+            font-weight: 600;
+            color: #777;
+            letter-spacing: 1px;
+        }
+
+        .stationery-main-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: #1b0a2a;
+            margin: 0 0 16px 0;
+            line-height: 1.25;
+        }
+
+        /* Selector de Tipo de Letra (Caligrafía vs Imprenta Elegante) */
+        .font-switch-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .font-switch-btn {
+            background: rgba(114, 9, 183, 0.08);
+            border: 1px solid rgba(114, 9, 183, 0.2);
+            border-radius: 12px;
+            padding: 4px 10px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: #7209b7;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .font-switch-btn.active {
+            background: #7209b7;
+            color: #ffffff;
+        }
+
+        /* CUERPO DE LA CARTA (LEGIBILIDAD ÓPTIMA) */
+        .stationery-body-text {
+            font-size: 1.55rem;
+            line-height: 1.7;
+            color: #240b38;
+            margin-bottom: 26px;
+            white-space: pre-line;
+            transition: all 0.2s ease;
+        }
+
+        /* Modo Caligrafía */
+        .stationery-body-text.style-cursive {
+            font-family: 'Caveat', cursive;
+            font-size: 1.6rem;
+            line-height: 1.65;
+        }
+
+        /* Modo Imprenta Serif Elegante */
+        .stationery-body-text.style-serif {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.35rem;
+            line-height: 1.8;
+            letter-spacing: 0.3px;
+        }
+
+        .stationery-footer-sign {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 18px;
+            border-top: 1px dashed rgba(0, 0, 0, 0.15);
+            margin-top: 20px;
+        }
+
+        .sign-author-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.45rem;
+            font-weight: 700;
+            font-style: italic;
+            color: #7209b7;
+            display: block;
+        }
+
+        .letter-final-seal {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #e63946, #9d0208 75%, #590d22 100%);
+            border: 2px solid #ffd166;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: #ffd166;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 12px rgba(157, 2, 8, 0.4);
+            flex-shrink: 0;
+        }
+
+        .letter-finish-row {
+            display: flex;
+            justify-content: center;
+            margin-top: 24px;
+        }
+
+        .save-letter-btn {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.76rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #ffffff;
+            background: linear-gradient(135deg, #7209b7, #b5179e);
+            border: 1px solid #ffd166;
+            padding: 9px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 3px 12px rgba(114, 9, 183, 0.35);
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .save-letter-btn:hover {
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 5px 18px rgba(255, 209, 102, 0.5);
+        }
+
+        /* =========================================================
+           NUTRIA COMPAÑERA & NAVEGACIÓN INFERIOR
+           ========================================================= */
+        .envelopes-otter-box {
+            margin-top: 45px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: rgba(18, 7, 34, 0.92);
+            border: 1px dashed rgba(255, 183, 3, 0.5);
+            border-radius: 22px;
+            padding: 18px 25px;
+            max-width: 820px;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .envelopes-otter-avatar {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent);
+            box-shadow: 0 0 16px rgba(255, 183, 3, 0.4);
+            flex-shrink: 0;
+        }
+
+        .envelopes-otter-msg {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.3rem;
+            color: #ffd166;
+            line-height: 1.4;
+            margin: 0;
+        }
+
+        /* Navegación Inferior entre Capítulos */
+        .envelopes-bottom-navigation {
+            margin-top: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .nav-btn-action {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(199, 125, 255, 0.3);
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-btn-action:hover {
+            background: linear-gradient(135deg, rgba(199, 125, 255, 0.3), rgba(255, 183, 3, 0.3));
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .nav-btn-action.next-chapter {
+            background: linear-gradient(135deg, #9d4edd, #ff758f);
+            border-color: transparent;
+        }
+
+        .nav-btn-action.next-chapter:hover {
+            box-shadow: 0 0 20px rgba(255, 117, 143, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Modal para Escribir Nueva Carta */
+        .new-letter-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(10, 2, 20, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 3000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .new-letter-modal.active {
+            display: flex;
+        }
+
+        .new-letter-box {
+            background: linear-gradient(145deg, #220c38, #130622);
+            border: 1px solid #ffd166;
+            border-radius: 24px;
+            max-width: 580px;
+            width: 100%;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 209, 102, 0.3);
+            position: relative;
+        }
+
+        .new-letter-box h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: #ffd166;
+            margin: 0 0 15px 0;
+        }
+
+        .new-letter-input,
+        .new-letter-textarea {
+            width: 100%;
+            box-sizing: border-box;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(199, 125, 255, 0.35);
+            border-radius: 12px;
+            padding: 12px 16px;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            margin-bottom: 14px;
+            outline: none;
+        }
+
+        .new-letter-input:focus,
+        .new-letter-textarea:focus {
+            border-color: #ffd166;
+            box-shadow: 0 0 15px rgba(255, 209, 102, 0.3);
+        }
+
+        .new-letter-textarea {
+            min-height: 140px;
+            resize: vertical;
+        }
+
+        .new-letter-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        /* Responsividad */
+        @media screen and (max-width: 768px) {
+            .desk-container {
+                padding: 24px 14px;
+            }
+
+            .envelopes-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stage-envelope-box {
+                width: 340px;
+                height: 220px;
+            }
+
+            .stage-env-flap-top {
+                height: 120px;
+            }
+
+            .stationery-letter-sheet {
+                width: 320px;
+                height: 210px;
+                padding: 20px 18px;
+            }
+
+            .cinematic-stage.sheet-emerged .stationery-letter-sheet {
+                transform: translate3d(0, -120px, 0) scale(0.92);
+            }
+
+            .cinematic-stage.sheet-reading .stationery-letter-sheet {
+                width: 100%;
+                max-width: 96vw;
+                height: 88vh;
+                max-height: 88vh;
+                padding: 24px 18px 18px 18px;
+            }
+
+            .stationery-main-title {
+                font-size: 1.45rem;
+            }
+
+            .stationery-body-text {
+                font-size: 1.25rem;
+            }
+
+            .stationery-letter-sheet::before {
+                left: 10px;
+            }
+
+            .envelopes-bottom-navigation {
+                flex-direction: column;
+            }
+
+            .nav-btn-action {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .envelopes-otter-box {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Fondo de Estrellas y Canvas de Corazones -->
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+    <canvas id="hearts-canvas"></canvas>
+
+    <!-- Barra de Navegación -->
+    <nav class="chapter-navbar">
+        <a href="index.html" class="nav-back-btn">
+            <span>←</span> Volver al Índice
+        </a>
+        <span class="nav-chapter-badge">Capítulo IV · Correspondencia de Amor</span>
+    </nav>
+
+    <!-- Contenedor Principal -->
+    <main class="envelopes-page-wrapper">
+
+        <!-- Cabecera -->
+        <header class="envelopes-header-section">
+            <span class="envelopes-header-pre">✦ CUARTO CAPÍTULO ✦</span>
+            <h1 class="envelopes-header-title">Cartas Para Cuando...</h1>
+            <p class="envelopes-header-sub">
+                Para que nunca te sientas sola, sin importar la hora ni la distancia. Pasa el cursor sobre un sobre para
+                leer su motivo en el reverso, y pulsa para abrir la carta.
+            </p>
+        </header>
+
+        <!-- Mesa de Sobres 3D -->
+        <div class="desk-container">
+
+            <div class="desk-banner">
+                <h2 class="desk-banner-title">Mesa de Correspondencia de Iván para Andrea</h2>
+                <div class="desk-banner-actions">
+                    <span class="desk-badge-count" id="letters-count-pill">7 Cartas Selladas</span>
+                    <button class="desk-write-new-btn" onclick="openNewLetterModal()">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        <span>Escribir Carta</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Cuadrícula de Sobres con Giro 3D (Flip Card) -->
+            <div class="envelopes-grid" id="envelopes-collection-grid">
+                <!-- Se inyectan dinámicamente mediante JS -->
+            </div>
+
+            <!-- Nutria Acompañante -->
+            <div class="envelopes-otter-box">
+                <img src="assets/love_letter.jpg" alt="Nutria con carta" class="envelopes-otter-avatar">
+                <p class="envelopes-otter-msg">
+                    “Guarda estas cartas en tu corazón. Fueron escritas con amor puro solo para ti, Andrea.”
+                </p>
+            </div>
+
+        </div>
+
+        <!-- Navegación Inferior entre Capítulos -->
+        <div class="envelopes-bottom-navigation">
+            <a href="capitulo3.html" class="nav-btn-action">
+                <span>←</span> Volver al capítulo anterior
+            </a>
+            <a href="capitulo6.html" class="nav-btn-action next-chapter">
+                <span>Avanzar al siguiente capítulo</span> <span>→</span>
+            </a>
+        </div>
+
+    </main>
+
+    <!-- =========================================================
+         MODAL DE APERTURA CINEMATOGRÁFICA DE CARTA (60FPS SIN LAG)
+         ========================================================= -->
+    <div id="letter-reader-modal" onclick="handleReaderBackdropClick(event)">
+
+        <div class="cinematic-stage" id="cinematic-stage" onclick="event.stopPropagation()">
+
+            <!-- Sobre 3D en el centro del escenario que aparece y se abre -->
+            <div class="stage-envelope-box" id="stage-envelope-box">
+                <!-- Fondo interior del sobre -->
+                <div class="stage-env-back-wall"></div>
+
+                <!-- Hoja que está adentro y sale deslizándose físicamente hacia arriba -->
+                <div class="stage-letter-slip" id="stage-letter-slip">
+                    <div class="slip-header-decor">
+                        <span class="slip-monogram" id="slip-category-tag">CARTA PARA ANDREA</span>
+                        <span class="slip-date">26 DE FEBRERO</span>
+                    </div>
+                    <h4 class="slip-title-preview" id="slip-title-preview">Título</h4>
+                    <div class="slip-lines-preview">
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
+
+                <!-- Bolsillo frontal con pliegues triangulares -->
+                <div class="stage-env-pocket-front">
+                    <div class="stage-pocket-fold-left"></div>
+                    <div class="stage-pocket-fold-right"></div>
+                    <div class="stage-pocket-fold-bottom"></div>
+                    <div class="stage-env-front-label">
+                        <span class="stage-badge-tag" id="stage-badge-tag">CARTA</span>
+                        <span class="stage-for-recipient">Para: Andrea</span>
+                    </div>
+                </div>
+
+                <!-- Solapa superior triangular que se abre hacia arriba en 3D -->
+                <div class="stage-env-flap-top" id="stage-env-flap-top">
+                    <div class="stage-wax-seal" id="stage-wax-seal">I · A</div>
+                </div>
+            </div>
+
+            <!-- Hoja de Carta Realista (Sale del sobre deslizándose hacia arriba) -->
+            <div class="stationery-letter-sheet" id="stationery-letter-sheet">
+                <button class="letter-modal-close-btn" onclick="closeLetterReader()"
+                    title="Guardar carta en el sobre">✕</button>
+
+                <div class="stationery-top-bar">
+                    <span class="stationery-monogram" id="stationery-category-tag">CARTA PARA ANDREA</span>
+                    <span class="stationery-date-seal">26 DE FEBRERO · POR SIEMPRE</span>
+                </div>
+
+                <!-- Área scrolleable interna de alto rendimiento (0 lag garantizado) -->
+                <div class="stationery-scroll-area" id="stationery-scroll-area">
+                    <h2 class="stationery-main-title" id="stationery-title-text">Título de la Carta</h2>
+
+                    <!-- Selector de Tipografía (Caligrafía vs Imprenta Elegante) -->
+                    <div class="font-switch-wrapper">
+                        <span
+                            style="font-size: 0.65rem; color: #888; font-family: 'Montserrat', sans-serif; font-weight: 600;">TIPOGRAFÍA:</span>
+                        <button class="font-switch-btn active" id="btn-font-cursive"
+                            onclick="setLetterFontStyle('cursive')">Manuscrita</button>
+                        <button class="font-switch-btn" id="btn-font-serif"
+                            onclick="setLetterFontStyle('serif')">Imprenta</button>
+                    </div>
+
+                    <!-- Contenido de la carta -->
+                    <div class="stationery-body-text style-cursive" id="stationery-body-content">
+                        Cargando contenido de la carta...
+                    </div>
+
+                    <!-- Pie de carta con firma y sello -->
+                    <div class="stationery-footer-sign">
+                        <div>
+                            <span
+                                style="font-family: 'Montserrat', sans-serif; font-size: 0.65rem; color: #777; text-transform: uppercase; letter-spacing: 1.5px; display: block; margin-bottom: 2px;">Con
+                                amor sincero:</span>
+                            <span class="sign-author-name">Iván</span>
+                        </div>
+                        <div class="letter-final-seal">I · A</div>
+                    </div>
+
+                    <div class="letter-finish-row">
+                        <button class="save-letter-btn" onclick="closeLetterReader()">
+                            <span>Guardar Carta en el Sobre</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Modal para Escribir Nueva Carta -->
+    <div class="new-letter-modal" id="new-letter-modal" onclick="handleNewLetterBackdrop(event)">
+        <div class="new-letter-box" onclick="event.stopPropagation()">
+            <h3>Escribir Nueva Carta</h3>
+            <p style="color: #f1e7fe; font-size: 0.85rem; margin-top: 0; margin-bottom: 16px;">
+                Crea un nuevo sobre para cuando Andrea necesite leerte en otro momento especial.
+            </p>
+            <input type="text" id="new-letter-tag" class="new-letter-input"
+                placeholder="Etiqueta (ej: Celebración, Metas, Un Abrazo)">
+            <input type="text" id="new-letter-title" class="new-letter-input"
+                placeholder="Título de la Carta (ej: Para cuando cumplas una meta)">
+            <input type="text" id="new-letter-quote" class="new-letter-input"
+                placeholder="Frase para el reverso del sobre">
+            <textarea id="new-letter-body" class="new-letter-textarea"
+                placeholder="Escribe aquí todas tus palabras con el corazón..."></textarea>
+
+            <div class="new-letter-actions">
+                <button class="nav-btn-action" onclick="closeNewLetterModal()"
+                    style="border-color: #888;">Cancelar</button>
+                <button class="desk-write-new-btn" onclick="saveNewLetter()">Guardar Carta</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         SCRIPTS DE INTERACTIVIDAD & RENDIMIENTO ÓPTIMO (60FPS)
+         ========================================================= -->
+    <script>
+        // Cartas oficiales de Iván para Andrea
+        const defaultLetters = [
+            {
+                id: "carta-1",
+                tag: "CUANDO ESTÉS TRISTE",
+                title: "Carta para cuando estés triste",
+                theme: "theme-lavender",
+                quote: "No tienes que estar bien todo el tiempo. Si quieres hablar te escucho, y si solo quieres que me quede contigo, también.",
+                body: `Amor,
+
+Si estás leyendo esto, probablemente hoy no estés teniendo uno de esos días bonitos. Y aunque me gustaría poder estar ahí contigo para abrazarte y hacerte olvidar todo por un rato, por ahora solo puedo dejarte estas palabras.
+
+No tienes que estar bien todo el tiempo, ¿sí? Puedes tener días malos, puedes sentirte cansada, puedes querer alejarte un poquito de todo. No voy a pensar menos de ti por eso.
+
+Solo quiero que recuerdes que no tienes que pasar por todo sola. Si quieres hablar, te escucho. Si quieres contarme qué pasó, te escucho. Y si no quieres decir nada y solo quieres que me quede contigo, también.
+
+Sé que a veces tu cabeza puede hacer que todo parezca mucho peor de lo que realmente es. Así que respira un poquito, toma agua, descansa y date un momento.
+
+Y si nada de eso funciona... siempre puedes venir conmigo. Aunque sea para quejarte de todo y que yo te haga compañía mientras te quejas.
+
+Te amo muchísimo, mi niña. Y espero que cuando termines de leer esto estés aunque sea un poquito mejor. ❤️`
+            },
+            {
+                id: "carta-2",
+                tag: "SOBREPENSANDO",
+                title: "Carta para cuando estés sobrepensando",
+                theme: "theme-midnight",
+                quote: "No tienes que saber cómo va a terminar nuestra historia para poder disfrutarla ahora. Todavía tenemos muchísimo por vivir y descubrir juntos.",
+                body: `Amor,
+
+Sé que probablemente estás pensando demasiado otra vez. Y no sé exactamente qué estará pasando por tu cabeza ahora mismo, pero sí sé que a veces te haces sufrir por cosas que todavía ni siquiera han pasado.
+
+Así que quería dejarte esto para que lo leas cuando estés así.
+
+No quiero que una idea que apareció en tu cabeza termine convirtiéndose en una verdad solo porque la pensaste muchas veces. A veces tu cabeza te juega malas pasadas y empieza a hacerte dudar de cosas que realmente están bien.
+
+Y si estás pensando en nosotros, quiero que recuerdes algo: no tienes que saber cómo va a terminar nuestra historia para poder disfrutarla ahora. Todavía tenemos muchísimo por vivir, conocer y descubrir juntos.
+
+Si algún día algo te preocupa, dímelo. No tienes que quedarte sola con tus pensamientos intentando encontrar respuestas a todo. Prefiero que me preguntes, que me cuentes lo que sientes y que lo hablemos juntos.
+
+Te amo muchísimo. ❤️`
+            },
+            {
+                id: "carta-3",
+                tag: "CUANDO ME EXTRAÑES",
+                title: "Carta para cuando me extrañes",
+                theme: "theme-burgundy",
+                quote: "Cada vez que nos extrañamos es porque hay alguien al otro lado de la pantalla que realmente nos importa.",
+                body: `Amor,
+
+Si estás leyendo esto porque me extrañas, entonces estamos igual. Porque aunque no siempre te lo diga, también hay momentos en los que me gustaría tenerte aquí conmigo y no tener que conformarnos con una llamada, un mensaje o una pantalla.
+
+A veces me gustaría simplemente poder aparecer ahí, abrazarte y quedarme contigo un rato. Sin tener que decir nada, sin hacer nada especial. Solo estar contigo.
+
+Sé que todavía nos falta vivir muchas cosas juntos y que hay momentos en los que la distancia se siente bastante. Pero también me gusta pensar que cada vez que nos extrañamos es porque hay alguien al otro lado de la pantalla que realmente nos importa.
+
+Así que si hoy me extrañas mucho, acuérdate de todas esas veces que hemos hablado durante horas, de nuestras noches jugando, de nuestras llamadas y de todas esas pequeñas cosas que hemos ido construyendo sin darnos cuenta.
+
+Y cuando termines de leer esto, escríbeme.
+
+Probablemente yo también esté pensando en ti.
+
+Te amo, bebé. ❤️`
+            },
+            {
+                id: "carta-4",
+                tag: "DUDES DE LO NUESTRO",
+                title: "Carta para cuando dudes de lo nuestro",
+                theme: "theme-amber",
+                quote: "No quiero que tengamos miedo de una historia que todavía estamos escribiendo. Solo quédate conmigo mientras la seguimos escribiendo.",
+                body: `Amor,
+
+Si estás leyendo esto porque estás dudando de nosotros, quiero que por un momento dejes de pensar en todo lo que podría salir mal y recuerdes todo lo que ya pasó.
+
+Nosotros empezamos sin saber absolutamente nada de lo que iba a pasar. Éramos dos personas que un día empezaron a hablar y, sin darnos cuenta, terminamos convirtiéndonos en alguien importante para el otro.
+
+No sé exactamente qué nos espera más adelante. Y creo que nadie puede saberlo. Pero no quiero que tengamos miedo de una historia que todavía estamos escribiendo.
+
+Si algún día tienes miedo de que esto no funcione, no quiero que pienses que eso significa que tenemos que rendirnos. Las cosas no siempre van a ser fáciles y nosotros tampoco somos perfectos, pero eso no hace que lo que sentimos sea menos real.
+
+Yo sigo aquí porque quiero seguir conociéndote, seguir compartiendo cosas contigo, seguir teniendo nuestras llamadas, nuestras tonterías, nuestras noches jugando y todos esos pequeños momentos que terminan significando muchísimo.
+
+Así que si alguna vez dudas de nosotros, vuelve a leer esto.
+
+No tienes que saber cómo termina nuestra historia.
+
+Solo quédate conmigo mientras la seguimos escribiendo. ❤️`
+            },
+            {
+                id: "carta-5",
+                tag: "UN ABRAZO",
+                title: "Carta para cuando necesites un abrazo",
+                theme: "theme-rose",
+                quote: "Imagina que ahora mismo te estoy abrazando y que no te voy a soltar todavía. Por ahora, quédate un ratito aquí conmigo.",
+                body: `Amor,
+
+Si estás leyendo esto porque necesitas un abrazo, quiero que cierres los ojos un ratito e imagines que estoy ahí contigo.
+
+Sé que no es lo mismo. Ojalá pudiera simplemente acercarme, abrazarte fuerte y quedarme así contigo hasta que te sintieras un poquito mejor.
+
+Pero mientras llega ese día, quiero que recuerdes que aunque estemos lejos, tienes a alguien que quiere estar contigo incluso en esos momentos en los que no sabes qué decir o simplemente necesitas sentirte acompañada.
+
+Así que imagina que ahora mismo te estoy abrazando y que no te voy a soltar todavía.
+
+Algún día ya no vamos a necesitar imaginar estos abrazos.
+
+Por ahora, quédate un ratito aquí conmigo.
+
+Te amo, mi amor. 🫂❤️`
+            },
+            {
+                id: "carta-6",
+                tag: "CUÁNTO TE AMO",
+                title: "Carta para cuando necesites recordar cuánto te amo",
+                theme: "theme-violet",
+                quote: "Te amo por tu forma de ser conmigo, por tus detalles, por tus ocurrencias y por cómo me haces sentir. Contigo puedo ser yo.",
+                body: `Amor,
+
+Si algún día necesitas recordar cuánto te amo, quiero que leas esto.
+
+Te amo por tu forma de ser conmigo, por lo atenta que eres, por cómo te preocupas por mí incluso cuando yo no digo mucho. Te amo por tu voz, por tu risa y por esa forma tan tuya de hacer que hasta una conversación cualquiera termine siendo un momento que quiero recordar.
+
+Te amo por todos esos pequeños detalles que haces por mí. Por las cosas que me has escrito, por los dibujos, por las fotos, por las cosas que haces sin que yo te las pida.
+
+Te amo incluso por tus cosas raras. Por tus ocurrencias, por cuando dices alguna tontería, por tus momentos de locura y hasta por esos pequeños detalles que probablemente tú ni siquiera consideras importantes.
+
+Y también te amo por cómo me haces sentir.
+
+Contigo puedo ser yo sin estar pensando demasiado en qué decir o cómo actuar. Puedo contarte mis cosas, hablar de cualquier estupidez y simplemente disfrutar de tenerte conmigo.
+
+Así que si algún día dudas de cuánto te amo, vuelve a leer esto.
+
+Y si todavía no te queda claro...
+
+Entonces tendré que decírtelo otra vez cuando hablemos.
+
+Te amo, Andrea. Muchísimo. ❤️`
+            },
+            {
+                id: "carta-7",
+                tag: "NO PUEDAS DORMIR",
+                title: "Carta para cuando no puedas dormir",
+                theme: "theme-indigo",
+                quote: "Cierra los ojos, ponte cómoda y piensa en algo bonito... «Ya duerme, amor. Mañana seguimos hablando.» Buenas noches, bebé.",
+                body: `Amor,
+
+Si estás leyendo esto porque no puedes dormir, probablemente ya estés acostada dando vueltas, pensando en cualquier cosa menos en dormir.
+
+Ojalá pudiera estar ahí contigo ahora mismo. Probablemente terminaríamos hablando de cualquier tontería hasta que uno de los dos se quede dormido, como tantas veces.
+
+Pero como no puedo estar ahí todavía, quiero que al menos tengas esto.
+
+Deja de pensar por un ratito en todo lo que tienes que hacer mañana, en lo que pasó hoy o en todas esas cosas que tu cabeza decide recordar justo cuando quieres dormir.
+
+Solo descansa.
+
+Cierra los ojos, ponte cómoda y piensa en algo bonito. En nosotros, en alguna de nuestras conversaciones, en alguna tontería que nos haya hecho reír o simplemente en el día en que podamos estar juntos sin que una pantalla esté en medio.
+
+Y si sigues sin poder dormir...
+
+imagina que estoy ahí diciéndote:
+
+"Ya duerme, amor. Mañana seguimos hablando."
+
+Buenas noches, bebé.
+
+Descansa mucho. ❤️`
+            }
+        ];
+
+        let allLetters = [];
+        function loadAllLetters() {
+            // Limpiar claves obsoletas anteriores para cargar siempre las 7 cartas oficiales
+            try {
+                localStorage.removeItem('andrea_letters_v3_clean');
+                localStorage.removeItem('andrea_all_letters_custom');
+            } catch (e) { }
+
+            const saved = localStorage.getItem('andrea_letters_v4_official');
+            if (saved) {
+                try {
+                    const parsed = JSON.parse(saved);
+                    if (Array.isArray(parsed) && parsed.length >= 7) {
+                        allLetters = parsed;
+                    } else {
+                        allLetters = defaultLetters;
+                    }
+                } catch (e) {
+                    allLetters = defaultLetters;
+                }
+            } else {
+                allLetters = defaultLetters;
+            }
+            try {
+                localStorage.setItem('andrea_letters_v4_official', JSON.stringify(allLetters));
+            } catch (e) { }
+        }
+        loadAllLetters();
+
+        // Renderizar la colección de sobres con forma física de carta y reverso al girar
+        function renderEnvelopesGrid() {
+            const grid = document.getElementById('envelopes-collection-grid');
+            const countPill = document.getElementById('letters-count-pill');
+            if (!grid) return;
+
+            grid.innerHTML = '';
+            countPill.textContent = `${allLetters.length} Cartas Selladas`;
+
+            allLetters.forEach((letter, index) => {
+                const wrap = document.createElement('div');
+                wrap.className = 'envelope-flip-wrap';
+                wrap.setAttribute('onclick', `openLetterDirect(${index})`);
+
+                wrap.innerHTML = `
+                    <div class="envelope-3d-card ${letter.theme || 'theme-lavender'}">
+                        
+                        <!-- CARA FRONTAL: SOBRE CERRADO REAL CON PLIEGUES Y SELLO DE CERA -->
+                        <div class="envelope-face envelope-face-front" onclick="openLetterDirect(${index});">
+                            <div class="env-pocket-base"></div>
+                            <div class="env-flap-side-left"></div>
+                            <div class="env-flap-side-right"></div>
+                            <div class="env-flap-bottom"></div>
+                            <div class="env-flap-top"></div>
+                            
+                            <div class="env-wax-seal" style="pointer-events: none;">
+                                <span>I · A</span>
+                            </div>
+
+                            <div class="env-front-caption" style="pointer-events: none;">
+                                <span class="env-badge-tag">${letter.tag}</span>
+                                <span class="env-for-recipient">Para: Andrea</span>
+                                <span class="env-flip-prompt">Pasa el cursor para ver de qué trata</span>
+                            </div>
+                        </div>
+
+                        <!-- CARA POSTERIOR: TÍTULO, MOTIVO & DESCRIPCIÓN AL PASAR EL CURSOR (FLIP) -->
+                        <div class="envelope-face envelope-face-back" onclick="openLetterDirect(${index}); event.stopPropagation();">
+                            <div class="back-postal-header">
+                                <div class="vintage-postage-stamp">
+                                    <div class="stamp-flower-icon">
+                                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="rgba(127,79,36,0.2)"></path>
+                                        </svg>
+                                    </div>
+                                    <span class="stamp-date-text">26/02</span>
+                                </div>
+
+                                <div class="postmark-lines-circle">
+                                    <span>CORREO</span>
+                                    <span>DE AMOR</span>
+                                    <span>2026</span>
+                                </div>
+
+                                <span class="back-occasion-badge">${letter.tag}</span>
+                            </div>
+
+                            <div class="back-content-center">
+                                <h3 class="back-card-title">${letter.title}</h3>
+                                <p class="back-card-quote">"${letter.quote || 'Unas palabras selladas solo para ti.'}"</p>
+                            </div>
+
+                            <button class="back-open-btn" onclick="openLetterDirect(${index}); event.stopPropagation();">
+                                <span>ABRIR CARTA</span>
+                                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg>
+                            </button>
+                        </div>
+
+                    </div>
+                `;
+                grid.appendChild(wrap);
+            });
+        }
+        renderEnvelopesGrid();
+
+        // =========================================================
+        // EFECTO DE SONIDO LIGERO (INSTANTÁNEO, SIN LAG)
+        // =========================================================
+        let quickAudioCtx = null;
+        function playInstantPopSound() {
+            try {
+                if (!quickAudioCtx) {
+                    quickAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                if (quickAudioCtx.state === 'suspended') quickAudioCtx.resume();
+
+                const osc = quickAudioCtx.createOscillator();
+                const gain = quickAudioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(380, quickAudioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(120, quickAudioCtx.currentTime + 0.09);
+                gain.gain.setValueAtTime(0.18, quickAudioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, quickAudioCtx.currentTime + 0.1);
+                osc.connect(gain);
+                gain.connect(quickAudioCtx.destination);
+                osc.start();
+                osc.stop(quickAudioCtx.currentTime + 0.1);
+            } catch (e) { }
+        }
+
+        // =========================================================
+        // APERTURA DE CARTA SUAVE Y FLUIDA (CINEMATOGRÁFICA)
+        // =========================================================
+        let currentLetterIndex = 0;
+        let isLetterAnimating = false;
+
+        function openLetterDirect(index) {
+            if (isLetterAnimating) return;
+            if (typeof window.unlockNextChapter === 'function') {
+                window.unlockNextChapter(5);
+            }
+            isLetterAnimating = true;
+            playInstantPopSound();
+            currentLetterIndex = index;
+            const letter = allLetters[index];
+
+            const modal = document.getElementById('letter-reader-modal');
+            const stage = document.getElementById('cinematic-stage');
+            const envelopeBox = document.getElementById('stage-envelope-box');
+            const categoryTag = document.getElementById('stationery-category-tag');
+            const titleText = document.getElementById('stationery-title-text');
+            const bodyContent = document.getElementById('stationery-body-content');
+            const stageBadgeTag = document.getElementById('stage-badge-tag');
+            const scrollArea = document.getElementById('stationery-scroll-area');
+
+            // Pausar canvas de corazones para liberar GPU y garantizar 60fps sin lag
+            if (window.pauseHearts) window.pauseHearts();
+
+            // Sincronizar tema de color del sobre en el escenario
+            if (envelopeBox) {
+                envelopeBox.className = `stage-envelope-box ${letter.theme || 'theme-lavender'}`;
+            }
+            if (stageBadgeTag) {
+                stageBadgeTag.textContent = letter.tag || 'AMOR';
+            }
+
+            categoryTag.textContent = `CARTA PARA ANDREA · ${letter.tag}`;
+            titleText.textContent = letter.title;
+            bodyContent.textContent = letter.body;
+
+            const slipCategoryTag = document.getElementById('slip-category-tag');
+            const slipTitlePreview = document.getElementById('slip-title-preview');
+            if (slipCategoryTag) slipCategoryTag.textContent = `CARTA · ${letter.tag}`;
+            if (slipTitlePreview) slipTitlePreview.textContent = letter.title;
+
+            if (scrollArea) scrollArea.scrollTop = 0;
+
+
+            // Preparar inicio limpio de animación
+            stage.className = 'cinematic-stage';
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+
+            // ETAPA 1: Aparece el sobre cerrado al frente en el centro de la pantalla
+            requestAnimationFrame(() => {
+                modal.classList.add('active');
+                stage.classList.add('envelope-in');
+
+                // ETAPA 2 (320ms): Se abre la solapa triangular superior en 3D
+                setTimeout(() => {
+                    stage.classList.add('flap-open');
+
+                    // ETAPA 3 (700ms): La hoja de carta sale deslizándose físicamente hacia arriba del sobre
+                    setTimeout(() => {
+                        stage.classList.add('sheet-emerged');
+
+                        // ETAPA 4 (1350ms): La hoja se expande al centro para lectura cómoda
+                        setTimeout(() => {
+                            stage.classList.add('sheet-reading');
+                            isLetterAnimating = false;
+                        }, 650);
+                    }, 380);
+                }, 320);
+            });
+        }
+
+        function closeLetterReader() {
+            if (isLetterAnimating) return;
+            const modal = document.getElementById('letter-reader-modal');
+            const stage = document.getElementById('cinematic-stage');
+
+            if (!modal.classList.contains('active')) return;
+            isLetterAnimating = true;
+
+            // Secuencia reversa elegante:
+            // 1. La hoja se encoge volviendo a la posición superior del sobre
+            stage.classList.remove('sheet-reading');
+
+            setTimeout(() => {
+                // 2. La hoja entra de regreso en el bolsillo del sobre
+                stage.classList.remove('sheet-emerged');
+
+                setTimeout(() => {
+                    // 3. La solapa se cierra en 3D
+                    stage.classList.remove('flap-open');
+
+                    setTimeout(() => {
+                        // 4. El sobre se desvanece y regresa a la mesa
+                        stage.classList.remove('envelope-in');
+                        modal.classList.remove('active');
+
+                        setTimeout(() => {
+                            modal.style.display = 'none';
+                            stage.className = 'cinematic-stage';
+                            document.body.style.overflow = 'auto';
+                            isLetterAnimating = false;
+
+                            // Reanudar corazones de fondo
+                            if (window.resumeHearts) window.resumeHearts();
+                        }, 300);
+                    }, 280);
+                }, 280);
+            }, 280);
+        }
+
+        function handleReaderBackdropClick(e) {
+            if (e.target.id === 'letter-reader-modal') {
+                closeLetterReader();
+            }
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLetterReader();
+        });
+
+        // Alternar Estilo de Fuente (Caligrafía vs Imprenta)
+        function setLetterFontStyle(style) {
+            const bodyElem = document.getElementById('stationery-body-content');
+            const btnCursive = document.getElementById('btn-font-cursive');
+            const btnSerif = document.getElementById('btn-font-serif');
+
+            if (style === 'serif') {
+                bodyElem.className = 'stationery-body-text style-serif';
+                btnSerif.classList.add('active');
+                btnCursive.classList.remove('active');
+            } else {
+                bodyElem.className = 'stationery-body-text style-cursive';
+                btnCursive.classList.add('active');
+                btnSerif.classList.remove('active');
+            }
+        }
+
+
+
+        // =========================================================
+        // MODAL PARA ESCRIBIR NUEVA CARTA
+        // =========================================================
+        function openNewLetterModal() {
+            document.getElementById('new-letter-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeNewLetterModal() {
+            document.getElementById('new-letter-modal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function handleNewLetterBackdrop(e) {
+            if (e.target.id === 'new-letter-modal') closeNewLetterModal();
+        }
+
+        function saveNewLetter() {
+            const tag = document.getElementById('new-letter-tag').value.trim() || 'AMOR';
+            const title = document.getElementById('new-letter-title').value.trim();
+            const quote = document.getElementById('new-letter-quote').value.trim() || 'Unas palabras especiales para ti.';
+            const body = document.getElementById('new-letter-body').value.trim();
+
+            if (!title || !body) {
+                alert('Por favor escribe un título y el contenido de tu carta.');
+                return;
+            }
+
+            const themes = ['theme-lavender', 'theme-midnight', 'theme-burgundy', 'theme-amber', 'theme-rose', 'theme-violet', 'theme-indigo', 'theme-crimson'];
+            const randomTheme = themes[Math.floor(Math.random() * themes.length)];
+
+            const newLetter = {
+                id: 'carta-' + (allLetters.length + 1),
+                tag: tag.toUpperCase(),
+                title: title,
+                theme: randomTheme,
+                quote: quote,
+                body: body
+            };
+
+            allLetters.push(newLetter);
+            localStorage.setItem('andrea_letters_v4_official', JSON.stringify(allLetters));
+
+            renderEnvelopesGrid();
+            closeNewLetterModal();
+
+            document.getElementById('new-letter-tag').value = '';
+            document.getElementById('new-letter-title').value = '';
+            document.getElementById('new-letter-quote').value = '';
+            document.getElementById('new-letter-body').value = '';
+
+            alert('Tu nueva carta sellada ha sido agregada a la mesa de correspondencia.');
+        }
+
+        // =========================================================
+        // CANVAS DE CORAZONES FLOTANTES
+        // =========================================================
+        const canvas = document.getElementById('hearts-canvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            let width, height, hearts = [];
+
+            function resize() {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            class Heart {
+                constructor() { this.reset(); }
+                reset() {
+                    this.x = Math.random() * width;
+                    this.y = height + Math.random() * 200;
+                    this.size = Math.random() * 3 + 1.5;
+                    this.speedY = Math.random() * 0.8 + 0.35;
+                    this.speedX = (Math.random() - 0.5) * 0.4;
+                    this.opacity = Math.random() * 0.45 + 0.15;
+                    this.color = Math.random() > 0.5 ? '#ff758f' : '#c77dff';
+                }
+                update() {
+                    this.y -= this.speedY;
+                    this.x += this.speedX;
+                    if (this.y < -30) this.reset();
+                }
+                draw() {
+                    ctx.save();
+                    ctx.globalAlpha = this.opacity;
+                    ctx.fillStyle = this.color;
+                    ctx.beginPath();
+                    const topCurveHeight = this.size * 0.3;
+                    ctx.moveTo(this.x, this.y + topCurveHeight);
+                    ctx.bezierCurveTo(this.x, this.y, this.x - this.size, this.y, this.x - this.size, this.y + topCurveHeight);
+                    ctx.bezierCurveTo(this.x - this.size, this.y + (this.size + topCurveHeight) / 2, this.x, this.y + (this.size + topCurveHeight), this.x, this.y + this.size * 1.5);
+                    ctx.bezierCurveTo(this.x, this.y + (this.size + topCurveHeight), this.x + this.size, this.y + (this.size + topCurveHeight) / 2, this.x + this.size, this.y + topCurveHeight);
+                    ctx.bezierCurveTo(this.x + this.size, this.y, this.x, this.y, this.x, this.y + topCurveHeight);
+                    ctx.closePath();
+                    ctx.fill();
+                    ctx.restore();
+                }
+            }
+
+            for (let i = 0; i < 30; i++) hearts.push(new Heart());
+
+            let isHeartsPaused = false;
+            window.pauseHearts = function () { isHeartsPaused = true; };
+            window.resumeHearts = function () { isHeartsPaused = false; };
+
+            function animate() {
+                if (!isHeartsPaused) {
+                    ctx.clearRect(0, 0, width, height);
+                    for (let i = 0; i < hearts.length; i++) {
+                        hearts[i].update();
+                        hearts[i].draw();
+                    }
+                }
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
+
+        // Permitir abrir una carta directamente mediante el parámetro ?carta=X
+        const urlParams = new URLSearchParams(window.location.search);
+        const letterParam = urlParams.get('carta');
+        if (letterParam !== null) {
+            const lIdx = parseInt(letterParam, 10);
+            if (!isNaN(lIdx) && lIdx >= 0 && lIdx < allLetters.length) {
+                if (urlParams.get('instant') === '1') {
+                    openLetterDirect(lIdx);
+                    const modal = document.getElementById('letter-reader-modal');
+                    const stage = document.getElementById('cinematic-stage');
+                    modal.classList.add('active');
+                    stage.className = 'cinematic-stage envelope-in flap-open sheet-emerged sheet-reading';
+                    isLetterAnimating = false;
+                    if (urlParams.get('scrollBottom') === '1') {
+                        const scrollArea = document.getElementById('stationery-scroll-area');
+                        if (scrollArea) scrollArea.scrollTop = scrollArea.scrollHeight;
+                    }
+                } else {
+                    setTimeout(() => openLetterDirect(lIdx), 400);
+                }
+            }
+        }
+    </script>
+    <script src="progress-tracker.js"></script>
+</body>
+
+</html>
